@@ -1,3 +1,7 @@
 .custom-container {
-    @apply container mx-auto md:px-52;
+    @apply container md:px-52;
+}
+
+.custom-row {
+    @apply px-8;
 }
