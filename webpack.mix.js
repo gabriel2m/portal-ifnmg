@@ -15,3 +15,10 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+if (process.env.APP_ENV == 'local')
+    mix.browserSync({
+        proxy: 'laravel.test',
+        open: false,
+        notify: false
+    })
