@@ -15,7 +15,8 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss')
-    ]);
+    ])
+    .copy('resources/icomoon/fonts', 'public/fonts')
 
 if (process.env.APP_ENV == 'local')
     mix.browserSync({

@@ -4,3 +4,4 @@
 @import "./components";
 @import "tailwindcss/utilities";
 @import "./utilities";
+@import "../icomoon/style.css";

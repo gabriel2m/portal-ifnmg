@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @if ($pageTitle ?? false)
+    @if (isset($pageTitle))
         <title>{{ $pageTitle }} | {{ config('app.name') }}</title>
     @else
         <title>{{ config('app.name') }}</title>
     @endif
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    {{-- @include('components.layouts.icomoon-font-face')
-    <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}"> --}}
+    @include('components._icomoon-font-face')
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 
 <body class="flex flex-col min-h-screen bg-indigo-50 text-gray-800">
