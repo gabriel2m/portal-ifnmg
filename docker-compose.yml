@@ -48,7 +48,7 @@ services:
             - cluster.name=laravel-cluster
             - node.name=laravel-node
             - bootstrap.memory_lock=true
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - "ES_JAVA_OPTS=-Xms100m -Xmx100m"
             - cluster.initial_master_nodes=laravel-node
         ulimits:
             memlock:
