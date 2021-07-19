@@ -2,6 +2,9 @@
 
 use Laravel\Telescope\EntryType;
 
+if (!class_exists(EntryType::class))
+    return [];
+
 return [
 
     /*
