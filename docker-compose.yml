@@ -19,26 +19,26 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
             - elasticsearch
-    mysql:
-        image: 'mysql:8.0'
-        ports:
-            - '${FORWARD_DB_PORT:-3333}:3306'
-        environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_DATABASE: '${DB_DATABASE}'
-            MYSQL_USER: '${DB_USERNAME}'
-            MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        volumes:
-            - 'mysql:/var/lib/mysql'
-        networks:
-            - sail
-        healthcheck:
-          test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
-          retries: 3
-          timeout: 5s
+            # - mysql
+    # mysql:
+    #     image: 'mysql:8.0'
+    #     ports:
+    #         - '${FORWARD_DB_PORT:-3333}:3306'
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+    #         MYSQL_DATABASE: '${DB_DATABASE}'
+    #         MYSQL_USER: '${DB_USERNAME}'
+    #         MYSQL_PASSWORD: '${DB_PASSWORD}'
+    #         MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    #     volumes:
+    #         - 'mysql:/var/lib/mysql'
+    #     networks:
+    #         - sail
+    #     healthcheck:
+    #       test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+    #       retries: 3
+    #       timeout: 5s
     elasticsearch:
         image: 'elasticsearch:7.13.3'
         ports:
@@ -58,13 +58,13 @@ services:
             - elasticsearch:/usr/share/elasticsearch/data
         networks:
             - sail
-        depends_on:
-            - mysql
+        # depends_on:
+        #     - mysql
 networks:
     sail:
         driver: bridge
 volumes:
     elasticsearch:
         driver: local
-    mysql:
-        driver: local
+    # mysql:
+    #     driver: local
