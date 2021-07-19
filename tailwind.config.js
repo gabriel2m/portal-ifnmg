@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: [
     './resources/**/*.blade.php',
@@ -9,7 +11,12 @@ module.exports = {
     container: {
       center: true,
     },
-    extend: {},
+    extend: {
+      textColor: {
+        'violet': colors.violet,
+        'blue-gray': colors.blueGray,
+      }
+    }
   },
   variants: {
     extend: {},
