@@ -20,6 +20,7 @@ services:
             - sail
         depends_on:
             - mysql
+            - elasticsearch
     mysql:
         image: 'mysql:8.0'
         ports:
@@ -31,13 +32,39 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         volumes:
-            - '.docker/volumes/mysql:/var/lib/mysql'
+            - 'mysql:/var/lib/mysql'
         networks:
             - sail
         healthcheck:
           test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
           retries: 3
           timeout: 5s
+    elasticsearch:
+        image: 'elasticsearch:7.13.3'
+        ports:
+            - '9200:9200'
+            - '9300:9300'
+        environment:
+            - cluster.name=laravel-cluster
+            - node.name=laravel-node
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - cluster.initial_master_nodes=laravel-node
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - elasticsearch:/usr/share/elasticsearch/data
+        networks:
+            - sail
+        depends_on:
+            - mysql
 networks:
     sail:
         driver: bridge
+volumes:
+    elasticsearch:
+        driver: local
+    mysql:
+        driver: local
