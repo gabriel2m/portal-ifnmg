@@ -17,6 +17,10 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss')
     ])
     .copy('resources/icomoon/fonts', 'public/fonts')
+    .postCss('resources/css/error.css', 'public/css')
+
+if (mix.inProduction())
+    mix.version()
 
 if (process.env.APP_ENV == 'local')
     mix.browserSync({
