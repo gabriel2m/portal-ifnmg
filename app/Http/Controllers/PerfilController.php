@@ -13,9 +13,12 @@ class PerfilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('perfis.index', ['perfis' => Perfil::orderBy('nome')->get()]);
+        return view('perfis.index', [
+            'perfis' => Perfil::orderBy('nome')->get(),
+            'pageTitle' => $request->route()->getName() === 'perfis.index' ? 'Portfólio' : null
+        ]);
     }
 
     /**

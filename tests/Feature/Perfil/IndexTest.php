@@ -13,7 +13,7 @@ class IndexTest extends ListTestCase
             ->assertOk()
             ->assertSeeInOrder(
                 values: [
-                    "<title>" . config('app.name') . "</title>",
+                    "<title>Portfólio | " . config('app.name') . "</title>",
                     'action="' . route('perfis.search') . '"',
                     'GET',
                     'name="query"',

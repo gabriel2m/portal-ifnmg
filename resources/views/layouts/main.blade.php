@@ -11,7 +11,7 @@
     @else
         <title>{{ config('app.name') }}</title>
     @endif
-    @include('components._icomoon-font-face')
+    @include('layouts._icomoon-font-face')
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 
@@ -98,7 +98,7 @@
     </div>
 
     <main class="py-10 custom-row">
-        {{ $content }}
+        @yield('content')
     </main>
 
     <footer class="mt-auto">

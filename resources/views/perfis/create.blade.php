@@ -1,11 +1,12 @@
+@extends('layouts.main')
+
 @php
-    $contentTitle = "Novo Perfil"
+$pageTitle = 'Novo Perfil';
 @endphp
-<x-layout :pageTitle="$contentTitle">
-    <x-slot name="content">
-        <div class="mx-auto max-w-screen-lg">
-            @include('partials.content-title')
-            @include('perfis._save')
-        </div>
-    </x-slot>
-</x-layout>
+
+@section('content')
+    <div class="mx-auto max-w-screen-lg">
+        @include('partials.content-title')
+        @include('perfis._save')
+    </div>
+@endsection
