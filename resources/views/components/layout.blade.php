@@ -29,14 +29,14 @@
         </nav>
         <div class="pt-80 pb-1 bg-green-600 custom-row">
             TODO: Banner
-            <form action="{{ route('home') }}" method="GET" class="max-w-screen-lg mx-auto">
+            <form action="{{ route('perfis.search') }}" method="GET" class="max-w-screen-lg mx-auto">
                 @csrf
                 <div class="flex relative">
                     <input
                         class="border border-gray-400 focus:outline-none focus:ring focus:ring-green-200 py-2 px-3 w-full"
                         type="text" name="query" id="query" value="{{ old('query') ?? ($query ?? '') }}">
 
-                    <button type="submit" class="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700">
+                    <button type="submit" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700">
                         <i class="icon-search text-lg"></i>
                     </button>
                 </div>

@@ -1,5 +1,4 @@
-<form method="POST"
-    action="{{ $perfil->exists ? route('perfis.update', ['perfil' => $perfil->id]) : route('perfis.store') }}"
+<form method="POST" action="{{ $perfil->exists ? route('perfis.update', $perfil) : route('perfis.store') }}"
     autocomplete="off">
     @csrf
     @if ($perfil->exists)
@@ -10,8 +9,8 @@
             Nome
         </label>
 
-        <input class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3" type="text" name="nome" id="nome"
-            value="{{ old('nome') ?? $perfil->nome }}" required>
+        <input class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3" type="text" name="nome"
+            id="nome" value="{{ old('nome') ?? $perfil->nome }}" required>
 
         @error('nome')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

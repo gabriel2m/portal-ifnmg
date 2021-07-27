@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use ElasticScoutDriverPlus\QueryDsl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
 /**
+ * @property int $id
  * @property string $nome
  * @property string $descricao
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Perfil extends Model
 {

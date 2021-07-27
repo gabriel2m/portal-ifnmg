@@ -15,7 +15,35 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        //
+        return view('perfis.index', ['perfis' => Perfil::orderBy('nome')->get()]);
+    }
+
+    /**
+     * Execute a search and display the listing of results.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        extract($request->validate([
+            'query' => [
+                'bail',
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'avancada' => [
+                'bail',
+                'bool',
+            ],
+        ]));
+        if (!isset($query))
+            return redirect()->route('perfis.index');
+        $avancada ??= false;
+        $perfis = $avancada
+            ? Perfil::rawSearch()->query(['simple_query_string' => ["query" => $query]])->{'execute'}()->{'models'}()
+            : Perfil::where('nome', 'like', "%$query%")->orWhere('descricao', 'like', "%$query%")->orderBy('nome')->get();
+        return view('perfis.search', compact('perfis', 'query', 'avancada'));
     }
 
     /**
@@ -97,7 +125,7 @@ class PerfilController extends Controller
             ])
         )->save();
 
-        return redirect()->route('perfis.show', ['perfil' => $perfil->id])->with('success', 'Perfil Salvo');
+        return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
     }
 
     /**
@@ -108,9 +136,8 @@ class PerfilController extends Controller
      */
     public function destroy(Perfil $perfil)
     {
-
         if ($perfil->delete())
-            return redirect('/')->with('warning', "Perfil \"$perfil->nome\" Deletado");
-        return redirect()->route('perfis.show', ['perfil' => $perfil->id])->with('warning', 'Não foi possiveldeletar esse perfil');
+            return redirect()->route('perfis.index')->with('warning', "Perfil \"$perfil->nome\" Deletado");
+        return redirect()->route('perfis.show', $perfil)->with('warning', 'Não foi possivel deletar esse perfil');
     }
 }
