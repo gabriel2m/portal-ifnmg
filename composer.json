@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "babenkoivan/elastic-migrations": "^1.6",
         "babenkoivan/elastic-scout-driver": "^1.4",
         "babenkoivan/elastic-scout-driver-plus": "^2.3",
