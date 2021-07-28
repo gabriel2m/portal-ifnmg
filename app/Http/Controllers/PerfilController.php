@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SavePerfilRequest;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class PerfilController extends Controller
 {
@@ -61,11 +61,8 @@ class PerfilController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SavePerfilRequest $request)
     {
         return $this->save($request, new Perfil);
     }
@@ -95,12 +92,8 @@ class PerfilController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Perfil  $perfil
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Perfil $perfil)
+    public function update(SavePerfilRequest $request, Perfil $perfil)
     {
         return $this->save($request, $perfil);
     }
@@ -108,26 +101,10 @@ class PerfilController extends Controller
     /**
      * Store or Update the specified resource in storage.
      */
-    protected function save(Request $request, Perfil $perfil)
+    protected function save(SavePerfilRequest $request, Perfil $perfil)
     {
-        $perfil->fill(
-            $request->validate([
-                'nome' => [
-                    'bail',
-                    'required',
-                    'string',
-                    'max:255',
-                    Rule::unique('perfis')->ignore($perfil)
-                ],
-                'descricao' => [
-                    'bail',
-                    'required',
-                    'string',
-                    'max:1000',
-                ],
-            ])
-        )->save();
-
+        if (!$perfil->fill($request->validated())->save())
+            return back()->with('warning', 'Não foi possivel salvar');
         return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
     }
 

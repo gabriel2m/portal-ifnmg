@@ -3,6 +3,7 @@
 namespace Tests\Feature\Perfil;
 
 use App\Models\Perfil;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -15,7 +16,7 @@ abstract class SaveTestCase extends TestCase
      */
     abstract protected function save(array $perfil);
 
-    protected function saveHasErrors($perfil, array $errors, int $perfisCount = null)
+    protected function assertSaveHasErrors($perfil, array $errors, int $perfisCount = null)
     {
         $response = $this
             ->save($perfil)
@@ -25,13 +26,10 @@ abstract class SaveTestCase extends TestCase
         return $response;
     }
 
-    public function test_save_and_redirect_to_show_page()
+    protected function assertSave($perfil = null)
     {
         $response = $this
-            ->save($perfil = Perfil::factory()->makeOne([
-                'nome' => Str::random(255),
-                'descricao' => Str::random(1000)
-            ])->toArray())
+            ->save($perfil)
             ->assertRedirect(route('perfis.show', 1));
 
         $this->followRedirects($response)
@@ -41,9 +39,17 @@ abstract class SaveTestCase extends TestCase
         $this->assertDatabaseHas(Perfil::class, $perfil);
     }
 
+    public function test_save_and_redirect_to_show_page()
+    {
+        $this->assertSave(Perfil::factory()->makeOne([
+            'nome' => Str::random(255),
+            'descricao' => Str::random(1000)
+        ])->toArray());
+    }
+
     public function test_name_is_required()
     {
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: [],
             errors: ['nome' => __('validation.required', ['attribute' => 'nome'])]
         );
@@ -51,7 +57,7 @@ abstract class SaveTestCase extends TestCase
 
     public function test_name_is_string()
     {
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: ['nome' => 1],
             errors: ['nome' => __('validation.string', ['attribute' => 'nome'])]
         );
@@ -59,7 +65,7 @@ abstract class SaveTestCase extends TestCase
 
     public function test_name_max_255()
     {
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: ['nome' => str_repeat('a', 256)],
             errors: ['nome' => __('validation.max.string', ['attribute' => 'nome', 'max' => '255'])]
         );
@@ -68,7 +74,7 @@ abstract class SaveTestCase extends TestCase
     public function test_name_is_unique()
     {
         $perfil = Perfil::factory()->createOne();
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: ['nome' => $perfil->nome],
             errors: ['nome' => __('validation.unique', ['attribute' => 'nome'])],
             perfisCount: $this->perfisCount + 1
@@ -77,25 +83,25 @@ abstract class SaveTestCase extends TestCase
 
     public function test_descricao_is_required()
     {
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: [],
-            errors: ['descricao' => __('validation.required', ['attribute' => 'descricao'])]
+            errors: ['descricao' => __('validation.required', ['attribute' => 'descrição'])]
         );
     }
 
     public function test_descricao_is_string()
     {
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: ['descricao' => 1],
-            errors: ['descricao' => __('validation.string', ['attribute' => 'descricao'])]
+            errors: ['descricao' => __('validation.string', ['attribute' => 'descrição'])]
         );
     }
 
     public function test_descricao_max_1000()
     {
-        $this->saveHasErrors(
+        $this->assertSaveHasErrors(
             perfil: ['descricao' => str_repeat('a', 1001)],
-            errors: ['descricao' => __('validation.max.string', ['attribute' => 'descricao', 'max' => '1000'])]
+            errors: ['descricao' => __('validation.max.string', ['attribute' => 'descrição', 'max' => '1000'])]
         );
     }
 }

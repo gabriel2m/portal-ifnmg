@@ -6,14 +6,21 @@ use App\Models\Perfil;
 
 class IndexTest extends ListTestCase
 {
-    public function test_display_index_page()
+    protected $route = 'perfis.index';
+
+    protected function pageTitle()
+    {
+        return "Portfólio | " . config('app.name');
+    }
+
+    public function test_display_the_perfis_list()
     {
         $this
-            ->get(route('perfis.index'))
+            ->get(route($this->route))
             ->assertOk()
             ->assertSeeInOrder(
                 values: [
-                    "<title>Portfólio | " . config('app.name') . "</title>",
+                    "<title>" . $this->pageTitle() . "</title>",
                     'action="' . route('perfis.search') . '"',
                     'GET',
                     'name="query"',
