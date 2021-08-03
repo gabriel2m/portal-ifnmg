@@ -40,18 +40,14 @@
                         <i class="icon-search text-lg"></i>
                     </button>
                 </div>
-                @error('query')
-                    <p class="text-white text-xs mt-1">{{ $message }}</p>
-                @enderror
+                @include('partials.errors', ['inputs' => ['query'], 'textColor' => 'text-white'])
                 <div>
                     <input type="checkbox" id="avancada" name="avancada" @if ($avancada ?? false) checked @endif value="1">
                     <label for="avancada" class="text-white hover:text-gray-300 underline">
                         <a href="{{ route('pesquisa-avancada') }}">pesquisa avançada?</a>
                     </label>
                 </div>
-                @error('avancada')
-                    <p class="text-white text-xs mt-1">{{ $message }}</p>
-                @enderror
+                @include('partials.errors', ['inputs' => ['avancada'], 'textColor' => 'text-white'])
             </form>
         </div>
     </header>
