@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Categoria;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,17 +27,23 @@ class SavePerfilRequest extends FormRequest
     {
         return [
             'nome' => [
-                'bail',
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('perfis')->ignore($this->perfil)
             ],
             'descricao' => [
-                'bail',
                 'required',
                 'string',
                 'max:1000',
+            ],
+            'categorias' => [
+                'required',
+                'array',
+            ],
+            'categorias.*' => [
+                'integer',
+                Rule::in(Categoria::pluck('id'))
             ],
         ];
     }
@@ -50,6 +57,7 @@ class SavePerfilRequest extends FormRequest
     {
         return [
             'descricao' => 'descrição',
+            'categorias.*' => 'categoria',
         ];
     }
 }

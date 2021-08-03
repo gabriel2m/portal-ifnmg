@@ -18,11 +18,13 @@ class ShowTest extends TestCase
                 values: [
                     "<title>$perfil->nome | " . config('app.name') . "</title>",
                     $perfil->nome,
+                    $perfil->categorias_label,
                     $perfil->descricao,
                     'action="' . route('perfis.destroy', $perfil) . '"',
                     'Desja realmente deletar esse perfil?',
                     'DELETE',
                     'Deletar',
+                    'href="' . route('perfis.edit', $perfil) . '"',
                     'Editar',
                 ],
                 escape: false

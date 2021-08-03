@@ -7,6 +7,6 @@ $pageTitle = 'Novo Perfil';
 @section('content')
     <div class="mx-auto max-w-screen-lg">
         @include('partials.content-title')
-        @include('perfis._save')
+        @include('perfis._guard_form')
     </div>
 @endsection

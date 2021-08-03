@@ -11,6 +11,8 @@ use Laravel\Scout\Searchable;
 /**
  * @property int $id
  * @property string $nome
+ * @property \Illuminate\Database\Eloquent\Collection $categorias
+ * @property-read string $categorias_label
  * @property string $descricao
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -28,6 +30,8 @@ class Perfil extends Model
      */
     protected $guarded = [];
 
+    protected $with = ['categorias'];
+
     /**
      * Get the indexable data array for the model.
      *
@@ -39,5 +43,20 @@ class Perfil extends Model
             'nome' => $this->nome,
             'descricao' => $this->descricao,
         ];
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categorias()
+    {
+        return $this
+            ->belongsToMany(Categoria::class, 'perfis_categorias')
+            ->orderBy('categoria');
+    }
+
+    public function getCategoriasLabelAttribute()
+    {
+        return $this->categorias->implode('categoria', ' | ');
     }
 }

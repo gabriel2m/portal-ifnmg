@@ -3,7 +3,6 @@
 namespace Tests\Feature\Perfil;
 
 use App\Models\Perfil;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -12,24 +11,27 @@ abstract class SaveTestCase extends TestCase
     protected $perfisCount;
 
     /**
-     * @return \Illuminate\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse|array
      */
-    abstract protected function save(array $perfil);
+    protected function save($perfil = [], $categorias = [])
+    {
+        return array_merge($perfil, ['categorias' => $categorias]);
+    }
 
-    protected function assertSaveHasErrors($perfil, array $errors, int $perfisCount = null)
+    protected function assertSaveHasErrors(array $errors, $perfil = [], $categorias = [], int $perfisCount = null)
     {
         $response = $this
-            ->save($perfil)
+            ->save($perfil, $categorias)
             ->assertRedirect()
             ->assertSessionHasErrors($errors);
         $this->assertDatabaseCount(Perfil::class, $perfisCount ?? $this->perfisCount);
         return $response;
     }
 
-    protected function assertSave($perfil = null)
+    protected function assertSave($perfil = [], $categorias = [])
     {
         $response = $this
-            ->save($perfil)
+            ->save($perfil, $categorias)
             ->assertRedirect(route('perfis.show', 1));
 
         $this->followRedirects($response)
@@ -37,20 +39,37 @@ abstract class SaveTestCase extends TestCase
 
         $this->assertDatabaseCount(Perfil::class, 1);
         $this->assertDatabaseHas(Perfil::class, $perfil);
+        $this->assertTrue(
+            Perfil::first()->categorias->pluck('id')->toArray() == $categorias,
+            'A relação de Categorias não foi salva'
+        );
     }
 
-    public function test_save_and_redirect_to_show_page()
+    public function test_guard_form_and_redirect_to_show_page()
     {
-        $this->assertSave(Perfil::factory()->makeOne([
-            'nome' => Str::random(255),
-            'descricao' => Str::random(1000)
-        ])->toArray());
+        $this->assertSave(
+            perfil: [
+                'nome' => Str::random(255),
+                'descricao' => Str::random(1000),
+            ],
+            categorias: [1]
+        );
+    }
+
+    public function test_guard_form_with_multiple_categorias()
+    {
+        $this->assertSave(
+            perfil: [
+                'nome' => Str::random(255),
+                'descricao' => Str::random(1000),
+            ],
+            categorias: [3, 1]
+        );
     }
 
     public function test_name_is_required()
     {
         $this->assertSaveHasErrors(
-            perfil: [],
             errors: ['nome' => __('validation.required', ['attribute' => 'nome'])]
         );
     }
@@ -81,10 +100,40 @@ abstract class SaveTestCase extends TestCase
         );
     }
 
+    public function test_categorias_is_required()
+    {
+        $this->assertSaveHasErrors(
+            errors: ['categorias' => __('validation.required', ['attribute' => 'categorias'])]
+        );
+    }
+
+    public function test_categorias_is_array()
+    {
+        $this->assertSaveHasErrors(
+            categorias: 'tijolo',
+            errors: ['categorias' => __('validation.array', ['attribute' => 'categorias'])]
+        );
+    }
+
+    public function test_categoria_is_integer()
+    {
+        $this->assertSaveHasErrors(
+            categorias: ['tijolo'],
+            errors: ['categorias.0' => __('validation.integer', ['attribute' => 'categoria'])]
+        );
+    }
+
+    public function test_categoria_exist()
+    {
+        $this->assertSaveHasErrors(
+            categorias: [20],
+            errors: ['categorias.0' => __('validation.in', ['attribute' => 'categoria'])]
+        );
+    }
+
     public function test_descricao_is_required()
     {
         $this->assertSaveHasErrors(
-            perfil: [],
             errors: ['descricao' => __('validation.required', ['attribute' => 'descrição'])]
         );
     }

@@ -3,10 +3,13 @@
         <li class="border-l border-gray-500 pl-8 pr-2 py-2 mb-10 hover:bg-gray-200">
             <a href="{{ route('perfis.show', $perfil) }}">
                 <div>
-                    <h5 class="text-violet-700 text-2xl mb-3">
+                    <h5 class="text-violet-700 text-2xl mb-0">
                         {{ $perfil->nome }}
                     </h5>
-                    <p>
+                    <span class="italic text-sm text-gray-500">
+                        {{ $perfil->categorias_label }}
+                    </span>
+                    <p class="mt-3.5">
                         {{ $perfil->descricao }}
                     </p>
                 </div>

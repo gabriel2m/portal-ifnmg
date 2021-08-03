@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SavePerfilRequest;
+use App\Models\Categoria;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PerfilController extends Controller
 {
@@ -56,7 +58,7 @@ class PerfilController extends Controller
      */
     public function create()
     {
-        return view('perfis.create', ['perfil' => new Perfil]);
+        return $this->guard(view: 'perfis.create', perfil: new Perfil);
     }
 
     /**
@@ -87,7 +89,7 @@ class PerfilController extends Controller
      */
     public function edit(Perfil $perfil)
     {
-        return view('perfis.edit', compact('perfil'));
+        return $this->guard(view: 'perfis.edit', perfil: $perfil);
     }
 
     /**
@@ -99,13 +101,32 @@ class PerfilController extends Controller
     }
 
     /**
+     * Show the form for manipulate a perfil.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function guard($view, Perfil $perfil)
+    {
+        return view($view, ['perfil' => $perfil, 'categorias' => Categoria::list()]);
+    }
+
+    /**
      * Store or Update the specified resource in storage.
      */
     protected function save(SavePerfilRequest $request, Perfil $perfil)
     {
-        if (!$perfil->fill($request->validated())->save())
-            return back()->with('warning', 'Não foi possivel salvar');
-        return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
+        $perfilData = $request->validated();
+        $categorias = $perfilData['categorias'];
+        unset($perfilData['categorias']);
+        $perfil->fill($perfilData);
+        if (DB::transaction(function () use ($perfil, $categorias) {
+            if (!$perfil->save())
+                return false;
+            $perfil->categorias()->sync($categorias);
+            return true;
+        }) === true)
+            return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
+        return back()->with('warning', 'Não foi possivel salvar esse Perfil');
     }
 
     /**

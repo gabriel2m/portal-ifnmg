@@ -7,6 +7,6 @@ $pageTitle = $perfil->nome . ' | Editar';
 @section('content')
     <div class="mx-auto max-w-screen-lg">
         @include('partials.content-title', ['contentTitle' => 'Editar Perfil'])
-        @include('perfis._save')
+        @include('perfis._guard_form')
     </div>
 @endsection

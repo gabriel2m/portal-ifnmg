@@ -3,16 +3,22 @@
 namespace Tests\Feature\Perfil;
 
 use App\Models\Perfil;
-use Tests\TestCase;
 
-class EditTest extends TestCase
+class EditTest extends GuardTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $perfil = Perfil::factory()->createOne();
+        $this->route = route('perfis.edit', $perfil);
+    }
+
     public function test_display_edit_page()
     {
         /** @var Perfil */
-        $perfil = Perfil::factory()->createOne();
+        $perfil = Perfil::first();
         $this
-            ->get(route('perfis.edit', $perfil))
+            ->get($this->route)
             ->assertOk()
             ->assertSeeInOrder(
                 values: [
@@ -20,13 +26,9 @@ class EditTest extends TestCase
                     'Editar Perfil',
                     'action="' . route('perfis.update', $perfil) . '"',
                     'PUT',
-                    'Nome',
-                    'name="nome"',
                     $perfil->nome,
-                    'Descrição',
-                    'name="descricao"',
                     $perfil->descricao,
-                    'Salvar',
+                    'href="' . route('perfis.show', $perfil) . '"'
                 ],
                 escape: false
             );

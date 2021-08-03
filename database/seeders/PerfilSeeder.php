@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
 use App\Models\Perfil;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,10 @@ class PerfilSeeder extends Seeder
     public function run()
     {
         Perfil::truncate();
-        Perfil::factory(10)->create();
+        $categorias = Categoria::all();
+        foreach (range(1, 10) as $n)
+            Perfil::factory()
+                ->hasAttached($categorias->random(rand(1, 3)))
+                ->createOne();
     }
 }

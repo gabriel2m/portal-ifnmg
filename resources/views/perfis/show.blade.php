@@ -6,10 +6,13 @@ $pageTitle = $perfil->nome;
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        <h2 class="text-violet-700 text-4xl mb-7">
+        <h2 class="text-violet-700 text-4xl mb-2">
             {{ $perfil->nome }}
         </h2>
-        <p class="text-xl">
+        <span class="italic text-sm text-gray-500">
+            {{ $perfil->categorias_label }}
+        </span>
+        <p class="text-xl mt-6">
             {{ $perfil->descricao }}
         </p>
         <div class="flex justify-between mt-6 pt-6 px-3 border-t border-gray-200">
