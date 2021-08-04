@@ -1,5 +1,10 @@
 <ul>
     @forelse ($perfis as $perfil)
+        @php
+            if ($avancada ?? false) {
+                $perfil = $perfil->model();
+            }
+        @endphp
         <li class="border-l border-gray-500 pl-8 pr-2 py-2 mb-10 hover:bg-gray-200">
             <a href="{{ route('perfis.show', $perfil) }}">
                 <div>
@@ -15,6 +20,11 @@
                 </div>
             </a>
         </li>
+        @if ($loop->last)
+            <li class="px-1">
+                {{ $perfis->links() }}
+            </li>
+        @endif
     @empty
         <li class="border-b border-gray-300 pt-2 px-1">
             Nenhum perfil encontrado.

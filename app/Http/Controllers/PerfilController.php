@@ -18,7 +18,7 @@ class PerfilController extends Controller
     public function index(Request $request)
     {
         return view('perfis.index', [
-            'perfis' => Perfil::orderBy('nome')->get(),
+            'perfis' => Perfil::orderBy('nome')->paginate(),
             'pageTitle' => $request->route()->getName() === 'perfis.index' ? 'Portfólio' : null
         ]);
     }
@@ -44,10 +44,12 @@ class PerfilController extends Controller
         ]));
         if (!isset($query))
             return redirect()->route('perfis.index');
-        $avancada ??= false;
-        $perfis = $avancada
-            ? Perfil::rawSearch()->query(['simple_query_string' => ["query" => $query]])->{'execute'}()->{'models'}()
-            : Perfil::where('nome', 'like', "%$query%")->orWhere('descricao', 'like', "%$query%")->orderBy('nome')->get();
+
+        if ($avancada ??= false) {
+            $perfis = Perfil::rawSearch()->query(['simple_query_string' => ["query" => $query]]);
+        } else
+            $perfis = Perfil::where('nome', 'like', "%$query%")->orWhere('descricao', 'like', "%$query%")->orderBy('nome');
+        $perfis = $perfis->paginate();
         return view('perfis.search', compact('perfis', 'query', 'avancada'));
     }
 

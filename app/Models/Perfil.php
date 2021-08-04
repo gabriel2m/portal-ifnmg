@@ -32,6 +32,8 @@ class Perfil extends Model
 
     protected $with = ['categorias'];
 
+    protected $perPage = 7;
+
     /**
      * Get the indexable data array for the model.
      *

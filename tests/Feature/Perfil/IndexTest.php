@@ -27,9 +27,17 @@ class IndexTest extends ListTestCase
                     'name="avancada"',
                     'pesquisa avançada?',
                     'Portfólio',
-                    ...$this->perfisList(Perfil::orderBy("nome")->get())
+                    ...$this->perfisList($results = Perfil::orderBy("nome")->paginate()->items()),
+                    'href="' . route($this->route, ['page' => 2]) . '"',
                 ],
                 escape: false
-            );
+            )
+            ->assertDontSee(
+                value: Perfil::whereNotIn(
+                    'id',
+                    array_column($results, 'id')
+                )->pluck('nome'),
+                escape: false
+            );;
     }
 }
