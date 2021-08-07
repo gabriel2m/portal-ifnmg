@@ -1,9 +1,10 @@
 @php
 $chevronClass = 'text-2xl leading-tight';
 $disableClass = 'text-blue-gray-300';
+$linkClass = "hover:text-blue-gray-200";
 @endphp
 
-<div class="flex justify-between text-blue-gray-600">
+<div class="flex flex-col sm:flex-row justify-between text-blue-gray-600">
     <p class="text-sm font-semibold my-auto">
         Exibindo {{ $paginator->firstItem() }} - {{ $paginator->lastItem() }} de {{ $paginator->total() }}
     </p>
@@ -21,7 +22,7 @@ $disableClass = 'text-blue-gray-300';
                             {!! $prev !!}
                         </div>
                     @else
-                        <a href="{{ $paginator->previousPageUrl() }}">
+                        <a href="{{ $paginator->previousPageUrl() }}" class="{{ $linkClass }}">
                             {!! $prev !!}
                         </a>
                     @endif
@@ -40,7 +41,7 @@ $disableClass = 'text-blue-gray-300';
                             @if ($page == $paginator->currentPage())
                                 <div class="{{ $disableClass }}">{{ $page }}</div>
                             @else
-                                <div><a href="{{ $url }}">{{ $page }}</a></div>
+                                <div><a href="{{ $url }}" class="{{ $linkClass }}">{{ $page }}</a></div>
                             @endif
                         @endforeach
                     @endif
@@ -52,7 +53,7 @@ $disableClass = 'text-blue-gray-300';
                         $next = '<span class="' . $chevronClass . '">&rsaquo;</span>';
                     @endphp
                     @if ($paginator->hasMorePages())
-                        <a href="{{ $paginator->nextPageUrl() }}">
+                        <a href="{{ $paginator->nextPageUrl() }}" class="{{ $linkClass }}">
                             {!! $next !!}
                         </a>
                     @else

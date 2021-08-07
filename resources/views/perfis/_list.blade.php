@@ -22,7 +22,7 @@
         </li>
         @if ($loop->last)
             <li class="px-1">
-                {{ $perfis->links() }}
+                {{ $perfis->onEachSide(1)->links() }}
             </li>
         @endif
     @empty
