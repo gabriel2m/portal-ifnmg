@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
 @php
-$pageTitle = "\"$query\"";
+if (isset($query)) {
+    $pageTitle[] = "\"$query\"";
+}
 @endphp
 
 @section('content')

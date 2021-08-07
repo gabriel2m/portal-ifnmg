@@ -19,7 +19,7 @@ class PerfilController extends Controller
     {
         return view('perfis.index', [
             'perfis' => Perfil::orderBy('nome')->paginate(),
-            'pageTitle' => $request->route()->getName() === 'perfis.index' ? 'Portfólio' : null
+            'pageTitle' => $request->routeIs('perfis.index') ? ['Portfólio'] : null
         ]);
     }
 

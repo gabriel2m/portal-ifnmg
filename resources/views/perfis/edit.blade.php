@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @php
-$pageTitle = $perfil->nome . ' | Editar';
+$pageTitle = [$perfil->nome, 'Editar'];
 @endphp
 
 @section('content')

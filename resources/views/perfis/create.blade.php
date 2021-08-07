@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @php
-$pageTitle = 'Novo Perfil';
+$pageTitle[] = $contentTitle = 'Novo Perfil';
 @endphp
 
 @section('content')
