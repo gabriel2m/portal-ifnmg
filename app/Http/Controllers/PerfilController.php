@@ -142,6 +142,7 @@ class PerfilController extends Controller
             if (in_array('6', $categorias))
                 $categorias = array_merge($categorias, [1, 5]);
             $perfil->categorias()->sync(array_unique($categorias));
+            $perfil->searchable();
             return true;
         }) === true)
             return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
