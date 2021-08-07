@@ -18,8 +18,7 @@ class GuardTestCase extends TestCase
             $categoriasList[] = $categoria->categoria;
         }
         $this
-            ->get($this->route)
-            ->assertOk()
+            ->getOk($this->route)
             ->assertSeeInOrder(
                 values: [
                     'for="nome"',

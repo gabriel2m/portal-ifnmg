@@ -4,7 +4,6 @@
          bootstrap="vendor/autoload.php"
          colors="true"
          stopOnFailure="true"
-         executionOrder="defects"
 >
     <testsuites>
         <testsuite name="Unit">
@@ -21,6 +20,7 @@
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>
+        <server name="SCOUT_DRIVER" value="null"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
         <server name="DB_CONNECTION" value="sqlite"/>

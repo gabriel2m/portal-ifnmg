@@ -28,7 +28,7 @@ abstract class SaveTestCase extends TestCase
         return $response;
     }
 
-    protected function assertSave($perfil = [], $categorias = [])
+    protected function assertSave($perfil = [], $categorias = [], array $categoriasSalvas = null)
     {
         $response = $this
             ->save($perfil, $categorias)
@@ -40,12 +40,12 @@ abstract class SaveTestCase extends TestCase
         $this->assertDatabaseCount(Perfil::class, 1);
         $this->assertDatabaseHas(Perfil::class, $perfil);
         $this->assertTrue(
-            Perfil::first()->categorias->pluck('id')->toArray() == $categorias,
+            Perfil::first()->categorias->pluck('id')->toArray() == ($categoriasSalvas ?? $categorias),
             'A relação de Categorias não foi salva'
         );
     }
 
-    public function test_guard_form_and_redirect_to_show_page()
+    public function test_save_and_redirect_to_show_page()
     {
         $this->assertSave(
             perfil: [
@@ -56,7 +56,7 @@ abstract class SaveTestCase extends TestCase
         );
     }
 
-    public function test_guard_form_with_multiple_categorias()
+    public function test_save_with_multiple_categorias()
     {
         $this->assertSave(
             perfil: [
@@ -64,6 +64,30 @@ abstract class SaveTestCase extends TestCase
                 'descricao' => Str::random(1000),
             ],
             categorias: [3, 1]
+        );
+    }
+
+    public function test_save_categoria_pesquisa_add_laboratorio_and_prestacao_servico()
+    {
+        $this->assertSave(
+            perfil: [
+                'nome' => Str::random(255),
+                'descricao' => Str::random(1000),
+            ],
+            categorias: [6],
+            categoriasSalvas: [5, 6, 1]
+        );
+    }
+
+    public function test_save_categoria_laboratorio_add_prestacao_servico()
+    {
+        $this->assertSave(
+            perfil: [
+                'nome' => Str::random(255),
+                'descricao' => Str::random(1000),
+            ],
+            categorias: [5],
+            categoriasSalvas: [5, 1]
         );
     }
 
@@ -103,6 +127,7 @@ abstract class SaveTestCase extends TestCase
     public function test_categorias_is_required()
     {
         $this->assertSaveHasErrors(
+            categorias: [],
             errors: ['categorias' => __('validation.required', ['attribute' => 'categorias'])]
         );
     }

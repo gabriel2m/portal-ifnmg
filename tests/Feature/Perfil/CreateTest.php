@@ -13,8 +13,7 @@ class CreateTest extends GuardTestCase
     public function test_display_create_page()
     {
         $this
-            ->get($this->route)
-            ->assertOk()
+            ->getOk($this->route)
             ->assertSeeInOrder(
                 values: [
                     "<title>Novo Perfil | " . config('app.name') . "</title>",

@@ -18,8 +18,7 @@ class EditTest extends GuardTestCase
         /** @var Perfil */
         $perfil = Perfil::first();
         $this
-            ->get($this->route)
-            ->assertOk()
+            ->getOk($this->route)
             ->assertSeeInOrder(
                 values: [
                     "<title>$perfil->nome | Editar | " . config('app.name') . "</title>",

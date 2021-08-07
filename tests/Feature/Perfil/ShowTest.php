@@ -12,8 +12,7 @@ class ShowTest extends TestCase
         /** @var Perfil */
         $perfil = Perfil::factory()->createOne();
         $this
-            ->get(route('perfis.show', $perfil))
-            ->assertOk()
+            ->getOk(route('perfis.show', $perfil))
             ->assertSeeInOrder(
                 values: [
                     "<title>$perfil->nome | " . config('app.name') . "</title>",

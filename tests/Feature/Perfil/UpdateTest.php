@@ -13,7 +13,7 @@ class UpdateTest extends SaveTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Perfil::factory()->hasAttached(Categoria::all()->random(rand(1, 3)))->createOne();
+        Perfil::factory()->hasAttached(Categoria::whereNotIn('id', [5, 6])->get()->random(rand(1, 3)))->createOne();
     }
 
     protected function save($perfil = [], $categorias = [])

@@ -13,11 +13,10 @@ class IndexTest extends ListTestCase
         return "Portfólio | " . config('app.name');
     }
 
-    public function test_display_the_perfis_list()
+    public function test_display_perfis_list()
     {
-        $this
-            ->get(route($this->route))
-            ->assertOk()
+        $response = $this
+            ->getOk(route($this->route))
             ->assertSeeInOrder(
                 values: [
                     "<title>" . $this->pageTitle() . "</title>",
@@ -27,17 +26,11 @@ class IndexTest extends ListTestCase
                     'name="avancada"',
                     'pesquisa avançada?',
                     'Portfólio',
-                    ...$this->perfisList($results = Perfil::orderBy("nome")->paginate()->items()),
                     'href="' . route($this->route, ['page' => 2]) . '"',
                 ],
                 escape: false
-            )
-            ->assertDontSee(
-                value: Perfil::whereNotIn(
-                    'id',
-                    array_column($results, 'id')
-                )->pluck('nome'),
-                escape: false
-            );;
+            );
+        $this->assertCategoriasLinksList($response);
+        $this->assertPerfisList($response, Perfil::orderBy("nome")->paginate()->items());
     }
 }
