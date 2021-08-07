@@ -28,7 +28,8 @@
         </nav>
         <div class="pt-80 pb-1 bg-green-600 custom-row">
             TODO: Banner
-            <form action="{{ route('perfis.search', $activeCategoria ?? null) }}" method="GET" class="max-w-screen-lg mx-auto">
+            <form action="{{ route('perfis.search', $activeCategoria ?? null) }}" method="GET"
+                class="max-w-screen-lg mx-auto">
                 <div class="flex relative">
                     <input
                         class="border border-gray-400 focus:outline-none focus:ring focus:ring-green-200 py-2 px-3 w-full"
@@ -69,6 +70,15 @@
                     'message' => session('warning'),
                 ];
             }
+            // Comment to avoid prod prune
+            // bg-green-100
+            // border-green-800
+            // text-green-900
+            // text-green-500
+            // bg-yellow-100
+            // border-yellow-800
+            // text-yellow-900
+            // text-yellow-500
         @endphp
         @foreach ($flashes as $flash)
             <div class="bg-{{ $flash['color'] }}-100 border-t-2 border-{{ $flash['color'] }}-800 text-{{ $flash['color'] }}-900 px-4 py-3 shadow-md mt-3 mx-auto max-w-screen-lg close-target"
