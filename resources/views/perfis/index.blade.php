@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        @include('partials.content-title', ['contentTitle' => 'Portfólio'])
+        @include('partials.portfolio-header')
         @include('perfis._list')
     </div>
 @endsection

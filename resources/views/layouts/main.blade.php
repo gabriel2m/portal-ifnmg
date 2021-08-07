@@ -28,8 +28,7 @@
         </nav>
         <div class="pt-80 pb-1 bg-green-600 custom-row">
             TODO: Banner
-            <form action="{{ route('perfis.search') }}" method="GET" class="max-w-screen-lg mx-auto">
-                @csrf
+            <form action="{{ route('perfis.search', $activeCategoria ?? null) }}" method="GET" class="max-w-screen-lg mx-auto">
                 <div class="flex relative">
                     <input
                         class="border border-gray-400 focus:outline-none focus:ring focus:ring-green-200 py-2 px-3 w-full"

@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/perfis/search', PerfilController::class . '@search')->name('perfis.search');
+Route::get('/perfis/search/{categoria?}', PerfilController::class . '@search')->name('perfis.search');
 Route::resource('perfis', PerfilController::class)->parameters([
     'perfis' => 'perfil'
 ]);

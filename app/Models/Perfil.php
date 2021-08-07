@@ -44,6 +44,7 @@ class Perfil extends Model
         return [
             'nome' => $this->nome,
             'descricao' => $this->descricao,
+            'categorias' => $this->categorias->pluck('id')
         ];
     }
 

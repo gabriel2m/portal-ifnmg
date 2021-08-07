@@ -15,11 +15,16 @@ class PerfilSeeder extends Seeder
      */
     public function run()
     {
-        Perfil::truncate();
-        $categorias = Categoria::all();
-        foreach (range(1, 10) as $n)
-            Perfil::factory()
-                ->hasAttached($categorias->random(rand(1, 3)))
+        $categorias = Categoria::pluck('id');
+        foreach (range(1, 10) as $n) {
+            $perfil = Perfil::factory()
                 ->createOne();
+            $perfilCategorias = $categorias->random(rand(1, 3))->toArray();
+            if (in_array('5', $perfilCategorias))
+                $perfilCategorias[] = 1;
+            if (in_array('6', $perfilCategorias))
+                $perfilCategorias = array_merge($perfilCategorias, [1, 5]);
+            $perfil->categorias()->sync(array_unique($perfilCategorias));
+        }
     }
 }
