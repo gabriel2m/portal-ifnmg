@@ -6,7 +6,7 @@ $pageTitle[] = $contentTitle = 'Novo Perfil';
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        @include('partials.content-title')
+        @include('utils.content-title')
         @include('perfis._guard_form')
     </div>
 @endsection

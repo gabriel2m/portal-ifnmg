@@ -39,14 +39,14 @@
                         <i class="icon-search text-lg"></i>
                     </button>
                 </div>
-                @include('partials.errors', ['inputs' => ['query'], 'textColor' => 'text-white'])
+                @include('utils.errors', ['inputs' => ['query'], 'textColor' => 'text-white'])
                 <div>
                     <input type="checkbox" id="avancada" name="avancada" @if ($avancada ?? false) checked @endif value="1">
                     <label for="avancada" class="text-white hover:text-gray-300 underline">
                         <a href="{{ route('pesquisa-avancada') }}">pesquisa avançada?</a>
                     </label>
                 </div>
-                @include('partials.errors', ['inputs' => ['avancada'], 'textColor' => 'text-white'])
+                @include('utils.errors', ['inputs' => ['avancada'], 'textColor' => 'text-white'])
             </form>
         </div>
     </header>

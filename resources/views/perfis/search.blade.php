@@ -11,7 +11,7 @@ if (isset($activeCategoria)) {
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        @include('partials.portfolio-header')
+        @include('utils.portfolio-header')
         @if (isset($query))
             <h2 class="text-4xl mb-7">
                 Resultados para "{{ $query }}":

@@ -15,7 +15,7 @@
         @error('nome')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
         @enderror
-        @include('partials.errors', ['inputs' => ['nome']])
+        @include('utils.errors', ['inputs' => ['nome']])
     </div>
     <div class="mb-5">
         <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="categorias">
@@ -32,7 +32,7 @@
                 </div>
             @endforeach
         </div>
-        @include('partials.errors', ['inputs' => ['categorias', 'categorias.*']])
+        @include('utils.errors', ['inputs' => ['categorias', 'categorias.*']])
     </div>
     <div>
         <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="descricao">
@@ -42,7 +42,7 @@
         <textarea name="descricao" class="w-full text-sm border border-gray-400 focus:outline-none focus:ring py-2 px-3"
             rows="10" required>{{ old('descricao') ?? $perfil->descricao }}</textarea>
 
-        @include('partials.errors', ['inputs' => ['descricao']])
+        @include('utils.errors', ['inputs' => ['descricao']])
     </div>
 
     <div class="flex mt-6 pt-6 px-3 border-t border-gray-200">

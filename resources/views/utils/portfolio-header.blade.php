@@ -1,4 +1,4 @@
-@include('partials.content-title', ['contentTitle' => 'Portfólio', 'margin' => 'mb-2'])
+@include('utils.content-title', ['contentTitle' => 'Portfólio', 'margin' => 'mb-2'])
 <div class="mb-10 flex flex-wrap text-blue-gray-700">
     @foreach ($categorias as $categoria)
         @php
