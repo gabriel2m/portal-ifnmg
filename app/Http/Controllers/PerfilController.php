@@ -111,11 +111,11 @@ class PerfilController extends Controller
     {
         $oldImg = $perfil->imagem;
         $perfil->fill($request->validated());
-        if ($saveImg = $perfil->imagem !== $oldImg &&
-            !$perfil->imagem = $request->file('imagem')->store(Perfil::IMAGEM_DIR, Perfil::IMAGEM_DISK)
+        if ($saveImg = $perfil->imagem !== $oldImg
+            && !($perfil->imagem = $request->file('imagem')->store(Perfil::IMAGEM_DIR, Perfil::IMAGEM_DISK)
+                && $perfil->imagem = Storage::url($perfil->imagem))
         )
             throw new RuntimeException("Não foi possível salvar Perfil->imagem");
-        $perfil->imagem = Storage::url($perfil->imagem);
         if ($perfil->save()) {
             if (
                 isset($oldImg) &&
