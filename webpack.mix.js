@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     ])
     .copy('resources/icomoon/fonts', 'public/fonts')
     .postCss('resources/css/error.css', 'public/css')
+    .copy('resources/img', 'public/img')
 
 if (mix.inProduction())
     mix.version()

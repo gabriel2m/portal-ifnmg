@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Categoria;
+use App\Models\Perfil;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,34 +30,32 @@ class SavePerfilRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('perfis')->ignore($this->perfil)
+                Rule::unique('perfis')->ignore($this->perfil),
+            ],
+            'imagem' => [
+                'exclude_if:imagem,null',
+                'image',
+                'max:2048',
+            ],
+            'categoria' => [
+                'required',
+                Rule::in(Perfil::categorias())
             ],
             'descricao' => [
                 'required',
                 'string',
                 'max:1000',
             ],
-            'categorias' => [
-                'required',
-                'array',
-            ],
-            'categorias.*' => [
-                'integer',
-                Rule::in(Categoria::pluck('id'))
-            ],
         ];
     }
 
     /**
-     * Get custom attributes for validator errors.
+     * Get custom attributes labels for validator errors.
      *
      * @return array
      */
     public function attributes()
     {
-        return [
-            'descricao' => 'descrição',
-            'categorias.*' => 'categoria',
-        ];
+        return ['descricao' => 'descrição'];
     }
 }

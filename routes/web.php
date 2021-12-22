@@ -15,13 +15,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/perfis/search/{categoria?}', PerfilController::class . '@search')->name('perfis.search');
-Route::resource('perfis', PerfilController::class)->parameters([
-    'perfis' => 'perfil'
-]);
-Route::get('/', PerfilController::class . '@index')->name('home');
-
-Route::get('pesquisa-avancada', function (Request $request) {
+Route::name('perfis.advanced-search')
+    ->prefix('pesquisa-avancada')
+    ->group(function () {
+        Route::get('', PerfilController::class . '@advancedSearch');
+        Route::get('sobre', function (Request $request) {
     return '
         TODO: Página explicando a pesquisa avançada. 
         Baseada em: 
@@ -29,4 +27,9 @@ Route::get('pesquisa-avancada', function (Request $request) {
             https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html
         </a>
     ';
-})->name('pesquisa-avancada');
+        })->name('.about');
+    });
+
+Route::resource('perfis', PerfilController::class)
+    ->parameters(['perfis' => 'perfil'])
+    ->except('index');

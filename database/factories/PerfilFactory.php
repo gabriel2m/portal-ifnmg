@@ -22,7 +22,8 @@ class PerfilFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => $this->faker->unique()->name(),
+            'nome' => $this->faker->text(40),
+            'categoria' => $this->faker->randomElement(Perfil::categorias()),
             'descricao' => $this->faker->text(500),
         ];
     }
