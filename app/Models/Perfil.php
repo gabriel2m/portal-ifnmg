@@ -11,8 +11,8 @@ use Laravel\Scout\Searchable;
 /**
  * @property int $id
  * @property string $nome
- * @property \Illuminate\Database\Eloquent\Collection $categorias
- * @property-read string $categorias_label
+ * @property int $categoria
+ * @property-read string $categoria_label
  * @property string $descricao
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -20,6 +20,20 @@ use Laravel\Scout\Searchable;
 class Perfil extends Model
 {
     use HasFactory, Searchable, QueryDsl;
+
+    const CATEGORIA_EMPRESAS_JUNIOR = 1;
+    const CATEGORIA_INCUBADORA_TECNOLOGICA = 2;
+    const CATEGORIA_INSTITUICOES_PARCEIRAS = 3;
+    const CATEGORIA_LABORATORIOS = 4;
+    const CATEGORIA_PESQUISADORES = 5;
+
+    const LABELS_CATEGORIAS = [
+        SELF::CATEGORIA_PESQUISADORES => 'Pesquisadores',
+        SELF::CATEGORIA_LABORATORIOS => 'Laboratórios',
+        SELF::CATEGORIA_EMPRESAS_JUNIOR => 'Empresas Júnior',
+        SELF::CATEGORIA_INCUBADORA_TECNOLOGICA => 'Incubadora Tecnológica',
+        SELF::CATEGORIA_INSTITUICOES_PARCEIRAS => 'Instituições Parceiras',
+    ];
 
     protected $table = 'perfis';
 
@@ -30,9 +44,9 @@ class Perfil extends Model
      */
     protected $guarded = [];
 
-    protected $with = ['categorias'];
+    const PER_PAGE = 7;
 
-    protected $perPage = 7;
+    protected $perPage = SELF::PER_PAGE;
 
     /**
      * Get the indexable data array for the model.
@@ -43,23 +57,18 @@ class Perfil extends Model
     {
         return [
             'nome' => $this->nome,
+            'categoria' => $this->categoria,
             'descricao' => $this->descricao,
-            'categorias' => $this->categorias->pluck('id')
         ];
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function categorias()
+    public function getCategoriaLabelAttribute()
     {
-        return $this
-            ->belongsToMany(Categoria::class, 'perfis_categorias')
-            ->orderBy('categoria');
+        return $this::LABELS_CATEGORIAS[$this->categoria];
     }
 
-    public function getCategoriasLabelAttribute()
+    public static function categorias()
     {
-        return $this->categorias->implode('categoria', ' | ');
+        return array_keys(SELF::LABELS_CATEGORIAS);
     }
 }
