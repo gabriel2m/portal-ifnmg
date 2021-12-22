@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Storage::disk(Perfil::IMAGEM_DISK)->deleteDirectory(Perfil::IMAGEM_DIR);
-        if (Perfil::count())
-            Perfil::removeAllFromSearch();
+        Perfil::removeAllFromSearch();
         $this->call([UserSeeder::class, PerfilSeeder::class]);
     }
 }
