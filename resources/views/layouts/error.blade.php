@@ -19,6 +19,10 @@
     <div class="md:flex min-h-screen">
         <div class="w-full md:w-1/2 bg-white flex items-center justify-center">
             <div class="max-w-sm m-8">
+                <strong class="text-grey-darker text-2xl md:text-3xl">
+                    {{ __('Error') }}
+                </strong>
+
                 <div class="text-black text-5xl md:text-15xl font-black">
                     @yield('code', __('Oh no'))
                 </div>
@@ -32,7 +36,7 @@
                 <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
                     <button
                         class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
-                        {{ __('Go Home') }}
+                        {{ __('<- Home') }}
                     </button>
                 </a>
             </div>

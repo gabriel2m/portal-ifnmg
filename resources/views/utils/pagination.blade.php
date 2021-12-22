@@ -1,5 +1,5 @@
 @php
-$chevronClass = 'text-2xl leading-tight';
+$chevronClass = 'text-2xl leading-none';
 $disableClass = 'text-blue-gray-300';
 $linkClass = "hover:text-blue-gray-200";
 @endphp

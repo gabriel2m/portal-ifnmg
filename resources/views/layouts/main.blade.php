@@ -16,101 +16,228 @@
 
 <body class="flex flex-col min-h-screen bg-gray-50 text-blue-gray-800">
     <header>
-        <nav class="py-7 bg-gray-800 custom-row">
-            <ul class="flex justify-between text-yellow-50">
-                <li>
-                    <a href="{{ route('home') }}">Home</a>
-                </li>
-                <li>
-                    <a href="{{ route('perfis.create') }}">Cadastrar Perfil</a>
-                </li>
+        <nav class="py-1 bg-gray-800 custom-row">
+            <ul class="max-w-screen-2xl mx-auto flex justify-between flex-wrap text-yellow-50">
+                @foreach ([
+        [
+            'label' => 'Portfólio',
+            'route' => 'portfolio',
+        ],
+        [
+            'label' => 'Prestação de Serviços',
+            'route' => 'portfolio.prestacao-servicos',
+        ],
+        [
+            'label' => Perfil::LABELS_CATEGORIAS[Perfil::CATEGORIA_EMPRESAS_JUNIOR],
+            'route' => 'portfolio.empresas-junior',
+        ],
+        [
+            'label' => Perfil::LABELS_CATEGORIAS[Perfil::CATEGORIA_INCUBADORA_TECNOLOGICA],
+            'route' => 'portfolio.incubadora-tecnologica',
+        ],
+        [
+            'label' => Perfil::LABELS_CATEGORIAS[Perfil::CATEGORIA_INSTITUICOES_PARCEIRAS],
+            'route' => 'portfolio.instituicoes-parceiras',
+        ],
+        [
+            'label' => 'Cadastrar Perfil',
+            'route' => 'perfis.create',
+            'show' => Auth::check(),
+        ],
+        [
+            'label' => 'Entre em Contato',
+            'route' => 'contact',
+            'show' => Auth::guest(),
+        ],
+        [
+            'label' => 'Login',
+            'route' => 'login',
+            'show' => Auth::guest(),
+        ],
+    ]
+    as $item)
+                    @if ($item['show'] ?? true)
+                        <x-header-menu-item>
+                            <a href="{{ route($item['route']) }}"
+                                class="hover:text-gray-400">{{ $item['label'] }}</a>
+                        </x-header-menu-item>
+                    @endif
+                @endforeach
+                @auth
+                    <x-header-menu-item>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle hover:text-gray-400 flex">
+                                Usuário
+                                <div class="leading-none ml-0.5">
+                                    &#8964;
+                                </div>
+                            </button>
+                            <ul
+                                class="dropdown-menu absolute hidden bg-white text-blue-gray-800 rounded mt-1 border border-gray-400">
+                                <x-user-dropdown-item>
+                                    <a href="{{ route('user-profile-information.update') }}"
+                                        class="px-3">Editar</a>
+                                </x-user-dropdown-item>
+                                <x-user-dropdown-item>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="px-3 w-full">Sair</button>
+                                    </form>
+                                </x-user-dropdown-item>
+                            </ul>
+                        </div>
+                    </x-header-menu-item>
+                @endauth
             </ul>
         </nav>
-        <div class="pt-80 pb-1 bg-green-600 custom-row">
-            TODO: Banner
-            <form action="{{ route('perfis.search', $activeCategoria ?? null) }}" method="GET"
-                class="max-w-screen-lg mx-auto">
-                <div class="flex relative">
-                    <input
-                        class="border border-gray-400 focus:outline-none focus:ring focus:ring-green-200 py-2 px-3 w-full"
-                        type="text" name="query" id="query" value="{{ old('query') ?? ($query ?? '') }}">
+        @if ($showBanner ?? true)
+            <div class="bg-ifnmg-green-1 custom-row">
+                <div class="max-w-screen-md mx-auto">
+                    <div class="md:flex pb-5 pt-10">
+                        <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg">
+                        <h1 class="text-7xl text-white mt-auto font-thin ml-3">
+                            <span>Portal</span>
+                            <br>
+                            <strong>IFNMG</strong>
+                            <span>Januária</span>
+                        </h1>
+                    </div>
+                    <form action="{{ route('perfis.advanced-search') }}" method="GET">
+                        @if (isset($categoria))
+                            <input type="hidden" name="categoria" value="{{ $categoria }}">
+                        @endif
+                        <div class="flex relative">
+                            <input
+                                class="border border-gray-400 focus:outline-none focus:ring focus:ring-green-200 py-2 pl-3 pr-10 w-full"
+                                type="text" name="query" value="{{ old('query', $query ?? '') }}" required>
 
-                    <button type="submit" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700">
-                        <i class="icon-search text-lg"></i>
-                    </button>
+                            <button type="submit" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700">
+                                <i class="icon-search text-lg"></i>
+                            </button>
+                        </div>
+                        @include('utils.error', ['input' => 'query', 'color' => 'text-white'])
+                    </form>
+                    <div class="pb-1">
+                        <a href="{{ route('perfis.advanced-search.about') }}"
+                            class="text-white hover:text-green-300 underline text-sm">
+                            saiba mais sobre a pesquisa avançada
+                        </a>
+                    </div>
                 </div>
-                @include('utils.errors', ['inputs' => ['query'], 'textColor' => 'text-white'])
-                <div>
-                    <input type="checkbox" id="avancada" name="avancada" @if ($avancada ?? false) checked @endif value="1">
-                    <label for="avancada" class="text-white hover:text-gray-300 underline">
-                        <a href="{{ route('pesquisa-avancada') }}">pesquisa avançada?</a>
-                    </label>
-                </div>
-                @include('utils.errors', ['inputs' => ['avancada'], 'textColor' => 'text-white'])
-            </form>
-        </div>
+            </div>
+        @endif
     </header>
 
     <div>
         @php
-            $flashes = [];
-            if (session()->has('success')) {
-                $flashes[] = [
+            $flash = [
+                'success' => [
                     'label' => 'Sucesso!',
-                    'icon' => 'icon-checkmark',
+                    'icon' => 'checkmark',
                     'color' => 'green',
-                    'message' => session('success'),
-                ];
-            }
-            if (session()->has('warning')) {
-                $flashes[] = [
+                ],
+                'warning' => [
                     'label' => 'Atenção!',
-                    'icon' => 'icon-warning',
+                    'icon' => 'warning',
                     'color' => 'yellow',
-                    'message' => session('warning'),
-                ];
-            }
-            // Comment to avoid prod prune
-            // bg-green-100
-            // border-green-800
-            // text-green-900
-            // text-green-500
-            // bg-yellow-100
-            // border-yellow-800
-            // text-yellow-900
-            // text-yellow-500
+                ],
+                'status' => [
+                    'label' => 'Status',
+                    'icon' => 'info',
+                    'color' => 'blue',
+                ],
+            ];
+            // Avoid prune: 
+            // bg-green-100  border-green-800  text-green-900  text-green-500 
+            // bg-yellow-100 border-yellow-800 text-yellow-900 text-yellow-500
+            // bg-blue-100   border-blue-800   text-blue-900   text-blue-500
         @endphp
-        @foreach ($flashes as $flash)
-            <div class="bg-{{ $flash['color'] }}-100 border-t-2 border-{{ $flash['color'] }}-800 text-{{ $flash['color'] }}-900 px-4 py-3 shadow-md mt-3 mx-auto max-w-screen-lg close-target"
-                role="alert">
-                <div class="flex">
-                    <div class="py-1">
-                        <i class="{{ $flash['icon'] }} text-{{ $flash['color'] }}-500 mr-4 text-2xl"></i>
-                    </div>
-                    <div>
-                        <p class="font-bold">{{ $flash['label'] }}</p>
-                        <p class="text-sm">{{ $flash['message'] }}</p>
-                    </div>
-                    <div class="ml-auto">
-                        <button class="close-btn text-xs text-gray-500 hover:text-gray-700">
-                            <i class="icon-cross"></i>
-                        </button>
+        @foreach (session()->all() as $type => $flashMessage)
+            @if (Arr::has($flash, $type))
+                <div class="bg-{{ $flash[$type]['color'] }}-100 border-t-2 border-{{ $flash[$type]['color'] }}-800 text-{{ $flash[$type]['color'] }}-900 px-4 py-3 shadow-md mt-3 mx-auto max-w-screen-lg close-target"
+                    role="alert">
+                    <div class="flex">
+                        <div class="py-1">
+                            <i
+                                class="icon-{{ $flash[$type]['icon'] }} text-{{ $flash[$type]['color'] }}-500 mr-4 text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">{{ $flash[$type]['label'] }}</p>
+                            <p class="text-sm">{{ __($flashMessage) }}</p>
+                        </div>
+                        <div class="ml-auto">
+                            <button class="close-btn text-xs text-gray-500 hover:text-gray-700">
+                                <i class="icon-cross"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         @endforeach
     </div>
 
-    <main class="py-10 custom-row">
+    <main class="pt-12 pb-16 custom-row">
         @yield('content')
     </main>
 
     <footer class="mt-auto">
-        <div class="py-7 bg-green-800 custom-row">
-            TODO: Links
+        <div class="py-5 custom-row bg-ifnmg-green-3 flex justify-evenly flex-wrap">
+            @foreach ([
+        [
+            'link' => 'https://www.youtube.com/user/IFNMGJanuaria',
+            'icon' => 'icon-youtube',
+            'label' => 'IFNMG Campus Januária',
+        ],
+        [
+            'link' => 'https://ifnmg.edu.br/januaria',
+            'icon' => 'icon-blog',
+            'label' => 'Portal IFNMG - Januária',
+        ],
+        [
+            'link' => 'https://www.instagram.com/ifnmg_januaria',
+            'icon' => 'icon-instagram',
+            'label' => 'ifnmg_januaria',
+        ],
+        [
+            'link' => 'https://www.facebook.com/ifnmgjanuaria',
+            'icon' => 'icon-facebook2',
+            'label' => 'IFNMG Campus Januária',
+        ],
+    ]
+    as $item)
+                <a href="{{ $item['link'] }}" target="_blank" rel="noopener noreferrer"
+                    class="text-white hover:text-green-300 relative m-2">
+                    <i class="{{ $item['icon'] }} text-2xl absolute"></i>
+                    <span class="ml-7">{{ $item['label'] }}</span>
+                </a>
+            @endforeach
         </div>
-        <div class="py-2 bg-green-600 custom-row">
-            TODO: Instituição
+        <div class="text-green-100 pt-9 pb-3 bg-ifnmg-green-2 custom-row">
+            <div class="text-center text-sm mb-2">
+                Fazenda São Geraldo, S/N Km 06 - 39480-000 - Januária / MG
+                <br>
+                Telefone: (38) 3629-4600
+                <br>
+                E-mail: comunicacao.januaria@ifnmg.edu.br
+                <br>
+                IFNMG - Januária
+            </div>
+            <div class="flex justify-between flex-wrap">
+                <div class="my-3 sm:my-0">
+                    Qual a sua demanda?
+                    <a href="{{ route('contact') }}" class="hover:text-white">
+                        <span class="underline">Entre em contato aqui</span>
+                        <i class="icon-pencil2"></i>
+                    </a>
+                </div>
+                <div class="text-xs mt-auto">
+                    Desenvolvedor:
+                    <a href="https://linktr.ee/gabriel2m" target="_blank" rel="noopener noreferrer"
+                        class="hover:text-white underline">
+                        @gabriel2m
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 

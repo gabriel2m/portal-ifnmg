@@ -14,7 +14,14 @@ module.exports = {
     extend: {
       textColor: {
         'violet': colors.violet,
+      },
+      colors: {
         'blue-gray': colors.blueGray,
+        'ifnmg-green': {
+          1: '#17882c',
+          2: '#00420c',
+          3: '#002907',
+        }
       }
     }
   },
