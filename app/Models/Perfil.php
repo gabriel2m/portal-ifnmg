@@ -42,7 +42,9 @@ class Perfil extends Model
         SELF::CATEGORIA_INSTITUICOES_PARCEIRAS => 'Instituições Parceiras',
     ];
 
-    protected $table = 'perfis';
+    const TABLE = 'perfis';
+
+    protected $table = SELF::TABLE;
 
     /**
      * Indicates if all mass assignment is enabled.

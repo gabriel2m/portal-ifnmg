@@ -14,7 +14,7 @@ class CreatePerfisTable extends Migration
      */
     public function up()
     {
-        Schema::create('perfis', function (Blueprint $table) {
+        Schema::create(Perfil::TABLE, function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
             $table->string('imagem')->default(Perfil::IMAGEM_DEFAULT);
@@ -31,6 +31,6 @@ class CreatePerfisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfis');
+        Schema::dropIfExists(Perfil::TABLE);
     }
 }
