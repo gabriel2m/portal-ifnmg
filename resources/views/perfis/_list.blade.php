@@ -7,7 +7,7 @@
         @endphp
         <li class="border-l border-gray-500 pl-8 pr-2 py-2 mb-9 hover:bg-gray-200 overflow-auto">
             <a href="{{ route('perfis.show', $perfil) }}">
-                <img src="{{ asset($perfil->imagem) }}" alt="{{ $perfil->nome }}" width="120"
+                <img src="{{ $perfil->imagem_url }}" alt="{{ $perfil->nome }}" width="120"
                     class="float-left mr-5 my-1.5 w-32 h-32">
                 <h5 class="text-violet-700 text-2xl mb-2">
                     {{ $perfil->nome }}

@@ -233,4 +233,12 @@ return [
 
     ],
 
+    'perfil' => [
+        'imagem' => [
+            'disk' => env('PERFIL_IMAGEM_DISK'),
+            'dir' => env('PERFIL_IMAGEM_DIR'),
+            'default_url' => env('PERFIL_IMAGEM_DEFAULT_URL'),
+        ]
+    ],
+
 ];

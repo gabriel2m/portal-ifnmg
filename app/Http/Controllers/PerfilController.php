@@ -7,7 +7,6 @@ use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
 use RuntimeException;
 
 class PerfilController extends Controller
@@ -111,17 +110,24 @@ class PerfilController extends Controller
     {
         $oldImg = $perfil->imagem;
         $perfil->fill($request->validated());
-        if ($saveImg = $perfil->imagem !== $oldImg
-            && !($perfil->imagem = $request->file('imagem')->store(Perfil::IMAGEM_DIR, Perfil::IMAGEM_DISK)
-                && $perfil->imagem = Storage::url($perfil->imagem))
-        )
-            throw new RuntimeException("Não foi possível salvar Perfil->imagem");
+        $saveImg = $perfil->imagem !== $oldImg;
+        throw_if(
+            $saveImg && !tap(
+                $request->file('imagem')->storePublicly(
+                    config('app.perfil.imagem.dir'),
+                    config('app.perfil.imagem.disk')
+                ),
+                function ($stored) use ($perfil) {
+                    $perfil->imagem = $stored;
+                }
+            ),
+            new RuntimeException("Não foi possível salvar Perfil->imagem")
+        );
         if ($perfil->save()) {
             if (
-                isset($oldImg) &&
-                $saveImg &&
-                $oldImg !== Perfil::IMAGEM_DEFAULT &&
-                !Storage::disk(Perfil::IMAGEM_DISK)->delete(Perfil::IMAGEM_DIR . '/' . Str::of($oldImg)->basename())
+                isset($oldImg)
+                && $saveImg
+                && !Storage::disk(config('app.perfil.imagem.disk'))->delete($oldImg)
             )
                 throw new RuntimeException("Não foi possível deletar $oldImg");
             return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');

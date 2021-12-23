@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 /**
  * @property int $id
  * @property string $nome
  * @property string $imagem
+ * @property-read string $imagem_url
  * @property int $categoria
  * @property-read string $categoria_label
  * @property string $descricao
@@ -23,10 +23,6 @@ use Illuminate\Support\Str;
 class Perfil extends Model
 {
     use HasFactory, Searchable, QueryDsl;
-
-    const IMAGEM_DEFAULT = 'img/default-image.png';
-    const IMAGEM_DISK = 'public';
-    const IMAGEM_DIR = 'img';
 
     const CATEGORIA_EMPRESAS_JUNIOR = 1;
     const CATEGORIA_INCUBADORA_TECNOLOGICA = 2;
@@ -76,13 +72,15 @@ class Perfil extends Model
         return $this::LABELS_CATEGORIAS[$this->categoria];
     }
 
+    public function getImagemUrlAttribute()
+    {
+        return isset($this->imagem) && Storage::disk(config('app.perfil.imagem.disk'))->exists($this->imagem)
+            ? Storage::disk(config('app.perfil.imagem.disk'))->{'url'}($this->imagem)
+            : config('app.perfil.imagem.default_url');
+    }
+
     public static function categorias()
     {
         return array_keys(SELF::LABELS_CATEGORIAS);
-    }
-
-    public static function deleteImagem($imagem)
-    {
-        return Storage::disk(Perfil::IMAGEM_DISK)->delete(Perfil::IMAGEM_DIR . '/' . Str::of($imagem)->basename());
     }
 }

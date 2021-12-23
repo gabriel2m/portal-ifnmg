@@ -17,7 +17,7 @@ class CreatePerfisTable extends Migration
         Schema::create(Perfil::TABLE, function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
-            $table->string('imagem')->default(Perfil::IMAGEM_DEFAULT);
+            $table->string('imagem')->nullable();
             $table->smallInteger('categoria');
             $table->text('descricao');
             $table->timestamps();
