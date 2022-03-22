@@ -17,12 +17,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('', PortfolioController::class . '@index')->name('portfolio');
+Route::get('', [PortfolioController::class, 'index'])->name('home');
 Route::name('portfolio.')
     ->prefix('portfolio')
     ->group(function () {
         foreach (['prestacao-servicos', 'empresas-junior', 'incubadora-tecnologica', 'instituicoes-parceiras'] as $uri)
-            Route::get($uri, PortfolioController::class . '@' . Str::camel($uri))->name($uri);
+            Route::get($uri, [PortfolioController::class, Str::camel($uri)])->name($uri);
     });
 
 Route::name('perfis.advanced-search')

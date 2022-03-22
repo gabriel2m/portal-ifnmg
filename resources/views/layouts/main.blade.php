@@ -16,12 +16,12 @@
 
 <body class="flex flex-col min-h-screen bg-gray-50 text-blue-gray-800">
     <header>
-        <nav class="py-1 bg-gray-800 custom-row">
+        <nav class="py-1 bg-ifnmg-green-3 custom-row">
             <ul class="max-w-screen-2xl mx-auto flex justify-between flex-wrap text-yellow-50">
                 @foreach ([
         [
-            'label' => 'Portfólio',
-            'route' => 'portfolio',
+            'label' => 'Home',
+            'route' => 'home',
         ],
         [
             'label' => 'Prestação de Serviços',
@@ -93,7 +93,7 @@
         @if ($showBanner ?? true)
             <div class="bg-ifnmg-green-1 custom-row">
                 <div class="max-w-screen-md mx-auto">
-                    <div class="md:flex pb-5 pt-10">
+                    <a class="md:flex pb-5 pt-10 hover:no-underline" href="{{ route('home') }}">
                         <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg">
                         <h1 class="text-7xl text-white mt-auto font-thin ml-3">
                             <span>Portal</span>
@@ -101,7 +101,7 @@
                             <strong>IFNMG</strong>
                             <span>Januária</span>
                         </h1>
-                    </div>
+                    </a>
                     <form action="{{ route('perfis.advanced-search') }}" method="GET">
                         @if (isset($categoria))
                             <input type="hidden" name="categoria" value="{{ $categoria }}">
@@ -147,8 +147,8 @@
                     'color' => 'blue',
                 ],
             ];
-            // Avoid prune: 
-            // bg-green-100  border-green-800  text-green-900  text-green-500 
+            // Avoid prune:
+            // bg-green-100  border-green-800  text-green-900  text-green-500
             // bg-yellow-100 border-yellow-800 text-yellow-900 text-yellow-500
             // bg-blue-100   border-blue-800   text-blue-900   text-blue-500
         @endphp
