@@ -95,12 +95,14 @@
                 <div class="max-w-screen-md mx-auto">
                     <a class="md:flex pb-5 pt-10 hover:no-underline" href="{{ route('home') }}">
                         <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg">
-                        <h1 class="text-7xl text-white mt-auto font-thin ml-3">
-                            <span>Portal</span>
-                            <br>
-                            <strong>IFNMG</strong>
-                            <span>Januária</span>
-                        </h1>
+                        <div class="text-white mt-auto ml-3">
+                            <h1 class="text-7xl">
+                                INPROS
+                            </h1>
+                            <h2 class="text-4xl">
+                                Inovação, Produtos e Serviços
+                            </h2>
+                        </div>
                     </a>
                     <form action="{{ route('perfis.advanced-search') }}" method="GET">
                         @if (isset($categoria))
