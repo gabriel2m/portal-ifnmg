@@ -6,6 +6,8 @@ networks:
 services:
     app:
         build: .
+        ports:
+            - ${BROWSERSYNC_PORT:-3000}:3000
         volumes:
             - .:/srv/app
             - ./.docker/app/php.ini:/usr/local/etc/php/php.ini

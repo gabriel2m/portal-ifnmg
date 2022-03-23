@@ -25,7 +25,7 @@ if (mix.inProduction())
 
 if (process.env.APP_ENV == 'local')
     mix.browserSync({
-        proxy: 'laravel.test',
+        proxy: 'nginx',
         open: false,
         notify: false
     })
