@@ -49,6 +49,17 @@ RUN set -eux; \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
+ARG UID=1000
+ENV UID ${UID}
+ARG GID=1000
+ENV GID ${GID}
+
+RUN addgroup -g ${GID} app
+
+RUN adduser -u ${UID} -G app -D app
+
+USER app
+	
 COPY ./.docker/app/php.ini /usr/local/etc/php/php.ini
 
 WORKDIR /srv/app
