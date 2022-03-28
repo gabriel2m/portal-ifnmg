@@ -37,3 +37,10 @@ body {
     animation: show-on-scroll 1s;
 }
 
+.slide+.slide {
+    @apply ml-8;
+}
+
+.slides {
+    transition: margin 700ms;
+}

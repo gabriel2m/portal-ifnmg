@@ -64,3 +64,30 @@ require('./bootstrap')
         });
 }
 
+/**
+* Carousel
+*/
+{
+    document
+        .querySelectorAll('.carousel .prev')
+        .forEach(prev => prev.addEventListener('click', function () {
+            const slides = this
+                .closest(".carousel")
+                .querySelector(".slides")
+
+            const margin = Number(slides.style.marginLeft.replace('rem', ''))
+
+            slides.style.marginLeft = (margin + 22) + 'rem';
+        }))
+    document
+        .querySelectorAll('.carousel .next')
+        .forEach(prev => prev.addEventListener('click', function () {
+            const slides = this
+                .closest(".carousel")
+                .querySelector(".slides")
+
+            const margin = Number(slides.style.marginLeft.replace('rem', ''))
+
+            slides.style.marginLeft = (margin - 22) + 'rem';
+        }))
+}
