@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SavePerfilRequest;
+use App\Enums\Categorias;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 use RuntimeException;
 
 class PerfilController extends Controller
@@ -23,7 +24,7 @@ class PerfilController extends Controller
      */
     public function advancedSearch(Request $request)
     {
-        $categoria = Perfil::CATEGORIA_PESQUISADORES;
+        $categoria = Categorias::DESENVOLVIMENTO_DE_PRODUTOS->value;
 
         extract($request->validate([
             'query' => [
@@ -32,7 +33,7 @@ class PerfilController extends Controller
                 'max:255',
             ],
             'categoria' => [
-                Rule::in(Perfil::categorias())
+                new Enum(Categorias::class)
             ],
         ]));
 
@@ -40,6 +41,8 @@ class PerfilController extends Controller
             ->query(['simple_query_string' => ["query" => $query]])
             ->{'postFilter'}('term', ['categoria' => $categoria])
             ->paginate(Perfil::PER_PAGE)->withQueryString();
+
+        $categoria = Categorias::from($categoria);
 
         return view('perfis.advanced-search', compact('perfis', 'query', 'categoria'));
     }
@@ -144,7 +147,7 @@ class PerfilController extends Controller
     public function destroy(Perfil $perfil)
     {
         if ($perfil->delete())
-            return redirect()->route('portfolio')->with('warning', "Perfil \"$perfil->nome\" Deletado");
+            return redirect()->route('home')->with('warning', "Perfil \"$perfil->nome\" Deletado");
         return redirect()->route('perfis.show', $perfil)->with('warning', 'Não foi possível deletar esse perfil');
     }
 }

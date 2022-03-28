@@ -230,7 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Perfil' => App\Models\Perfil::class,
-
+        'Categorias' => App\Enums\Categorias::class,
     ],
 
     'perfil' => [

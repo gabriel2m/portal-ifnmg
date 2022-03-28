@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Perfil;
+use App\Enums\Categorias;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class SavePerfilRequest extends FormRequest
 {
@@ -39,7 +40,7 @@ class SavePerfilRequest extends FormRequest
             ],
             'categoria' => [
                 'required',
-                Rule::in(Perfil::categorias())
+                new Enum(Categorias::class)
             ],
             'descricao' => [
                 'required',
