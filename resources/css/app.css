@@ -1,7 +1,4 @@
-@import "tailwindcss/base";
-@import "./base";
-@import "tailwindcss/components";
-@import "./components";
-@import "tailwindcss/utilities";
-@import "./utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import "../icomoon/style.css";
