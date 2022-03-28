@@ -41,3 +41,26 @@ require('./bootstrap')
         })
     });
 }
+
+/**
+* Show on scroll
+*/
+{
+    const observer = new IntersectionObserver(
+        function (entries) {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting)
+                    setTimeout(function () {
+                        entry.target.classList.add("show");
+                    }, 600);
+            });
+        }
+    );
+
+    document
+        .querySelectorAll(".show-on-scroll")
+        .forEach(function (target) {
+            observer.observe(target);
+        });
+}
+
