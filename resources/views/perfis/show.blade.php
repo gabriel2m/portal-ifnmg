@@ -11,8 +11,8 @@ $pageTitle[] = $perfil->nome;
             <h2 class="text-violet-700 text-4xl">
                 {{ $perfil->nome }}
             </h2>
-            <span class="italic text-sm text-gray-500">
-                {{ $perfil->categoria_label }}
+            <span class="text-sm text-gray-500">
+                #{{ $perfil->categoria->label() }}
             </span>
             <p class="text-xl mt-6">
                 {{ $perfil->descricao }}

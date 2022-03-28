@@ -1,22 +1,20 @@
 @extends('layouts.main')
 
-@php
-$pageTitle = ["\"$query\"", Perfil::LABELS_CATEGORIAS[$categoria], 'Pesquisa Avançada'];
-@endphp
+@php($pageTitle = ["\"$query\"", $categoria->label(), 'Pesquisa Avançada'])
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        <h2 class="text-5xl text-blue-gray-800">
+        <h2 class="text-5xl">
             Resultados para "{{ $query }}":
         </h2>
         @include('utils.error', ['input' => 'categoria'])
         <div class="mt-4 mb-6 flex flex-wrap justify-between">
-            @foreach (Perfil::LABELS_CATEGORIAS as $id => $label)
-                <a href="{{ route(Route::currentRouteName(), ['query' => $query, 'categoria' => $id]) }}"
+            @foreach (Categorias::cases() as $case)
+                <a href="{{ route(Route::currentRouteName(), ['query' => $query, 'categoria' => $case->value]) }}"
                     class="text-lg underline px-2 pt-1
-                    {{ $id == $categoria ? 'bg-blue-500 text-white hover:bg-transparent hover:text-blue-gray-500' : 'text-blue-gray-700 hover:bg-blue-500 hover:text-white' }}
+                    {{ $case == $categoria ? 'bg-blue-500 text-white hover:bg-transparent hover:text-slate-500' : 'text-slate-700 hover:bg-blue-500 hover:text-white' }}
                     ">
-                    #{{ $label }}
+                    #{{ $case->label() }}
                 </a>
             @endforeach
         </div>

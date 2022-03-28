@@ -7,7 +7,9 @@ $showBanner = false;
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        @include('utils.content-title', ['contentTitle' => $perfil->exists ? 'Editar Perfil' : null])
+        @include('utils.content-title', [
+            'contentTitle' => $perfil->exists ? 'Editar Perfil' : null,
+        ])
         <form method="POST" enctype="multipart/form-data"
             action="{{ $perfil->exists ? route('perfis.update', $perfil) : route('perfis.store') }}" class="space-y-5"
             autocomplete="off">
@@ -38,8 +40,10 @@ $showBanner = false;
                 <select name="categoria"
                     class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-2 bg-white" required>
                     <option></option>
-                    @foreach (Perfil::LABELS_CATEGORIAS as $id => $categoria)
-                        <option value="{{ $id }}" @if ($perfil->categoria == $id) selected @endif>{{ $categoria }}</option>
+                    @foreach (Categorias::cases() as $categoria)
+                        <option value="{{ $categoria->value }}" @if (old('categoria', $perfil->categoria?->value) == $categoria->value) selected @endif>
+                            {{ $categoria->label() }}
+                        </option>
                     @endforeach
                 </select>
                 @include('utils.error', ['input' => 'categoria'])
@@ -48,9 +52,8 @@ $showBanner = false;
                 <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="descricao">
                     Descrição
                 </label>
-                <textarea name="descricao"
-                    class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3 text-sm" rows="10"
-                    required>{{ old('descricao', $perfil->descricao) }}</textarea>
+                <textarea name="descricao" class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3 text-sm"
+                    rows="10" required>{{ old('descricao', $perfil->descricao) }}</textarea>
                 @include('utils.error', ['input' => 'descricao'])
             </div>
 

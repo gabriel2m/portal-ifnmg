@@ -1,10 +1,10 @@
 @php
 $chevronClass = 'text-2xl leading-none';
-$disableClass = 'text-blue-gray-300';
-$linkClass = "hover:text-blue-gray-200";
+$disableClass = 'text-slate-400';
+$linkClass = "hover:text-slate-300";
 @endphp
 
-<div class="flex flex-col sm:flex-row justify-between text-blue-gray-600">
+<div class="flex flex-col sm:flex-row justify-between text-slate-600">
     <p class="text-sm font-semibold my-auto">
         Exibindo {{ $paginator->firstItem() }} - {{ $paginator->lastItem() }} de {{ $paginator->total() }}
     </p>

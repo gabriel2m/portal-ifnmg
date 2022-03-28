@@ -12,68 +12,60 @@
     <title>{{ implode(' | ', $pageTitle) }}</title>
     @include('layouts._icomoon-font-face')
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @yield('style')
 </head>
 
-<body class="flex flex-col min-h-screen bg-gray-50 text-blue-gray-800">
+<body class="flex flex-col min-h-screen bg-gray-50 text-slate-800">
     <header>
-        <nav class="py-1 bg-ifnmg-green-3 custom-row">
+        <nav class="py-1 bg-ifnmg-green-3 app-row">
             <ul class="max-w-screen-2xl mx-auto flex justify-between flex-wrap text-yellow-50">
                 @foreach ([
         [
             'label' => 'Home',
-            'route' => 'home',
+            'route' => ['home'],
         ],
-        [
-            'label' => 'Prestação de Serviços',
-            'route' => 'portfolio.prestacao-servicos',
-        ],
-        [
-            'label' => Perfil::LABELS_CATEGORIAS[Perfil::CATEGORIA_EMPRESAS_JUNIOR],
-            'route' => 'portfolio.empresas-junior',
-        ],
-        [
-            'label' => Perfil::LABELS_CATEGORIAS[Perfil::CATEGORIA_INCUBADORA_TECNOLOGICA],
-            'route' => 'portfolio.incubadora-tecnologica',
-        ],
-        [
-            'label' => Perfil::LABELS_CATEGORIAS[Perfil::CATEGORIA_INSTITUICOES_PARCEIRAS],
-            'route' => 'portfolio.instituicoes-parceiras',
-        ],
+        ...array_map(function ($categoria) {
+            return [
+                'label' => $categoria->label(),
+                'route' => ['categorias.show', ['slug' => $categoria->slug()]],
+            ];
+        }, Categorias::cases()),
         [
             'label' => 'Cadastrar Perfil',
-            'route' => 'perfis.create',
+            'route' => ['perfis.create'],
             'show' => Auth::check(),
         ],
         [
             'label' => 'Entre em Contato',
-            'route' => 'contact',
+            'route' => ['contact'],
             'show' => Auth::guest(),
         ],
         [
             'label' => 'Login',
-            'route' => 'login',
+            'route' => ['login'],
             'show' => Auth::guest(),
         ],
     ]
     as $item)
                     @if ($item['show'] ?? true)
                         <x-header-menu-item>
-                            <a href="{{ route($item['route']) }}"
-                                class="hover:text-gray-400">{{ $item['label'] }}</a>
+                            <a href="{{ route(...$item['route']) }}">
+                                {{ $item['label'] }}
+                            </a>
                         </x-header-menu-item>
                     @endif
                 @endforeach
                 @auth
                     <x-header-menu-item>
                         <div class="dropdown">
-                            <button class="dropdown-toggle hover:text-gray-400 flex">
+                            <button class="dropdown-toggle flex">
                                 Usuário
                                 <div class="leading-none ml-0.5">
                                     &#8964;
                                 </div>
                             </button>
                             <ul
-                                class="dropdown-menu absolute hidden bg-white text-blue-gray-800 rounded mt-1 border border-gray-400">
+                                class="dropdown-menu absolute hidden bg-white text-slate-800 rounded mt-1 border border-gray-400">
                                 <x-user-dropdown-item>
                                     <a href="{{ route('user-profile-information.update') }}"
                                         class="px-3">Editar</a>
@@ -91,33 +83,36 @@
             </ul>
         </nav>
         @if ($showBanner ?? true)
-            <div class="bg-ifnmg-green-1 custom-row">
+            <div class="bg-ifnmg-green-1 app-row">
                 <div class="max-w-screen-md mx-auto">
-                    <a class="md:flex pb-5 pt-10 hover:no-underline" href="{{ route('home') }}">
-                        <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg">
-                        <div class="text-white mt-auto ml-3">
-                            <h1 class="text-7xl">
-                                INPROS
-                            </h1>
-                            <h2 class="text-4xl">
-                                Inovação, Produtos e Serviços
-                            </h2>
-                        </div>
-                    </a>
+                    <div class="pb-5 pt-10">
+                        <a class="md:flex" href="{{ route('home') }}">
+                            <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg">
+                            <div class="text-white mt-auto ml-3">
+                                <h1 class="text-7xl">
+                                    INPROS
+                                </h1>
+                                <h2 class="text-4xl">
+                                    Inovação, Produtos e Serviços
+                                </h2>
+                            </div>
+                        </a>
+                    </div>
                     <form action="{{ route('perfis.advanced-search') }}" method="GET">
-                        @if (isset($categoria))
-                            <input type="hidden" name="categoria" value="{{ $categoria }}">
+                        @if (isset($categoriaSearch))
+                            <input type="hidden" name="categoria" value="{{ $categoriaSearch->value }}">
                         @endif
                         <div class="flex relative">
                             <input
                                 class="border border-gray-400 focus:outline-none focus:ring focus:ring-green-200 py-2 pl-3 pr-10 w-full"
                                 type="text" name="query" value="{{ old('query', $query ?? '') }}" required>
 
-                            <button type="submit" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700">
+                            <button type="submit" class="absolute right-3 top-2 text-gray-500 hover:text-gray-700">
                                 <i class="icon-search text-lg"></i>
                             </button>
                         </div>
                         @include('utils.error', ['input' => 'query', 'color' => 'text-white'])
+                        @include('utils.error', ['input' => 'categoria', 'color' => 'text-white'])
                     </form>
                     <div class="pb-1">
                         <a href="{{ route('perfis.advanced-search.about') }}"
@@ -178,12 +173,12 @@
         @endforeach
     </div>
 
-    <main class="pt-12 pb-16 custom-row">
+    <main class="pt-12 pb-16 app-row">
         @yield('content')
     </main>
 
     <footer class="mt-auto">
-        <div class="py-5 custom-row bg-ifnmg-green-3 flex justify-evenly flex-wrap">
+        <div class="py-3 app-row bg-ifnmg-green-3 flex justify-evenly flex-wrap">
             @foreach ([
         [
             'link' => 'https://www.youtube.com/user/IFNMGJanuaria',
@@ -208,13 +203,13 @@
     ]
     as $item)
                 <a href="{{ $item['link'] }}" target="_blank" rel="noopener noreferrer"
-                    class="text-white hover:text-green-300 relative m-2">
-                    <i class="{{ $item['icon'] }} text-2xl absolute"></i>
-                    <span class="ml-7">{{ $item['label'] }}</span>
+                    class="text-white hover:text-green-300 m-2 flex">
+                    <i class="{{ $item['icon'] }} text-2xl"></i>
+                    <span class="my-auto ml-1">{{ $item['label'] }}</span>
                 </a>
             @endforeach
         </div>
-        <div class="text-green-100 pt-9 pb-3 bg-ifnmg-green-2 custom-row">
+        <div class="text-green-100 pt-7 pb-3 bg-ifnmg-green-2 app-row">
             <div class="text-center text-sm mb-2">
                 Fazenda São Geraldo, S/N Km 06 - 39480-000 - Januária / MG
                 <br>
