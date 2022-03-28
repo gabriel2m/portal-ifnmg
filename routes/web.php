@@ -1,9 +1,10 @@
 <?php
 
+use App\Enums\Categorias;
 use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\PortfolioController;
+use App\Models\Perfil;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 /*
@@ -17,13 +18,41 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('', [PortfolioController::class, 'index'])->name('home');
-Route::name('portfolio.')
-    ->prefix('portfolio')
-    ->group(function () {
-        foreach (['prestacao-servicos', 'empresas-junior', 'incubadora-tecnologica', 'instituicoes-parceiras'] as $uri)
-            Route::get($uri, [PortfolioController::class, Str::camel($uri)])->name($uri);
-    });
+Route::get('', function () {
+    $perfis = [];
+    foreach (Categorias::cases() as $categoria)
+        $perfis[$categoria->name] = Perfil::orderBy('nome')->where('categoria', $categoria)->get();
+    return view('home', compact('perfis'));
+})->name('home');
+
+Route::get("categorias/{slug}", function (Request $request, string $slug) {
+    foreach (Categorias::cases() as $case)
+        if ($case->slug() == $slug)
+            $categoria = $case;
+
+    if (!isset($categoria))
+        return abort(404);
+
+    $filtro = null;
+    extract($request->validate([
+        'filtro' => [
+            'nullable',
+            'string',
+            'max:255',
+        ],
+    ]));
+
+    $perfis = Perfil::orderBy('nome')->where('categoria', $categoria);
+    if (isset($filtro))
+        $perfis->where(function (Builder $builder) use ($filtro) {
+            $builder
+                ->where('nome', 'like', "%$filtro%")
+                ->orWhere('descricao', 'like', "%$filtro%");
+        });
+    $perfis = $perfis->paginate()->withQueryString();
+
+    return view('categorias.show', compact('categoria', 'perfis', 'filtro'));
+})->name("categorias.show");
 
 Route::name('perfis.advanced-search')
     ->prefix('pesquisa-avancada')
