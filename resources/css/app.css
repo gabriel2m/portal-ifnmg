@@ -2,3 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 @import "../icomoon/style.css";
+
+body {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+.app-row {
+    @apply px-8;
+}
+
+.streched-link {
+    /* parent needs to have .relative */
+    @apply after:absolute after:inset-0;
+}
+
