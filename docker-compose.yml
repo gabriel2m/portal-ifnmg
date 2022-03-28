@@ -54,7 +54,7 @@ services:
                 soft: -1
                 hard: -1
         volumes:
-            - elasticsearch
+            - elasticsearch:/usr/share/elasticsearch/data
         networks:
             - app
 

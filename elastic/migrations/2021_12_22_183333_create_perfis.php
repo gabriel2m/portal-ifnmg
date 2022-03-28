@@ -11,7 +11,7 @@ final class CreatePerfis implements MigrationInterface
      */
     public function up(): void
     {
-        Index::create(Perfil::TABLE);
+        Index::createIfNotExists(Perfil::TABLE);
     }
 
     /**
