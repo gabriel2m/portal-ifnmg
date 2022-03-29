@@ -12,7 +12,7 @@ $pageTitle[] = 'Redefinir Senha';
             <label class="block mb-1 uppercase font-bold text-xs text-gray-700" for="email">
                 Email
             </label>
-            <input class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3" type="text" name="email"
+            <input class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3" type="email" name="email"
                 value="{{ old('email') }}" required autofocus>
             @include('utils.error', ['input' => 'email'])
         </div>

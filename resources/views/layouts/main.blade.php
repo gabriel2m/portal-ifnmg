@@ -37,7 +37,7 @@
         ],
         [
             'label' => 'Entre em Contato',
-            'route' => ['contact'],
+            'route' => ['contato.show'],
             'show' => Auth::guest(),
         ],
         [
@@ -221,9 +221,9 @@
             </div>
             <div class="flex justify-between flex-wrap">
                 <div class="my-3 sm:my-0">
-                    Qual a sua demanda?
-                    <a href="{{ route('contact') }}" class="hover:text-white">
-                        <span class="underline">Entre em contato aqui</span>
+                    Qual é sua demanda?
+                    <a href="{{ route('contato.show') }}" class="hover:text-white">
+                        <span class="underline">Clique aqui e entre em contato</span>
                         <i class="icon-pencil2"></i>
                     </a>
                 </div>
