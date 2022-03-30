@@ -98,7 +98,7 @@
                             </div>
                         </a>
                     </div>
-                    <form action="{{ route('perfis.advanced-search') }}" method="GET">
+                    <form action="{{ route('perfis.pesquisa-avancada.show') }}" method="GET">
                         @if (isset($categoriaSearch))
                             <input type="hidden" name="categoria" value="{{ $categoriaSearch->value }}">
                         @endif

@@ -58,19 +58,10 @@ Route::get("categorias/{slug}", function (Request $request, string $slug) {
     return view('categorias.show', compact('categoria', 'perfis', 'filtro'));
 })->name("categorias.show");
 
-Route::name('perfis.advanced-search')
+Route::name('perfis.pesquisa-avancada.')
     ->prefix('pesquisa-avancada')
     ->group(function () {
-        Route::get('', PerfilController::class . '@advancedSearch');
-        Route::get('sobre', function () {
-            return '
-                TODO: Página explicando a pesquisa avançada. 
-                Baseada em: 
-                <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html">
-                    https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html
-                </a>
-            ';
-        })->name('.about');
+        Route::get('', PerfilController::class . '@advancedSearch')->name('show');
     });
 
 Route::resource('perfis', PerfilController::class)

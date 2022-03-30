@@ -44,7 +44,7 @@ class PerfilController extends Controller
 
         $categoria = Categorias::from($categoria);
 
-        return view('perfis.advanced-search', compact('perfis', 'query', 'categoria'));
+        return view('perfis.pesquisa-avancada.show', compact('perfis', 'query', 'categoria'));
     }
 
     /**

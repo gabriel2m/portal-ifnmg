@@ -4,9 +4,9 @@
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
-        <h2 class="text-5xl">
-            Resultados para "{{ $query }}":
-        </h2>
+        @include('utils.content-title', [
+            'contentTitle' => "Resultados para \"$query\":"
+        ])
         @include('utils.error', ['input' => 'categoria'])
         <div class="mt-4 mb-6 flex flex-wrap justify-between">
             @foreach (Categorias::cases() as $case)
