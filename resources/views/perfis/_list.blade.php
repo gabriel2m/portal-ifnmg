@@ -27,7 +27,7 @@
             Nenhum perfil encontrado.
             @if ($search ?? ($advancedSearch ?? false))
                 Talvez encontre o que procura realizando uma nova
-                <a href="{{ route('perfis.advanced-search.about') }}"
+                <a href="{{ route('perfis.pesquisa-avancada.about') }}"
                     class="text-blue-900 hover:text-gray-400 underline">
                     Pesquisa Avançada
                 </a>

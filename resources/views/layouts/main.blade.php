@@ -115,7 +115,7 @@
                         @include('utils.error', ['input' => 'categoria', 'color' => 'text-white'])
                     </form>
                     <div class="pb-1">
-                        <a href="{{ route('perfis.advanced-search.about') }}"
+                        <a href="{{ route('perfis.pesquisa-avancada.about') }}"
                             class="text-white hover:text-green-300 underline text-sm">
                             saiba mais sobre a pesquisa avançada
                         </a>

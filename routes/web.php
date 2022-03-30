@@ -62,6 +62,8 @@ Route::name('perfis.pesquisa-avancada.')
     ->prefix('pesquisa-avancada')
     ->group(function () {
         Route::get('', PerfilController::class . '@advancedSearch')->name('show');
+
+        Route::view('sobre', 'perfis.pesquisa-avancada.about')->name('about');
     });
 
 Route::resource('perfis', PerfilController::class)

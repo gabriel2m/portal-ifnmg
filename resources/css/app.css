@@ -69,3 +69,8 @@ h6 {
     @apply text-xl;
 }
 
+.table-1 td,
+.table-1 th
+{
+    @apply border-b border-slate-100 px-5 pb-2 pt-4 text-left;
+}
