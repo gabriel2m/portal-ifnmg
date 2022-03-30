@@ -12,7 +12,7 @@
 @section('content')
     @foreach (Categorias::cases() as $categoria)
         <div class="categoria-carousel">
-            <h3 class="text-center text-4xl mb-4 mt-6">{{ $categoria->label() }}</h3>
+            <h3 class="text-center mb-4 mt-6">{{ $categoria->label() }}</h3>
             <div class="show-on-scroll flex mx-auto max-w-screen-2xl carousel">
                 <button class="text-5xl my-auto self-start prev">&lsaquo;</button>
                 <div class="overflow-hidden mx-3">
@@ -23,7 +23,7 @@
                                     <a href="{{ route('perfis.show', $perfil) }}" class="streched-link">
                                         <img src="{{ $perfil->imagem_url }}" alt="{{ $perfil->nome }}"
                                             class="mx-auto mb-3 w-52 h-52">
-                                        <h5 class="text-violet-700 text-2xl mb-2">
+                                        <h5 class="text-violet-700 mb-2">
                                             {{ $perfil->nome }}
                                         </h5>
                                         <p class="text-justify">

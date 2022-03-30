@@ -6,9 +6,9 @@ $categoriaSearch = $categoria;
 @endphp
 @section('content')
     <div class="max-w-screen-lg mx-auto">
-        <h2 class="text-4xl border-b border-gray-500 pb-0.5 uppercase">
+        <h3 class="border-b border-gray-500 pb-0.5 uppercase">
             {{ $categoria->label() }}
-        </h2>
+        </h3>
         <div class="py-4 px-5 bg-green-200 my-1">
             {{ $categoria->descricao() }}
         </div>

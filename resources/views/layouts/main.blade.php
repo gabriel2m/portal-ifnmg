@@ -92,9 +92,9 @@
                                 <h1 class="text-7xl">
                                     INPROS
                                 </h1>
-                                <h2 class="text-4xl">
+                                <h3>
                                     Inovação, Produtos e Serviços
-                                </h2>
+                                </h3>
                             </div>
                         </a>
                     </div>

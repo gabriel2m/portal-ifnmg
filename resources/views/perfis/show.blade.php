@@ -8,9 +8,9 @@ $pageTitle[] = $perfil->nome;
     <div class="mx-auto max-w-screen-lg">
         <div class="overflow-auto">
             <img src="{{ $perfil->imagem_url }}" alt="{{ $perfil->nome }}" class="float-left mr-6 my-2 w-52 h-52">
-            <h2 class="text-violet-700 text-4xl">
+            <h3 class="text-violet-700">
                 {{ $perfil->nome }}
-            </h2>
+            </h3>
             <span class="text-sm text-gray-500">
                 #{{ $perfil->categoria->label() }}
             </span>

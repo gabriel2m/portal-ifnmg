@@ -9,7 +9,7 @@
             <a href="{{ route('perfis.show', $perfil) }}" class="streched-link">
                     <img src="{{ $perfil->imagem_url }}" alt="{{ $perfil->nome }}"
                         class="float-left mr-5 my-1.5 w-32 h-32">
-                    <h5 class="text-violet-700 text-2xl mb-2">
+                    <h5 class="text-violet-700 mb-2">
                         {{ $perfil->nome }}
                     </h5>
                     <p>
