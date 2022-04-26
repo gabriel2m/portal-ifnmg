@@ -6,9 +6,7 @@ use App\Http\Requests\SavePerfilRequest;
 use App\Enums\Categorias;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Enum;
-use RuntimeException;
 
 class PerfilController extends Controller
 {
@@ -111,30 +109,9 @@ class PerfilController extends Controller
      */
     protected function save(SavePerfilRequest $request, Perfil $perfil)
     {
-        $oldImg = $perfil->imagem;
         $perfil->fill($request->validated());
-        $saveImg = $perfil->imagem !== $oldImg;
-        throw_if(
-            $saveImg && !tap(
-                $request->file('imagem')->storePublicly(
-                    config('app.perfil.imagem.dir'),
-                    config('app.perfil.imagem.disk')
-                ),
-                function ($stored) use ($perfil) {
-                    $perfil->imagem = $stored;
-                }
-            ),
-            new RuntimeException("Não foi possível salvar Perfil->imagem")
-        );
-        if ($perfil->save()) {
-            if (
-                isset($oldImg)
-                && $saveImg
-                && !Storage::disk(config('app.perfil.imagem.disk'))->delete($oldImg)
-            )
-                throw new RuntimeException("Não foi possível deletar $oldImg");
+        if ($perfil->save())
             return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
-        }
         return back()->with('warning', 'Não foi possível salvar');
     }
 
