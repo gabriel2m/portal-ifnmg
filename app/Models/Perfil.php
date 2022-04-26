@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Categorias;
+use App\Facades\DB;
 use Carbon\Carbon;
 use ElasticScoutDriverPlus\QueryDsl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -84,6 +85,13 @@ class Perfil extends Model
                 $this->deleteImagem($this->imagem);
         }
         return $saved;
+    }
+
+    public function delete()
+    {
+        return DB::onTrueTransaction(function () {
+            return parent::delete() && $this->deleteImagem($this->imagem);
+        });
     }
 
     public static function deleteImagem($path)
