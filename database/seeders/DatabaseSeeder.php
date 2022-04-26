@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Perfil;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,8 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Storage::disk(config('app.perfil.imagem.disk'))->deleteDirectory(config('app.perfil.imagem.dir'));
+        Perfil::imagemDisk()->deleteDirectory(config('app.perfil.imagem.dir'));
         Perfil::removeAllFromSearch();
+        Perfil::query()->delete();
         $this->call([UserSeeder::class, PerfilSeeder::class]);
     }
 }
