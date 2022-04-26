@@ -52,7 +52,7 @@ require('./bootstrap')
                 if (entry.isIntersecting)
                     setTimeout(function () {
                         entry.target.classList.add("show");
-                    }, 600);
+                    }, 700);
             });
         }
     );
@@ -81,7 +81,7 @@ require('./bootstrap')
         }))
     document
         .querySelectorAll('.carousel .next')
-        .forEach(prev => prev.addEventListener('click', function () {
+        .forEach(next => next.addEventListener('click', function () {
             const slides = this
                 .closest(".carousel")
                 .querySelector(".slides")
