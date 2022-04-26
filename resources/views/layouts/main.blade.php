@@ -12,7 +12,7 @@
     <title>{{ implode(' | ', $pageTitle) }}</title>
     @include('layouts._icomoon-font-face')
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    @yield('style')
+    @yield('extra-css')
 </head>
 
 <body class="flex flex-col min-h-screen bg-gray-50 text-slate-800">
@@ -239,6 +239,7 @@
     </footer>
 
     <script src="{{ mix('js/app.js') }}"></script>
+    @yield('extra-js')
 </body>
 
 </html>

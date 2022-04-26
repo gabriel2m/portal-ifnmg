@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
-@php($pageTitle = ["\"$query\"", $categoria->label(), 'Pesquisa Avançada'])
+@php
+$pageTitle = ["\"$query\"", $categoria->label(), 'Pesquisa Avançada'];
+$categoriaSearch = $categoria;
+@endphp
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">
