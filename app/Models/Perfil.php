@@ -18,6 +18,7 @@ use RuntimeException;
  * @property string $nome
  * @property UploadedFile|string $imagem
  * @property-read string $imagem_url
+ * @property-read string $link
  * @property int $categoria
  * @property string $descricao
  * @property Carbon $created_at
@@ -31,11 +32,25 @@ class Perfil extends Model
         'categoria' => Categorias::class,
     ];
 
+    protected $visible = [
+        'id',
+        'nome',
+        'categoria',
+        'descricao',
+        'imagem_url',
+        'link'
+    ];
+
+    protected $appends = [
+        'imagem_url',
+        'link'
+    ];
+
     public const TABLE = 'perfis';
 
     protected $table = SELF::TABLE;
 
-    public const PER_PAGE = 3;
+    public const PER_PAGE = 10;
 
     protected $perPage = SELF::PER_PAGE;
 
@@ -61,6 +76,11 @@ class Perfil extends Model
     {
         static $disk;
         return $disk ??= Storage::disk(config('app.perfil.imagem.disk'));
+    }
+
+    public function getLinkAttribute()
+    {
+        return route('perfis.show', $this);
     }
 
     public function save(array $options = [])
