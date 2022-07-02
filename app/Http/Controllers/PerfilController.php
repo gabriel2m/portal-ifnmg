@@ -8,8 +8,12 @@ use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 
-class PerfilController extends Controller
+class PerfilController extends ResourceController
 {
+    protected string $name = 'perfis';
+
+    protected string $parameter = 'perfil';
+
     public function __construct()
     {
         $this->middleware('auth')->except(['advancedSearch', 'show']);
@@ -18,6 +22,7 @@ class PerfilController extends Controller
     /**
      * Execute a search and display the listing of results.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function advancedSearch(Request $request)
@@ -52,11 +57,14 @@ class PerfilController extends Controller
      */
     public function create()
     {
-        return $this->keep(new Perfil);
+        return $this->form(new Perfil);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\SavePerfilRequest  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(SavePerfilRequest $request)
     {
@@ -66,11 +74,10 @@ class PerfilController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Perfil $perfil)
+    public function show(Perfil $perfil)
     {
         return view('perfis.show', compact('perfil'));
     }
@@ -83,11 +90,15 @@ class PerfilController extends Controller
      */
     public function edit(Perfil $perfil)
     {
-        return $this->keep($perfil);
+        return $this->form($perfil);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\SavePerfilRequest  $request
+     * @param  \App\Models\Perfil  $perfil
+     * @return \Illuminate\Http\Response
      */
     public function update(SavePerfilRequest $request, Perfil $perfil)
     {
@@ -95,36 +106,15 @@ class PerfilController extends Controller
     }
 
     /**
-     * Show the form for manipulate a perfil.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    protected function keep(Perfil $perfil)
-    {
-        return view('perfis.keep', compact('perfil'));
-    }
-
-    /**
-     * Store or Update the specified resource in storage.
-     */
-    protected function save(SavePerfilRequest $request, Perfil $perfil)
-    {
-        $perfil->fill($request->validated());
-        if ($perfil->save())
-            return redirect()->route('perfis.show', $perfil)->with('success', 'Perfil Salvo');
-        return back()->with('warning', 'Não foi possível salvar');
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Perfil  $perfil
+     * @param  \App\Models\Setor  $setor
      * @return \Illuminate\Http\Response
      */
     public function destroy(Perfil $perfil)
     {
         if ($perfil->delete())
-            return redirect()->route('home')->with('warning', "Perfil \"$perfil->nome\" Deletado");
-        return redirect()->route('perfis.show', $perfil)->with('warning', 'Não foi possível deletar esse perfil');
+            return redirect()->home()->with('warning', "Perfil \"$perfil->nome\" Deletado");
+        return redirect()->route("{$this->name}.show", $perfil)->with('danger', 'Não foi possível deletar esse perfil');
     }
 }
