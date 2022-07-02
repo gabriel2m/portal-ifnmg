@@ -1,11 +1,13 @@
 <?php
 
 use App\Enums\Categorias;
+use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\SetorController;
+use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\PerfilController;
 use App\Models\Perfil;
 use App\Models\User;
 use App\Notifications\Contato;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -22,12 +24,7 @@ use Illuminate\Support\Facades\Notification;
 |
 */
 
-Route::get('', function () {
-    $perfis = [];
-    foreach (Categorias::cases() as $categoria)
-        $perfis[$categoria->name] = Perfil::orderBy('nome')->where('categoria', $categoria)->get();
-    return view('home', compact('perfis'));
-})->name('home');
+Route::view('', 'home')->name('home');
 
 Route::get("categorias/{slug}", function (Request $request, string $slug) {
     foreach (Categorias::cases() as $case)
@@ -35,7 +32,7 @@ Route::get("categorias/{slug}", function (Request $request, string $slug) {
             $categoria = $case;
 
     if (!isset($categoria))
-        return abort(404);
+        return abort(404, __('not_found', ['target' => 'Categoria']));
 
     $filtro = null;
     extract($request->validate([
@@ -75,29 +72,32 @@ Route::name('contato.')
         Route::view('contato', 'contato.show')->name('show');
 
         Route::post('contato', function (Request $request) {
-            Notification::send(User::all(), new Contato($request->validate([
-                'nome' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
-                'email' => [
-                    'required',
-                    'string',
-                    'max:255',
-                    'email',
-                ],
-                'assunto' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
-                'mensagem' => [
-                    'required',
-                    'string',
-                    'max:1000',
-                ],
-            ])));
-            return redirect(RouteServiceProvider::HOME)->with('success', 'Mensagem Enviada.');
+            Notification::send(
+                User::all(),
+                new Contato($request->validate([
+                    'nome' => [
+                        'required',
+                        'string',
+                        'max:255',
+                    ],
+                    'email' => [
+                        'required',
+                        'string',
+                        'max:255',
+                        'email',
+                    ],
+                    'assunto' => [
+                        'required',
+                        'string',
+                        'max:255',
+                    ],
+                    'mensagem' => [
+                        'required',
+                        'string',
+                        'max:1000',
+                    ],
+                ]))
+            );
+            return redirect()->home()->with('success', 'Mensagem Enviada.');
         })->name('send');
     });
