@@ -10,10 +10,6 @@
         "prod": "npm run production",
         "production": "mix --production"
     },
-    "devDependencies": {
-        "browser-sync": "^2.27.4",
-        "browser-sync-webpack-plugin": "^2.3.0"
-    },
     "dependencies": {
         "autoprefixer": "^10.4.4",
         "axios": "^0.26.1",
