@@ -69,8 +69,36 @@ h6 {
     @apply text-xl;
 }
 
-.table-1 td,
-.table-1 th
-{
-    @apply border-b border-slate-100 px-5 pb-2 pt-4 text-left;
+.table-primary td,
+.table-primary th {
+    @apply border border-slate-300 px-5 pb-2 pt-4;
+}
+
+.label-primary {
+    @apply uppercase font-bold text-xs text-gray-700;
+}
+
+.input-primary {
+    @apply w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3;
+}
+
+select.input-primary {
+    @apply px-2;
+}
+
+[type="file"].input-primary,
+select.input-primary {
+    @apply bg-white;
+}
+
+.button-primary {
+    @apply bg-blue-500 text-white uppercase font-semibold text-xs py-1.5 px-10 rounded-2xl hover:bg-blue-600;
+}
+
+.form-footer-primary {
+    @apply flex justify-between pt-5 px-3 border-t border-gray-200;
+}
+
+.form-primary {
+    @apply space-y-5;
 }

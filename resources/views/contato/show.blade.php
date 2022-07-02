@@ -8,46 +8,40 @@ $showBanner = false;
 @section('content')
     <div class="mx-auto max-w-screen-lg">
         @include('utils.content-title')
-        <form method="POST" action="{{ route('contato.send') }}" class="space-y-5">
+        <form method="POST" action="{{ route('contato.send') }}" class="form-primary">
             @csrf
             <div>
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="nome">
+                <label class="label-primary" for="nome">
                     Seu Nome
                 </label>
-                <input type="text" name="nome" class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3"
-                    value="{{ old('nome') }}" required>
+                <input type="text" name="nome" class="input-primary" value="{{ old('nome') }}" required>
                 @include('utils.error', ['input' => 'nome'])
             </div>
             <div>
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email">
+                <label class="label-primary" for="email">
                     Seu Email
                 </label>
-                <input type="email" name="email"
-                    class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3"
-                    value="{{ old('email') }}" required val>
+                <input type="email" name="email" class="input-primary" value="{{ old('email') }}" required>
                 @include('utils.error', ['input' => 'email'])
             </div>
             <div>
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="assunto">
+                <label class="label-primary" for="assunto">
                     Assunto
                 </label>
-                <input type="text" name="assunto"
-                    class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3"
-                    value="{{ old('assunto') }}" required>
+                <input type="text" name="assunto" class="input-primary" value="{{ old('assunto') }}" required>
                 @include('utils.error', ['input' => 'assunto'])
             </div>
             <div>
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email">
+                <label class="label-primary" for="mensagem">
                     Mensagem
                 </label>
-                <textarea name="mensagem" rows="10" class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3"
-                    required>{{ old('mensagem') }}</textarea>
+                <textarea name="mensagem" rows="10" class="input-primary" required>{{ old('mensagem') }}</textarea>
                 @include('utils.error', ['input' => 'mensagem'])
             </div>
-            <div class="pt-5 px-3 border-t border-gray-200">
-                <x-primary-button>
+            <div class="form-footer-primary">
+                <button type="submit" class="button-primary">
                     Enviar
-                </x-primary-button>
+                </button>
             </div>
         </form>
     </div>

@@ -8,7 +8,7 @@ $categoriaSearch = $categoria;
 @section('content')
     <div class="mx-auto max-w-screen-lg">
         @include('utils.content-title', [
-            'contentTitle' => "Resultados para \"$query\":"
+            'text' => "Resultados para \"$query\":"
         ])
         @include('utils.error', ['input' => 'categoria'])
         <div class="mt-4 mb-6 flex flex-wrap justify-between">

@@ -4,6 +4,7 @@
 $pageTitle = array_filter([isset($filtro) ? "\"$filtro\"" : false, $categoria->label()]);
 $categoriaSearch = $categoria;
 @endphp
+
 @section('content')
     <div class="max-w-screen-lg mx-auto">
         <h3 class="border-b border-gray-500 pb-0.5 uppercase">
@@ -14,8 +15,7 @@ $categoriaSearch = $categoria;
         </div>
         <form action="{{ route(Route::currentRouteName(), ['slug' => $categoria->slug()]) }}" method="GET">
             <div class="flex">
-                <input class="w-full border border-gray-400 focus:outline-none focus:ring-2 py-2 px-3" type="text"
-                    name="filtro" value="{{ old('filtro', $filtro) }}">
+                <input class="input-primary" type="text" name="filtro" value="{{ old('filtro', $filtro) }}">
 
                 <button type="submit" class="px-4 border border-gray-400 text-slate-700 hover:bg-slate-600 hover:text-white">
                     Filtrar

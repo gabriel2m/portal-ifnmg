@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
-@php
-$showBanner = false;
-@endphp
+@php($showBanner = false)
 
 @section('content')
     <div class="mx-auto max-w-screen-lg">

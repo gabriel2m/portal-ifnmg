@@ -1,11 +1,10 @@
 @extends('layouts.main')
 
-@section('extra-css')
+@section('head')
     <style>
         .categoria-carousel+.categoria-carousel {
             margin-top: 5rem;
         }
-
     </style>
 @endsection
 

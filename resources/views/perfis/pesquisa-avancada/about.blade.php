@@ -16,7 +16,7 @@
         <p>
             Os seguintes operadores são suportados:
         </p>
-        <table class="table-auto bg-white text-slate-700 table-1">
+        <table class="table-auto bg-white text-slate-700 table-primary">
             <thead>
                 <tr>
                     <th>
@@ -102,8 +102,8 @@
                         ~N
                     </td>
                     <td>
-                        após uma palavra significa distância de correção (fuzzi),
-                        sendo N um numero inteiro
+                        após uma palavra significa o número de caracteres que podem ser corrigidos (fuzzi),
+                        sendo N um número inteiro
                     </td>
                     <td>
                         Januriá~2

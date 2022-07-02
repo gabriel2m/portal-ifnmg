@@ -9,18 +9,17 @@ $pageTitle[] = 'Redefinir Senha';
         @csrf
 
         <div>
-            <label class="block mb-1 uppercase font-bold text-xs text-gray-700" for="email">
+            <label class="label-primary" for="email">
                 Email
             </label>
-            <input class="w-full border border-gray-400 focus:outline-none focus:ring py-2 px-3" type="email" name="email"
-                value="{{ old('email') }}" required autofocus>
+            <input class="input-primary" type="email" name="email" value="{{ old('email') }}" required autofocus>
             @include('utils.error', ['input' => 'email'])
         </div>
 
-        <div class="flex justify-between mt-4 pt-4 px-3 border-t border-gray-200">
-            <x-primary-button>
+        <div class="form-footer-primary">
+            <button type="submit" class="button-primary">
                 Enviar Link
-            </x-primary-button>
+            </button>
         </div>
     </form>
 @endsection

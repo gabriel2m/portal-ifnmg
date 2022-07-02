@@ -13,8 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-right:before {
-  content: "\e904";
+.icon-edit:before {
+  content: "\e991";
+}
+.icon-see:before {
+  content: "\e9ce";
+}
+.icon-plus:before {
+  content: "\ea0a";
 }
 .icon-search:before {
   content: "\e903";
@@ -31,7 +37,7 @@
 .icon-blog:before {
   content: "\e909";
 }
-.icon-facebook2:before {
+.icon-facebook:before {
   content: "\ea91";
 }
 .icon-instagram:before {
@@ -40,7 +46,7 @@
 .icon-youtube:before {
   content: "\ea9d";
 }
-.icon-pencil2:before {
+.icon-pencil:before {
   content: "\e906";
 }
 .icon-info:before {

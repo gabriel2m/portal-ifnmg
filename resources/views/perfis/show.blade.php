@@ -19,17 +19,15 @@ $pageTitle[] = $perfil->nome;
             </p>
         </div>
         @auth
-            <div class="flex justify-between mt-12 pt-6 px-3 border-t border-gray-200">
-                <a href="{{ route('perfis.edit', $perfil) }}">
-                    <x-primary-button>
-                        Editar
-                    </x-primary-button>
+            <div class="form-footer-primary mt-12">
+                <a href="{{ route('perfis.edit', $perfil) }}" class="button-primary">
+                    Editar
                 </a>
                 <form action="{{ route('perfis.destroy', $perfil) }}" method="POST"
                     onsubmit="return confirm('Desja realmente deletar esse perfil?')">
                     @csrf
-                    @method("DELETE")
-                    <button type="submit" class="text-gray-500 hover:text-gray-700 underline">Deletar</button>
+                    @method('DELETE')
+                    <button type="submit" class="text-red-500 hover:text-gray-400 underline">Deletar</button>
                 </form>
             </div>
         @endauth

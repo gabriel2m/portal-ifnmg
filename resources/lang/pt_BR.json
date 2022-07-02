@@ -78,5 +78,9 @@
     "Manage Account": "Gerenciar Conta",
     "profile-information-updated": "Usuário Atualizado!",
     "password-updated": "Senha Atualizada!",
-    "The provided password was incorrect.": "Senha incorreta."
+    "The provided password was incorrect.": "Senha incorreta.",
+    "Error": "Erro",
+    "not_found": ":target Não Encontrado(a)",
+    "This action is unauthorized.": "Ação não autorizada.",
+    "Method Not Allowed": "Método Não Permitido"
 }

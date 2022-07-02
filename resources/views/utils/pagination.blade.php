@@ -5,7 +5,7 @@ $linkClass = "hover:text-slate-300";
 @endphp
 
 <div class="flex flex-col sm:flex-row justify-between text-slate-600">
-    <p class="text-sm font-semibold my-auto">
+    <p class="text-sm font-semibold my-auto italic">
         Exibindo {{ $paginator->firstItem() }} - {{ $paginator->lastItem() }} de {{ $paginator->total() }}
     </p>
 
