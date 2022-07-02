@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Perfil;
 use ElasticMigrations\Facades\Index;
 use ElasticMigrations\MigrationInterface;
 
@@ -11,7 +10,7 @@ final class CreatePerfis implements MigrationInterface
      */
     public function up(): void
     {
-        Index::createIfNotExists(Perfil::TABLE);
+        Index::createIfNotExists('perfis');
     }
 
     /**
@@ -19,6 +18,6 @@ final class CreatePerfis implements MigrationInterface
      */
     public function down(): void
     {
-        Index::drop(Perfil::TABLE);
+        Index::drop('perfis');
     }
 }

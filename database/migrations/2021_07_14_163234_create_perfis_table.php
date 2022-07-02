@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Perfil;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +13,11 @@ class CreatePerfisTable extends Migration
      */
     public function up()
     {
-        Schema::create(Perfil::TABLE, function (Blueprint $table) {
+        Schema::create('perfis', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
             $table->string('imagem')->nullable();
-            $table->smallInteger('categoria');
+            $table->smallInteger('categoria')->index();
             $table->text('descricao');
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class CreatePerfisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Perfil::TABLE);
+        Schema::dropIfExists('perfis');
     }
 }

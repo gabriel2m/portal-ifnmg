@@ -19,14 +19,14 @@ class PerfilController extends Controller
      */
     public function index(Request $request)
     {
-        extract($request->validate([
-            'categoria' => [
-                new Enum(Categorias::class)
-            ]
-        ]));
-
         return new AnonymousResourceCollection(
-            Perfil::where(['categoria' => $categoria])->paginate(),
+            Perfil::where(
+                $request->validate([
+                    'categoria' => [
+                        new Enum(Categorias::class)
+                    ]
+                ])
+            )->paginate(),
             JsonResource::class
         );
     }

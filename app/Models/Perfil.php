@@ -19,7 +19,7 @@ use RuntimeException;
  * @property UploadedFile|string $imagem
  * @property-read string $imagem_url
  * @property-read string $link
- * @property int $categoria
+ * @property Categorias $categoria
  * @property string $descricao
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -31,6 +31,8 @@ class Perfil extends Model
     protected $casts = [
         'categoria' => Categorias::class,
     ];
+
+    protected $guarded = [];
 
     protected $visible = [
         'id',
@@ -46,15 +48,11 @@ class Perfil extends Model
         'link'
     ];
 
-    public const TABLE = 'perfis';
-
-    protected $table = SELF::TABLE;
+    protected $table = 'perfis';
 
     public const PER_PAGE = 10;
 
     protected $perPage = SELF::PER_PAGE;
-
-    protected static $unguarded = true;
 
     public function toSearchableArray(): array
     {
@@ -86,7 +84,7 @@ class Perfil extends Model
     public function save(array $options = [])
     {
         $originalImagem = $this->getOriginal('imagem');
-        $saveImagem = is_a($this->imagem, UploadedFile::class);
+        $saveImagem = $this->imagem instanceof UploadedFile;
         if (
             $saveImagem
             && !$this->imagem = $this->imagem->storePublicly(
