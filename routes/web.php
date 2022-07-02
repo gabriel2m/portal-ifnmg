@@ -108,4 +108,6 @@ Route::name('admin.')
     ->group(function () {
         Route::view('', 'admin.home')
             ->name('home');
+        Route::resource('unidades', UnidadeController::class)
+            ->except('show');
     });
