@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +39,16 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    protected function prepareException(Throwable $e)
+    {
+        if ($e instanceof ModelNotFoundException)
+            return new NotFoundHttpException(
+                __('not_found', ['target' => class_basename($e->getModel())]),
+                $e
+            );
+
+        return parent::prepareException($e);
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.error')
 
-@section('title', __('Forbidden'))
+@php($pageTitle[] = __('Forbidden'))
 @section('code', '403')
-@section('message', __($exception->getMessage() ?? 'Forbidden'))
+@section('message', __($exception->getMessage() ?: 'Forbidden'))

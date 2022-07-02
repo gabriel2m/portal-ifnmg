@@ -1,5 +1,5 @@
 @extends('layouts.error')
 
-@section('title', __('Server Error'))
+@php($pageTitle[] = __('Server Error'))
 @section('code', '500')
 @section('message', __('Server Error'))
