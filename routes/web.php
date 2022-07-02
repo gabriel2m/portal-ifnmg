@@ -110,4 +110,9 @@ Route::name('admin.')
             ->name('home');
         Route::resource('unidades', UnidadeController::class)
             ->except('show');
+        Route::resource('setores', SetorController::class)
+            ->parameters(['setores' => 'setor'])
+            ->except('show');
+        Route::resource('itens', ItemController::class)
+            ->parameters(['itens' => 'item']);
     });
