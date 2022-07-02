@@ -101,3 +101,11 @@ Route::name('contato.')
             return redirect()->home()->with('success', 'Mensagem Enviada.');
         })->name('send');
     });
+
+Route::name('admin.')
+    ->prefix('admin')
+    ->middleware('auth')
+    ->group(function () {
+        Route::view('', 'admin.home')
+            ->name('home');
+    });
