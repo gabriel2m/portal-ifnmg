@@ -238,7 +238,7 @@ return [
     'perfil' => [
         'imagem' => [
             'disk' => env('PERFIL_IMAGEM_DISK'),
-            'dir' => env('PERFIL_IMAGEM_DIR'),
+            'dir' => env('PERFIL_IMAGEM_DIR', 'img'),
             'default_url' => env('PERFIL_IMAGEM_DEFAULT_URL'),
         ]
     ],
