@@ -2,7 +2,7 @@
 
 @section('header')
     <header>
-        <nav class="py-1 bg-ifnmg-green-3 app-row">
+        <nav class="py-1 bg-ifnmg-green-2 app-row">
             <ul class="max-w-screen-2xl mx-auto flex justify-between flex-wrap text-yellow-50">
                 @foreach ([
             [
@@ -97,14 +97,14 @@
                 <div class="max-w-screen-md mx-auto">
                     <div class="pb-5 pt-10">
                         <a class="md:flex" href="{{ route('home') }}">
-                            <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg">
+                            <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg" width="170">
                             <div class="text-white mt-auto ml-3">
-                                <h1 class="text-7xl">
+                                <h1 class="text-6xl">
                                     {{ config('app.name') }}
                                 </h1>
-                                <h3>
-                                    Serviços, Inovação, Produtos
-                                </h3>
+                                <h4>
+                                    Serviços, Inovação e Produtos
+                                </h4>
                             </div>
                         </a>
                     </div>
