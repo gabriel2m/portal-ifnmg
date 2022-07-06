@@ -21,7 +21,7 @@ $pageTitle[] = 'Redefinir Senha';
         </div>
 
         <div>
-            <label class="label-primary" for="password">
+            <label class="label-primary" for="password_confirmation">
                 Confirmar
             </label>
             <input class="input-primary" type="password" name="password_confirmation" required>

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\PerfilController;
 use App\Models\Perfil;
 use App\Models\User;
-use App\Notifications\Contato;
+use App\Notifications\ContatoNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -74,7 +74,7 @@ Route::name('contato.')
         Route::post('contato', function (Request $request) {
             Notification::send(
                 User::all(),
-                new Contato($request->validate([
+                new ContatoNotification($request->validate([
                     'nome' => [
                         'required',
                         'string',
