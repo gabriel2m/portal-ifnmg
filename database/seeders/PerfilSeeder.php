@@ -14,6 +14,6 @@ class PerfilSeeder extends Seeder
      */
     public function run()
     {
-        Perfil::factory(20)->create();
+        Perfil::factory(50)->create();
     }
 }
