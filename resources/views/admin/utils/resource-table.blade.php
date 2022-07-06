@@ -30,7 +30,11 @@
         @forelse ($models as $model)
             <tr class="text-center">
                 @foreach (array_keys($attrs) as $index => $attr)
-                    <td @class(['text-left', 'font-bold' => $index == 0])>
+                    <td @class([
+                        'text-left',
+                        'font-bold' => $index == 0,
+                        'whitespace-nowrap' => $index == 0,
+                    ])>
                         {{ $model->$attr }}
                     </td>
                 @endforeach
