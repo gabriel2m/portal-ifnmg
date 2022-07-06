@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api\Perfis;
 use Tests\TestCase;
 
-class HomeTest extends TestCase
+class IndexTest extends TestCase
 {
     public function test_get()
     {
         $this
-            ->get(route('home'))
+            ->get(route('api.perfis.index'))
             ->assertOk();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
+
 use Tests\TestCase;
 
 class HomeTest extends TestCase
@@ -8,7 +9,8 @@ class HomeTest extends TestCase
     public function test_get()
     {
         $this
-            ->get(route('home'))
+            ->actingAsRandom()
+            ->get(route('admin.home'))
             ->assertOk();
     }
 }

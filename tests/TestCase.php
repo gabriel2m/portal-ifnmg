@@ -2,24 +2,17 @@
 
 namespace Tests;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations;
+    use CreatesApplication, DatabaseMigrations, WithFaker;
 
-    /**
-     * Visit the given URI with a GET request and Assert Ok.
-     *
-     * @param  string  $uri
-     * @param  array  $headers
-     * @return \Illuminate\Testing\TestResponse
-     */
-    public function getOk($uri, array $headers = [])
+    public function actingAsRandom($guard = null)
     {
-        return $this
-            ->get($uri, $headers)
-            ->assertOk();
+        return $this->actingAs(User::factory()->{'create'}(), $guard);
     }
 }

@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Contato;
+
 use Tests\TestCase;
 
-class HomeTest extends TestCase
+class ShowTest extends TestCase
 {
     public function test_get()
     {
         $this
-            ->get(route('home'))
+            ->get(route('contato.show'))
             ->assertOk();
     }
 }
