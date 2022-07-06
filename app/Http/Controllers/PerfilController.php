@@ -114,7 +114,7 @@ class PerfilController extends ResourceController
     public function destroy(Perfil $perfil)
     {
         if ($perfil->delete())
-            return redirect()->home()->with('warning', "Perfil \"$perfil->nome\" Deletado");
+            return redirect()->route('home')->with('warning', "Perfil \"$perfil->nome\" Deletado");
         return redirect()->route("{$this->name}.show", $perfil)->with('danger', 'Não foi possível deletar esse perfil');
     }
 }
