@@ -6,7 +6,7 @@ use App\Models\User;
 use Database\Factories\UserFactory;
 use Tests\TestCase;
 
-class UserPasswordUpdate extends TestCase
+class UserPasswordUpdateTest extends TestCase
 {
     public function test_post()
     {
@@ -17,7 +17,7 @@ class UserPasswordUpdate extends TestCase
             ->actingAs($user)
             ->put(route('user-password.update'), [
                 'current_password' => UserFactory::$default_password,
-                'password' => $password = $this->faker->password(),
+                'password' => $password = $this->faker->text(20),
                 'password_confirmation' => $password,
             ])
             ->assertRedirect();

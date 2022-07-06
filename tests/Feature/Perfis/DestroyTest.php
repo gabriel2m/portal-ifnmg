@@ -11,9 +11,9 @@ class DestroyTest extends TestCase
     {
         $this
             ->actingAsRandom()
-            ->delete(route('perfis.destroy', Perfil::factory()->createOne()))
+            ->delete(route('perfis.destroy', $perfil = Perfil::factory()->createOne()))
             ->assertRedirect();
 
-        $this->assertDatabaseCount(Perfil::class, 0);
+        $this->assertModelMissing($perfil);
     }
 }

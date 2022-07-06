@@ -4,7 +4,7 @@ namespace Tests\Feature\Admin\Setores;
 
 use Tests\TestCase;
 
-class UnidadesTest extends TestCase
+class EditTest extends TestCase
 {
     public function test_get()
     {
