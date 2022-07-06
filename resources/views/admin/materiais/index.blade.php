@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle[] = 'Itens';
+$pageTitle[] = 'Materiais';
 @endphp
 
 @section('content')
@@ -11,7 +11,7 @@ $pageTitle[] = 'Itens';
             <label class="label-primary" for="nome">
                 Nome
             </label>
-            <input type="text" name="nome" class="input-primary" value="{{ old('nome', $item_search->nome) }}">
+            <input type="text" name="nome" class="input-primary" value="{{ old('nome', $material_search->nome) }}">
             @include('utils.error', ['input' => 'nome'])
         </div>
         <div>
@@ -19,7 +19,7 @@ $pageTitle[] = 'Itens';
                 Descrição
             </label>
             <input type="text" name="descricao" class="input-primary"
-                value="{{ old('descricao', $item_search->descricao) }}">
+                value="{{ old('descricao', $material_search->descricao) }}">
             @include('utils.error', ['input' => 'descricao'])
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -28,7 +28,7 @@ $pageTitle[] = 'Itens';
                     CATMAT
                 </label>
                 <input type="number" name="catmat" class="input-primary h-3/5"
-                    value="{{ old('catmat', $item_search->catmat) }}">
+                    value="{{ old('catmat', $material_search->catmat) }}">
                 @include('utils.error', ['input' => 'catmat'])
             </div>
             <div>
@@ -38,7 +38,7 @@ $pageTitle[] = 'Itens';
                 <select name="unidade_id" class="input-primary h-3/5">
                     <option></option>
                     @foreach ($unidades as $unidade_id => $unidade)
-                        <option value="{{ $unidade_id }}" @if (old('unidade_id', $item_search->unidade_id) == $unidade_id) selected @endif>
+                        <option value="{{ $unidade_id }}" @selected(old('unidade_id', $material_search->unidade_id) == $unidade_id)>
                             {{ $unidade }}
                         </option>
                     @endforeach
@@ -54,8 +54,8 @@ $pageTitle[] = 'Itens';
         </div>
     </form>
     @include('admin.utils.resource-table', [
-        'resource_name' => 'admin.itens',
-        'models' => $itens,
+        'resource_name' => 'admin.materiais',
+        'models' => $materiais,
         'attrs' => [
             'nome' => 'Nome',
             'catmat' => 'CATMAT',

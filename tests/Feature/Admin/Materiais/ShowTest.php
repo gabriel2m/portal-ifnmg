@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Admin\Itens;
+namespace Tests\Feature\Admin\Materiais;
 
-use App\Models\Item;
+use App\Models\Material;
 use Tests\TestCase;
 
 class ShowTest extends TestCase
@@ -11,7 +11,7 @@ class ShowTest extends TestCase
     {
         $this
             ->actingAsRandom()
-            ->get(route('admin.itens.show', Item::factory()->create()))
+            ->get(route('admin.materiais.show', Material::factory()->create()))
             ->assertOk();
     }
 }

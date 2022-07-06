@@ -1,32 +1,32 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle = $item->exists ? [$item->nome, 'Editar Item'] : ['Adicionar Item'];
+$pageTitle = $material->exists ? [$material->nome, 'Editar Material'] : ['Adicionar Material'];
 @endphp
 
 @section('content')
     @include('admin.utils.content-title', [
-        'text' => $item->exists ? $pageTitle[1] : null,
+        'text' => $material->exists ? $pageTitle[1] : null,
     ])
     <div class="mx-auto max-w-screen-lg">
-        <form method="POST" action="{{ $item->exists ? route('admin.itens.update', $item) : route('admin.itens.store') }}"
+        <form method="POST" action="{{ $material->exists ? route('admin.materiais.update', $material) : route('admin.materiais.store') }}"
             class="form-primary" autocomplete="off">
             @csrf
-            @if ($item->exists)
+            @if ($material->exists)
                 @method('PUT')
             @endif
             <div>
                 <label class="label-primary" for="nome">
                     Nome
                 </label>
-                <input type="text" name="nome" class="input-primary" value="{{ old('nome', $item->nome) }}" required>
+                <input type="text" name="nome" class="input-primary" value="{{ old('nome', $material->nome) }}" required>
                 @include('utils.error', ['input' => 'nome'])
             </div>
             <div>
                 <label class="label-primary" for="catmat">
                     CATMAT
                 </label>
-                <input type="number" name="catmat" class="input-primary" value="{{ old('catmat', $item->catmat) }}"
+                <input type="number" name="catmat" class="input-primary" value="{{ old('catmat', $material->catmat) }}"
                     required>
                 @include('utils.error', ['input' => 'catmat'])
             </div>
@@ -37,7 +37,7 @@ $pageTitle = $item->exists ? [$item->nome, 'Editar Item'] : ['Adicionar Item'];
                 <select name="unidade_id" class="input-primary" required>
                     <option></option>
                     @foreach ($unidades as $unidade_id => $unidade)
-                        <option value="{{ $unidade_id }}" @if (old('unidade_id', $item->unidade_id) == $unidade_id) selected @endif>
+                        <option value="{{ $unidade_id }}" @selected(old('unidade_id', $material->unidade_id) == $unidade_id)>
                             {{ $unidade }}
                         </option>
                     @endforeach
@@ -48,7 +48,7 @@ $pageTitle = $item->exists ? [$item->nome, 'Editar Item'] : ['Adicionar Item'];
                 <label class="label-primary" for="descricao">
                     Descrição
                 </label>
-                <textarea name="descricao" class="input-primary" rows="5" required>{{ old('descricao', $item->descricao) }}</textarea>
+                <textarea name="descricao" class="input-primary" rows="5" required>{{ old('descricao', $material->descricao) }}</textarea>
                 @include('utils.error', ['input' => 'descricao'])
             </div>
             @include('admin.utils.form-footer')

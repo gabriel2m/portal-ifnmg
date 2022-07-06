@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class SearchItemRequest extends ItemRequest
+class SearchMaterialRequest extends MaterialRequest
 {
     /**
      * Get the validation rules that apply to the request.

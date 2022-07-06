@@ -18,11 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
  */
-class Item extends Model
+class Material extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'itens';
+    protected $table = 'materiais';
 
     protected $guarded = [];
 

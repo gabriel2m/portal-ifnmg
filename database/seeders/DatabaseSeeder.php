@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         Perfil::imagemDisk()->deleteDirectory(config('app.perfil.imagem.dir'));
         Perfil::removeAllFromSearch();
         Perfil::query()->delete();
-        $this->call([UserSeeder::class, PerfilSeeder::class]);
+        $this->call([
+            UserSeeder::class,
+            PerfilSeeder::class,
+            MaterialSeeder::class
+        ]);
     }
 }

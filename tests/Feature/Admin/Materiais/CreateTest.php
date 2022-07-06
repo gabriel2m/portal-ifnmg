@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\Feature\Admin\Itens;
+namespace Tests\Feature\Admin\Materiais;
 
 use Tests\TestCase;
 
-class IndexTest extends TestCase
+class CreateTest extends TestCase
 {
     public function test_get()
     {
         $this
             ->actingAsRandom()
-            ->get(route('admin.itens.index'))
+            ->get(route('admin.materiais.create'))
             ->assertOk();
     }
 }

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Unidade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ItemFactory extends Factory
+class MaterialFactory extends Factory
 {
     /**
      * Define the model's default state.

@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle = [$item->nome, 'Itens'];
+$pageTitle = [$material->nome, 'Materiais'];
 @endphp
 
 @section('content')
     @include('admin.utils.content-title', [
-        'text' => 'Item',
+        'text' => 'Material',
     ])
     <table class="table-primary mx-auto">
         <tbody>
@@ -22,13 +22,13 @@ $pageTitle = [$item->nome, 'Itens'];
                         {{ $label }}
                     </td>
                     <td>
-                        {{ $item->$attr }}
+                        {{ $material->$attr }}
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <div class="mx-auto w-fit mt-3">
-        @include('utils.back-link', ['link' => route('admin.itens.index')])
+        @include('utils.back-link', ['link' => route('admin.materiais.index')])
     </div>
 @endsection

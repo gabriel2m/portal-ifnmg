@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 
-class SaveItemRequest extends ItemRequest
+class SaveMaterialRequest extends MaterialRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,12 +18,12 @@ class SaveItemRequest extends ItemRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('itens')->ignore($this->item),
+                Rule::unique('materiais')->ignore($this->material),
             ],
             'catmat' => [
                 'required',
                 'integer',
-                Rule::unique('itens')->ignore($this->item),
+                Rule::unique('materiais')->ignore($this->material),
             ],
             'unidade_id' => [
                 'required',

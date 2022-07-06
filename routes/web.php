@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\Categorias;
-use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\PerfilController;
@@ -113,6 +113,6 @@ Route::name('admin.')
         Route::resource('setores', SetorController::class)
             ->parameters(['setores' => 'setor'])
             ->except('show');
-        Route::resource('itens', ItemController::class)
-            ->parameters(['itens' => 'item']);
+        Route::resource('materiais', MaterialController::class)
+            ->parameters(['materiais' => 'material']);
     });

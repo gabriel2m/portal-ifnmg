@@ -19,8 +19,8 @@ $pageTitle[] = 'Área Administrativa';
             <ul class="mt-4 text-center space-y-5 font-sans">
                 @foreach ([
             [
-                'route' => ['admin.itens.index'],
-                'label' => 'Itens',
+                'route' => ['admin.materiais.index'],
+                'label' => 'Materiais',
             ],
             [
                 'route' => ['admin.unidades.index'],
