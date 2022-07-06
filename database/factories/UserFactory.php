@@ -15,6 +15,8 @@ class UserFactory extends Factory
      */
     protected $model = User::class;
 
+    public static string $default_password = '12345678';
+
     /**
      * Define the model's default state.
      *
@@ -26,7 +28,7 @@ class UserFactory extends Factory
             'name' => $this->faker->unique()->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => null,
-            'password' => '$2y$10$ajo57WG9RZ7N09FkdO9cTOp31bz1M36ZSh.ZpPAW.CESBwmvQkmDO', // 12345678
+            'password' => '$2y$10$ajo57WG9RZ7N09FkdO9cTOp31bz1M36ZSh.ZpPAW.CESBwmvQkmDO', // 12345678 === $default_password
             'remember_token' => Str::random(10),
         ];
     }
