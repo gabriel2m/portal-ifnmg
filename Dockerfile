@@ -31,7 +31,6 @@ RUN set -eux; \
 	pecl install \
 		apcu-5.1.21 \
 	; \
-	pecl clear-cache; \
 	docker-php-ext-enable \
 		apcu \
 		opcache \
@@ -43,8 +42,22 @@ RUN set -eux; \
 			| sort -u \
 			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 	)"; \
-	apk add --no-cache --virtual .phpexts-rundeps $runDeps; \
-	\
+	apk add --no-cache --virtual .phpexts-rundeps $runDeps;
+
+###########################################################################
+# XDEBUG
+###########################################################################
+
+ARG INSTALL_XDEBUG=false
+
+RUN if [ ${INSTALL_XDEBUG} = true ]; then \
+	pecl install xdebug-3.1.5; \
+	docker-php-ext-enable xdebug \
+;fi
+
+###########################################################################
+
+RUN pecl clear-cache; \
 	apk del .build-deps
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
