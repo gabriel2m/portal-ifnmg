@@ -15,6 +15,7 @@
         "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
+        "doctrine/dbal": "^3.3",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "fruitcake/laravel-telescope-toolbar": "^1.3",
