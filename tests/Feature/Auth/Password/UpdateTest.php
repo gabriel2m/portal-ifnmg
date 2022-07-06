@@ -19,7 +19,7 @@ class UpdateTest extends TestCase
             ->post(route('password.update'), [
                 'email' => $user->email,
                 'token' => $token,
-                'password' => $password = $this->faker->password(),
+                'password' => $password = $this->faker->text(20),
                 'password_confirmation' => $password,
             ])
             ->assertRedirect();
