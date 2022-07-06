@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Unidade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ItemFactory extends Factory
@@ -14,7 +15,10 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => $this->faker->unique()->words(rand(1, 4), true),
+            'descricao' => $this->faker->text(500),
+            'catmat' => $this->faker->numberBetween(1),
+            'unidade_id' => $this->faker->randomElement(Unidade::pluck('id'))
         ];
     }
 }
