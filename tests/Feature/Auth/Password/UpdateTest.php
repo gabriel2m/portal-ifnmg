@@ -13,7 +13,7 @@ class UpdateTest extends TestCase
         /** @var User */
         $user = User::factory()->create();
 
-        $token = Password::broker()->{'createToken'}($user);
+        $token = Password::createToken($user);
 
         $this
             ->post(route('password.update'), [
