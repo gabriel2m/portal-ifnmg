@@ -114,8 +114,6 @@ class Perfil extends Model
 
     public static function deleteImagem($path)
     {
-        return empty($path)
-            || !static::imagemDisk()->exists($path)
-            || static::imagemDisk()->delete($path);
+        return empty($path) || static::imagemDisk()->delete($path);
     }
 }
