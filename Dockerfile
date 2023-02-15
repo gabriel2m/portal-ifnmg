@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine
+FROM php:8.2-fpm-alpine
 
 RUN apk add --no-cache \
 		acl \
@@ -51,7 +51,8 @@ RUN set -eux; \
 ARG INSTALL_XDEBUG=false
 
 RUN if [ ${INSTALL_XDEBUG} = true ]; then \
-	pecl install xdebug-3.1.5; \
+ 	apk add --update linux-headers; \
+	pecl install xdebug-3.2.0; \
 	docker-php-ext-enable xdebug \
 ;fi
 
