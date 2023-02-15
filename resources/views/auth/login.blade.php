@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @php
-$pageTitle[] = 'Login';
+$title[] = 'Login';
 @endphp
 
 @section('auth-content')

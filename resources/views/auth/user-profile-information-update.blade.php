@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @php
-$pageTitle[] = 'Editar Usuário';
+$title[] = 'Editar Usuário';
 @endphp
 
 @section('auth-content')

@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @php
-$pageTitle[] = 'Redefinir Senha';
+$title[] = 'Redefinir Senha';
 @endphp
 
 @section('auth-content')

@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @php
-$pageTitle = array_filter([isset($filtro) ? "\"$filtro\"" : false, $categoria->label()]);
+$title = array_filter([isset($filtro) ? "\"$filtro\"" : false, $categoria->label()]);
 $categoriaSearch = $categoria;
 @endphp
 
-@section('content')
+@section('main-content')
     <div class="max-w-screen-lg mx-auto">
         <h3 class="border-b border-gray-500 pb-0.5 uppercase">
             {{ $categoria->label() }}

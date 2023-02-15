@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @php
-$pageTitle = $perfil->exists ? [$perfil->nome, 'Editar'] : ['Novo Perfil'];
+$title = $perfil->exists ? [$perfil->nome, 'Editar'] : ['Novo Perfil'];
 $showBanner = false;
 @endphp
 
-@section('content')
+@section('main-content')
     <div class="mx-auto max-w-screen-lg">
         @include('utils.content-title', [
             'text' => $perfil->exists ? 'Editar Perfil' : null,

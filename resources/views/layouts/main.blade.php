@@ -1,6 +1,10 @@
 @extends('layouts.base')
 
-@section('header')
+@prepend('styles')
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+@endprepend
+
+@section('content')
     <header>
         <nav class="py-1 bg-ifnmg-green-2 app-row">
             <ul class="max-w-screen-2xl mx-auto flex justify-between flex-wrap text-yellow-50">
@@ -50,8 +54,7 @@
                 ],
                 'show' => Auth::check(),
             ],
-        ]
-        as $item)
+        ] as $item)
                     @if ($item['show'] ?? true)
                         <li class="mx-3 my-2 hover:text-green-300">
                             @if (array_key_exists('items', $item))
@@ -139,16 +142,10 @@
             </div>
         @endif
     </header>
-@endsection
-
-@section('main')
     @include('utils.flash-messages')
     <main class="pt-12 pb-16 app-row">
-        @yield('content')
+        @yield('main-content')
     </main>
-@endsection
-
-@section('footer')
     <footer class="mt-auto">
         <div class="py-3 app-row bg-ifnmg-green-3 flex justify-evenly flex-wrap">
             @foreach ([
@@ -172,8 +169,7 @@
                 'icon' => 'icon-facebook',
                 'label' => 'IFNMG Campus Januária',
             ],
-        ]
-        as $item)
+        ] as $item)
                 <a href="{{ $item['link'] }}" target="_blank" rel="noopener noreferrer"
                     class="text-white hover:text-green-300 m-2 flex">
                     <i class="{{ $item['icon'] }} text-2xl"></i>
@@ -210,3 +206,7 @@
         </div>
     </footer>
 @endsection
+
+@prepend('scripts')
+    <script src="{{ mix('js/app.js') }}"></script>
+@endprepend

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle = [$material->nome, 'Materiais'];
+$title = [$material->nome, 'Materiais'];
 @endphp
 
-@section('content')
+@section('main-content')
     @include('admin.utils.content-title', [
         'text' => 'Material',
     ])

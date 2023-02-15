@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle[] = 'Materiais';
+$title[] = 'Materiais';
 @endphp
 
-@section('content')
+@section('main-content')
     @include('admin.utils.content-title')
     <form method="GET" action="" class="form-primary mb-5"> {{-- ALTERAR ACTION --}}
         <div>

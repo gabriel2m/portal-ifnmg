@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@php($pageTitle[] = 'Pesquisa Avançada')
+@php($title[] = 'Pesquisa Avançada')
 
-@section('content')
+@section('main-content')
     <div class="mx-auto max-w-screen-lg">
         @include('utils.content-title')
         <p class="text-xl">
@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         +
                     </td>
                     <td>
@@ -43,7 +43,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         |
                     </td>
                     <td>
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         -
                     </td>
                     <td>
@@ -65,29 +65,29 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         "
                     </td>
                     <td>
-                        Encapsula uma sequencia de palavras
+                        Determina uma sequência exata de termos
                     </td>
                     <td>
                         "IFNMG Campus Januária"
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         *
                     </td>
                     <td>
-                        No final de um termo determina um prefixo
+                        Determina um prefixo
                     </td>
                     <td>
                         IF*
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         ( )
                     </td>
                     <td>
@@ -98,15 +98,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         ~N
                     </td>
                     <td>
-                        após uma palavra significa o número de caracteres que podem ser corrigidos (fuzzi),
+                        Determina o número de caracteres que podem ser corrigidos (fuzzi),
                         sendo N um número inteiro
                     </td>
                     <td>
-                        Januriá~2
+                        JanuRiá~3
                     </td>
                 </tr>
             </tbody>

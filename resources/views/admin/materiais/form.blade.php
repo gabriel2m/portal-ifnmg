@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle = $material->exists ? [$material->nome, 'Editar Material'] : ['Adicionar Material'];
+$title = $material->exists ? [$material->nome, 'Editar Material'] : ['Adicionar Material'];
 @endphp
 
-@section('content')
+@section('main-content')
     @include('admin.utils.content-title', [
-        'text' => $material->exists ? $pageTitle[1] : null,
+        'text' => $material->exists ? $title[1] : null,
     ])
     <div class="mx-auto max-w-screen-lg">
         <form method="POST" action="{{ $material->exists ? route('admin.materiais.update', $material) : route('admin.materiais.store') }}"

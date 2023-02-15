@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @php
-$pageTitle[] = 'Entre em Contato';
+$title[] = 'Entre em Contato';
 $showBanner = false;
 @endphp
 
-@section('content')
+@section('main-content')
     <div class="mx-auto max-w-screen-lg">
         @include('utils.content-title')
         <form method="POST" action="{{ route('contato.send') }}" class="form-primary">

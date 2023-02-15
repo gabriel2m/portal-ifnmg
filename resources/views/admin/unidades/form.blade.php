@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle = $unidade->exists ? [$unidade->nome, 'Editar Unidade'] : ['Adicionar Unidade'];
+$title = $unidade->exists ? [$unidade->nome, 'Editar Unidade'] : ['Adicionar Unidade'];
 @endphp
 
-@section('content')
+@section('main-content')
     @include('admin.utils.content-title', [
-        'text' => $unidade->exists ? $pageTitle[1] : null,
+        'text' => $unidade->exists ? $title[1] : null,
     ])
     <div class="mx-auto max-w-screen-lg">
         <form method="POST"

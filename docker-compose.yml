@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 networks:
     app: ~
@@ -59,7 +59,7 @@ services:
             - app
 
     mailhog:
-        image: 'mailhog/mailhog:latest'
+        image: mailhog/mailhog
         ports:
             - ${MAILHOG_PORT:-8025}:8025
         networks:

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('head')
+@prepend('styles')
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <style>
@@ -8,9 +8,9 @@
             font-family: Nunito, sans-serif;
         }
     </style>
-@endsection
+@endprepend
 
-@section('main')
+@section('content')
     <main class="my-auto antialiased font-sans app-row md:ml-48">
         <strong class="text-gray-500 text-2xl md:text-3xl">
             {{ __('Error') }}

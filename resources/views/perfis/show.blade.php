@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
 @php
-$pageTitle[] = $perfil->nome;
+$title[] = $perfil->nome;
 @endphp
 
-@section('content')
+@section('main-content')
     <div class="mx-auto max-w-screen-lg">
         <div class="overflow-auto">
             <img src="{{ $perfil->imagem_url }}" alt="{{ $perfil->nome }}" class="float-left mr-6 my-2 w-52 h-52">

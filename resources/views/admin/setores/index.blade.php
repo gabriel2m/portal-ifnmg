@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle[] = 'Setores';
+$title[] = 'Setores';
 @endphp
 
-@section('content')
+@section('main-content')
     @include('admin.utils.content-title')
     @include('admin.utils.resource-table', [
         'resource_name' => 'admin.setores',

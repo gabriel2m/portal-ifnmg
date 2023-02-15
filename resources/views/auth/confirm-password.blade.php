@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @php
-$pageTitle[] = 'Senha Necessária';
+$title[] = 'Senha Necessária';
 @endphp
 
 @section('auth-content')

@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @php
-$pageTitle[] = 'Alterar Senha';
+$title[] = 'Alterar Senha';
 @endphp
 
 @section('auth-content')

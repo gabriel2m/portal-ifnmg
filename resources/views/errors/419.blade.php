@@ -1,5 +1,5 @@
 @extends('layouts.error')
 
-@php($pageTitle[] = __('Page Expired'))
+@php($title[] = __('Page Expired'))
 @section('code', '419')
 @section('message', __('Page Expired'))

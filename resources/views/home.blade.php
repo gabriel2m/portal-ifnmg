@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('head')
+@prepend('styles')
     <style>
         .categoria-carousel+.categoria-carousel {
             margin-top: 5rem;
         }
     </style>
-@endsection
+@endprepend
 
-@section('content')
+@section('main-content')
     @foreach (Categorias::cases() as $categoria)
         <div class="categoria-carousel hidden">
             <h3 class="text-center mb-4 mt-6">{{ $categoria->label() }}</h3>
@@ -47,7 +47,7 @@
     </template>
 @endsection
 
-@section('extra-js')
+@prepend('scripts')
     <script>
         function next_categoria_page(button) {
             const carousel = button.closest('.categoria-carousel')
@@ -88,4 +88,4 @@
             })
         })
     </script>
-@endsection
+@endprepend

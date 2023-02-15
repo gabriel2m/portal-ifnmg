@@ -1,15 +1,13 @@
 @extends('layouts.base')
 
 @php
-$pageTitle[] = 'Área Administrativa';
+    $title[] = 'Área Administrativa';
 @endphp
 
-@section('header')
-    <header>
-    </header>
-@endsection
+@prepend('styles')
+@endprepend
 
-@section('main')
+@section('content')
     <main class="flex">
         <div class="bg-ifnmg-green-2 py-5 px-10 text-white w-72 min-h-screen shadow shadow-black">
             <a href="{{ route('admin.home') }}" class="flex flex-col items-center">
@@ -34,8 +32,7 @@ $pageTitle[] = 'Área Administrativa';
                 'route' => ['home'],
                 'label' => '&lsaquo;&lsaquo; Portal',
             ],
-        ]
-        as $item)
+        ] as $item)
                     <li
                         class="relative p-2 z-10 outline outline-1
                         after:absolute after:w-full after:h-full after:top-2 after:-left-2 after:-z-50 after:bg-green-800 after:transition-all
@@ -50,14 +47,14 @@ $pageTitle[] = 'Área Administrativa';
         <div class="w-full">
             @include('utils.flash-messages')
             <div class="px-20 py-8 text-slate-600">
-                @yield('content')
+                @yield('main-content')
             </div>
         </div>
     </main>
-@endsection
-
-@section('footer')
     <footer class="mt-auto bg-ifnmg-green-3 text-white text-center p-2">
         {{ config('app.name') }} | IFNMG
     </footer>
 @endsection
+
+@prepend('scripts')
+@endprepend

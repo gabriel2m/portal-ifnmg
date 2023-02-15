@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @php
-$pageTitle = $setor->exists ? [$setor->nome, 'Editar Setor'] : ['Adicionar Setor'];
+$title = $setor->exists ? [$setor->nome, 'Editar Setor'] : ['Adicionar Setor'];
 @endphp
 
-@section('content')
+@section('main-content')
     @include('admin.utils.content-title', [
-        'text' => $setor->exists ? $pageTitle[1] : null,
+        'text' => $setor->exists ? $title[1] : null,
     ])
     <div class="mx-auto max-w-screen-lg">
         <form method="POST"

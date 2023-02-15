@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('main-content')
     <h1 class="text-center">
         Área Administrativa
     </h1>

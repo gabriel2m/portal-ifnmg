@@ -1,15 +1,17 @@
 @extends('layouts.main')
 
 @php
-$pageTitle = ["\"$query\"", $categoria->label(), 'Pesquisa Avançada'];
-$categoriaSearch = $categoria;
+    $title = ["\"$query\"", $categoria->label(), 'Pesquisa Avançada'];
+    $categoriaSearch = $categoria;
 @endphp
 
-@section('content')
+@section('main-content')
     <div class="mx-auto max-w-screen-lg">
-        @include('utils.content-title', [
-            'text' => "Resultados para \"$query\":"
-        ])
+        @component('utils.content-title')
+            @slot('text')
+                Resultados para "<span class="italic">{{ $query }}</span>":
+            @endslot
+        @endcomponent
         @include('utils.error', ['input' => 'categoria'])
         <div class="mt-4 mb-6 flex flex-wrap justify-between">
             @foreach (Categorias::cases() as $case)

@@ -2,7 +2,7 @@
 
 @php($showBanner = false)
 
-@section('content')
+@section('main-content')
     <div class="mx-auto max-w-screen-lg">
         @include('utils.content-title')
         @yield('auth-content')
