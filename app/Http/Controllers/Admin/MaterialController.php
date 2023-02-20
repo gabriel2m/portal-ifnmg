@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\SaveMaterialRequest;
-use App\Http\Requests\SearchMaterialRequest;
 use App\Models\Material;
 use App\Models\Unidade;
-use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class MaterialController extends ResourceController
@@ -18,37 +16,24 @@ class MaterialController extends ResourceController
 
     protected string $afterSaveRoute = 'admin.materiais.show';
 
-    public function __construct()
-    {
-        $this->authorizeResource(Material::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(SearchMaterialRequest $request)
+    public function index()
     {
-        $material_search = new Material($request->validated());
+        return view('admin.materiais.index');
+    }
 
-        $materiais = Material::query();
-
-        $filters = array_filter($material_search->getAttributes());
-
-        if ($nome_filter = Arr::pull($filters, 'nome'))
-            $materiais->where('nome', 'like', "%$nome_filter%");
-
-        if ($descricao_filter = Arr::pull($filters, 'descricao'))
-            $materiais->where('descricao', 'like', "%$descricao_filter%");
-
-        $materiais->where($filters);
-
-        return view('admin.materiais.index', [
-            'materiais' => $materiais->orderBy('nome')->paginate()->withQueryString(),
-            'material_search' => $material_search,
-            'unidades' => $this->unidades()
-        ]);
+    /**
+     * Return a datatables listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        return datatables(Material::query())->toJson();
     }
 
     /**
