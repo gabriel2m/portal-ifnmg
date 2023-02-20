@@ -11,12 +11,36 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/main.js', 'public/js')
-    .js('resources/js/admin.js', 'public/js')
-    .postCss('resources/css/main.css', 'public/css', [
-        require('tailwindcss')
-    ])
-    .css('resources/css/admin.css', 'public/css')
+mix
     .copy('resources/icomoon/fonts', 'public/fonts')
     .copy('resources/img', 'public/img')
     .version()
+
+/*
+ * Main
+ */
+mix
+    .js('resources/js/main.js', 'public/js')
+    .postCss('resources/css/main.css', 'public/css', [
+        require('tailwindcss')
+    ])
+
+/*
+ * Admin
+ */
+mix
+    .js('resources/js/admin.js', 'public/js')
+    .css('resources/css/admin.css', 'public/css')
+
+/*
+* Datatables
+*/
+mix
+    .combine([
+        'node_modules/datatables.net/js/jquery.dataTables.min.js',
+        'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
+        'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
+        'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
+    ], 'public/js/datatables.js')
+    .css('resources/css/datatables.css', 'public/css')
+    .copy('resources/datatables', 'public/datatables')

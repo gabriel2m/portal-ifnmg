@@ -8,7 +8,10 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "predev": "rm -rf public/css public/js",
+        "preprod": "rm -rf public/css public/js",
+        "prewatch": "rm -rf public/css public/js"
     },
     "dependencies": {
         "admin-lte": "^3.2.0",
