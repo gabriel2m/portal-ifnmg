@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::defaultView('utils.pagination');
+
         config(['app.mix_url' => url('')]);
     }
 }

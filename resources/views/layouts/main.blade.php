@@ -1,7 +1,11 @@
 @extends('layouts.base')
 
+@php
+    $body_attrs = ['class' => 'flex flex-col min-h-screen bg-gray-50 text-slate-800'];
+@endphp
+
 @prepend('styles')
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/main.css') }}">
 @endprepend
 
 @section('content')
@@ -208,5 +212,5 @@
 @endsection
 
 @prepend('scripts')
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/main.js') }}"></script>
 @endprepend

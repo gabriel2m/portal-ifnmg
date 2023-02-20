@@ -11,6 +11,7 @@
         "production": "mix --production"
     },
     "dependencies": {
+        "admin-lte": "^3.2.0",
         "autoprefixer": "^10.4.4",
         "axios": "^0.26.1",
         "laravel-mix": "^6.0.6",

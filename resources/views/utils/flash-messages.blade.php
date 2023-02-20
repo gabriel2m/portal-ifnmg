@@ -22,7 +22,7 @@
                 'color' => 'blue',
             ],
         ];
-        // Ensures the classes presence on app.css:
+        // Avoid classes prune:
         // bg-green-100  border-green-800  text-green-900  text-green-500
         // bg-yellow-100 border-yellow-800 text-yellow-900 text-yellow-500
         // bg-blue-100   border-blue-800   text-blue-900   text-blue-500

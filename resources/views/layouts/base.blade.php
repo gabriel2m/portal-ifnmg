@@ -14,7 +14,7 @@
     @stack('styles')
 </head>
 
-<body class="flex flex-col min-h-screen bg-gray-50 text-slate-800">
+<body {{ new \Illuminate\View\ComponentAttributeBag($body_attrs ?? []) }}>
     @yield('content')
     @stack('scripts')
 </body>
