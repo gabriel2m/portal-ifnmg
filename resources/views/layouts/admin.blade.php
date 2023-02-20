@@ -134,6 +134,13 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <strong>2023 <a href="https://ifnmg.edu.br">IFNMG</a>.</strong>
+            <div class="float-right">
+                Desenvolvedor:
+                <a href="https://linktr.ee/gabriel2m" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-white underline">
+                    @gabriel2m
+                </a>
+            </div>
         </footer>
     </div>
 @overwrite

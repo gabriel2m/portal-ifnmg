@@ -10,7 +10,6 @@
         $title[] = config('app.name');
     @endphp
     <title>{{ implode(' | ', $title) }}</title>
-    @include('layouts._icomoon-font-face')
     @stack('styles')
 </head>
 

@@ -5,6 +5,7 @@
 @endphp
 
 @prepend('styles')
+    @include('layouts._icomoon-font-face')
     <link rel="stylesheet" href="{{ mix('css/main.css') }}">
 @endprepend
 

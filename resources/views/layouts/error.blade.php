@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.main')
 
 @prepend('styles')
     <link rel="preconnect" href="https://fonts.gstatic.com">
