@@ -42,4 +42,15 @@ class CompraController extends ResourceController
     {
         return $this->showAction($compra);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Compra  $compra
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Compra $compra)
+    {
+        return $this->destroyAction($compra);
+    }
 }
