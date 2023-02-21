@@ -7,8 +7,8 @@
     --color-3: #002907;
 }
 
-.bg-color-1 {
-    background-color: var(--color-1);
+[role=button] {
+    cursor: pointer;
 }
 
 .preloader {
