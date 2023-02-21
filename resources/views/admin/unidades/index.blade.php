@@ -40,6 +40,19 @@
                 title: 'Unidade',
                 data: 'nome'
             }],
+            rowCallback: (row, data, index) => {
+                let url = "{{ route('admin.unidades.show', '=id=') }}".replace('=id=', data.id)
+                $(row)
+                    .attr('role', 'button')
+                    .children()
+                    .not('.action-col')
+                    .click(() => {
+                        window.location.href = url;
+                    })
+                    .on('auxclick', () => {
+                        window.open(url)
+                    });
+            }
         });
     </script>
 @endprepend

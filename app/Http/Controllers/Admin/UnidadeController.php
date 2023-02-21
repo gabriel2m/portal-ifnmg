@@ -56,6 +56,17 @@ class UnidadeController extends ResourceController
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Unidade  $unidade
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Unidade $unidade)
+    {
+        return view('admin.unidades.show', compact('unidade'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Unidade  $unidade

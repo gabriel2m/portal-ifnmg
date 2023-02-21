@@ -108,7 +108,7 @@ Route::name('admin.')
     ->group(function () {
         Route::view('', 'admin.home')->name('home');
         Route::post('unidades/datatables', [UnidadeController::class, 'datatables'])->name('unidades.datatables');
-        Route::resource('unidades', UnidadeController::class)->except('show');
+        Route::resource('unidades', UnidadeController::class);
         Route::resource('setores', SetorController::class)->parameters(['setores' => 'setor'])->except('show');
         Route::post('materiais/datatables', [MaterialController::class, 'datatables'])->name('materiais.datatables');
         Route::resource('materiais', MaterialController::class)->parameters(['materiais' => 'material']);
