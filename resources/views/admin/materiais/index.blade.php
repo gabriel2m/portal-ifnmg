@@ -7,8 +7,15 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="materiais-table" class="table border-bottom border-top-0 table-hover w-100">
+            <table id="materiais-table" class="table border-bottom table-hover w-100">
             </table>
+        </div>
+    </div>
+    <div class="d-flex mt-3">
+        <div class="ml-auto">
+            <a href="{{ route('admin.materiais.create') }}" class="btn btn-info">
+                Adicionar
+            </a>
         </div>
     </div>
 @endsection

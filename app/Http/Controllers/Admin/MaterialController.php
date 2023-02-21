@@ -14,8 +14,6 @@ class MaterialController extends ResourceController
 
     protected string $parameter = 'material';
 
-    protected string $afterSaveRoute = 'admin.materiais.show';
-
     /**
      * Display a listing of the resource.
      *

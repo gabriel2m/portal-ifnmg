@@ -18,15 +18,19 @@
     <style>
         #material-table td:first-child {
             font-weight: 600;
-            padding-right: 1rem;
+            width: 7rem;
         }
 
         #material-table tr+tr td {
-            padding-top: .8rem;
+            border-top: 1px solid #dee2e6;
         }
 
-        #material-table td {
-            border-bottom: 1px solid #dee2e6;
+        #material-table tr:not(:first-child) td {
+            padding-top: .5rem;
+        }
+
+        #material-table tr:not(:last-child) td {
+            padding-bottom: .5rem;
         }
     </style>
 @endprepend
@@ -53,38 +57,39 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="d-flex mt-3">
-                <div class="ml-auto">
-                    <a href="{{ route('admin.materiais.edit', $material) }}" class="btn btn-primary">
-                        Editar
-                    </a>
-                    <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">
-                        Deletar
-                    </button>
+        </div>
+    </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    Deseja realmente deletar esse material?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Cancelar
-                                    </button>
-                                    <form action="{{ route('admin.materiais.destroy', $material) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger ml-3">
-                                            Deletar
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+    <div class="d-flex mt-3">
+        <div class="ml-auto">
+            <a href="{{ route('admin.materiais.edit', $material) }}" class="btn btn-info">
+                Editar
+            </a>
+            <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">
+                Deletar
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            Deseja realmente deletar esse material?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Cancelar
+                            </button>
+                            <form action="{{ route('admin.materiais.destroy', $material) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger ml-3">
+                                    Deletar
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

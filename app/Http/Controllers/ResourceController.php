@@ -20,7 +20,9 @@ class ResourceController extends Controller
      */
     protected function form(Model $model, array $data = [])
     {
-        return view("{$this->name}.form", [$this->parameter => $model, ...$data]);
+        $model->fill(old());
+        $data[$this->parameter] = $model;
+        return view("{$this->name}.form", $data);
     }
 
     /**

@@ -49,7 +49,9 @@
             <!-- Brand Logo -->
             <a href="{{ route('admin.home') }}" class="brand-link">
                 <img src="{{ asset('img/ifnmg-logo.png') }}" alt="Logo" class="brand-image" style="opacity: .8">
-                <span class="brand-text font-weight-semibold">SINPRO</span>
+                <span class="brand-text h3">
+                    {{ config('app.name') }}
+                </span>
             </a>
 
             <!-- Sidebar -->
