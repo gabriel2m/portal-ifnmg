@@ -31,4 +31,15 @@ class CompraController extends ResourceController
     {
         return $this->datatablesAction();
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Compra  $compra
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Compra $compra)
+    {
+        return $this->showAction($compra);
+    }
 }
