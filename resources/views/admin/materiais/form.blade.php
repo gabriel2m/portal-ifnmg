@@ -1,13 +1,16 @@
 @extends('admin.materiais.base')
 
 @php
+    $breadcrumb = [
+        [
+            'link' => route('admin.materiais.index'),
+            'label' => 'Materiais',
+        ],
+    ];
     if ($material->exists) {
         $title = ['Editar', $material->nome];
-        $breadcrumb = [
-            [
-                'link' => route('admin.materiais.index'),
-                'label' => 'Materiais',
-            ],
+        array_push(
+            $breadcrumb,
             [
                 'label' => $material->nome,
                 'link' => route('admin.materiais.show', $material),
@@ -16,19 +19,13 @@
                 'label' => 'Editar',
                 'active' => true,
             ],
-        ];
+        );
     } else {
         $title = ['Adicionar'];
-        $breadcrumb = [
-            [
-                'link' => route('admin.materiais.index'),
-                'label' => 'Materiais',
-            ],
-            [
-                'label' => 'Adicionar',
-                'active' => true,
-            ],
-        ];
+        array_push($breadcrumb, [
+            'label' => 'Adicionar',
+            'active' => true,
+        ]);
     }
 @endphp
 
