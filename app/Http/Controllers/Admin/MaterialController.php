@@ -12,7 +12,7 @@ class MaterialController extends ResourceController
 {
     protected string $name = 'admin.materiais';
 
-    protected string $parameter = 'material';
+    protected string $model_class = Material::class;
 
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class MaterialController extends ResourceController
      */
     public function index()
     {
-        return view('admin.materiais.index');
+        return $this->indexAction();
     }
 
     /**
@@ -31,7 +31,7 @@ class MaterialController extends ResourceController
      */
     public function datatables()
     {
-        return datatables(Material::query())->toJson();
+        return $this->datatablesAction();
     }
 
     /**
@@ -41,7 +41,7 @@ class MaterialController extends ResourceController
      */
     public function create()
     {
-        return $this->form(new Material);
+        return $this->createAction();
     }
 
     /**
@@ -52,7 +52,7 @@ class MaterialController extends ResourceController
      */
     public function store(SaveMaterialRequest $request)
     {
-        return $this->save($request, new Material);
+        return $this->storeAction($request);
     }
 
     /**
@@ -63,7 +63,7 @@ class MaterialController extends ResourceController
      */
     public function show(Material $material)
     {
-        return view('admin.materiais.show', compact('material'));
+        return $this->showAction($material);
     }
 
     /**
@@ -97,20 +97,12 @@ class MaterialController extends ResourceController
      */
     public function destroy(Material $material)
     {
-        $response = to_route("{$this->name}.index");
-        if ($material->delete())
-            return $response->with('flash', ['warning' => "Material \"$material->nome\" Deletado"]);
-        return $response->with('flash', ['error' => "Não foi possível deletar \"$material->nome\""]);
+        return $this->destroyAction($material);
     }
 
-    protected function form(Model $model, array $data = [])
+    protected function form(Model $material, array $data = [])
     {
-        $data['unidades'] = $this->unidades();
-        return parent::form($model, $data);
-    }
-
-    protected function unidades()
-    {
-        return Unidade::orderBy('nome')->pluck('nome', 'id');
+        $data['unidades'] = Unidade::orderBy('nome')->pluck('nome', 'id');
+        return parent::form($material, $data);
     }
 }

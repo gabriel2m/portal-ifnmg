@@ -10,7 +10,7 @@ class SetorController extends ResourceController
 {
     protected string $name = 'admin.setores';
 
-    protected string $parameter = 'setor';
+    protected string $model_class = Setor::class;
 
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class SetorController extends ResourceController
      */
     public function index()
     {
-        return view('admin.setores.index');
+        return $this->indexAction();
     }
 
     /**
@@ -29,7 +29,7 @@ class SetorController extends ResourceController
      */
     public function datatables()
     {
-        return datatables(Setor::query())->toJson();
+        return $this->datatablesAction();
     }
 
     /**
@@ -39,7 +39,7 @@ class SetorController extends ResourceController
      */
     public function create()
     {
-        return $this->form(new Setor);
+        return $this->createAction();
     }
 
     /**
@@ -50,7 +50,7 @@ class SetorController extends ResourceController
      */
     public function store(SaveSetorRequest $request)
     {
-        return $this->save($request, new Setor);
+        return $this->storeAction($request);
     }
 
     /**
@@ -61,7 +61,7 @@ class SetorController extends ResourceController
      */
     public function show(Setor $setor)
     {
-        return view('admin.setores.show', compact('setor'));
+        return $this->showAction($setor);
     }
 
     /**
@@ -95,9 +95,6 @@ class SetorController extends ResourceController
      */
     public function destroy(Setor $setor)
     {
-        $response = to_route("{$this->name}.index");
-        if ($setor->delete())
-            return $response->with('flash', ['warning' => "Setor \"$setor->nome\" Deletado"]);
-        return $response->with('flash', ['error' => "Não foi possível deletar \"$setor->nome\""]);
+        return $this->destroyAction($setor);
     }
 }

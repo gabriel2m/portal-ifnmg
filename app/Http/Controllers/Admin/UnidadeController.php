@@ -10,7 +10,7 @@ class UnidadeController extends ResourceController
 {
     protected string $name = 'admin.unidades';
 
-    protected string $parameter = 'unidade';
+    protected string $model_class = Unidade::class;
 
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class UnidadeController extends ResourceController
      */
     public function index()
     {
-        return view('admin.unidades.index');
+        return $this->indexAction();
     }
 
     /**
@@ -29,7 +29,7 @@ class UnidadeController extends ResourceController
      */
     public function datatables()
     {
-        return datatables(Unidade::query())->toJson();
+        return $this->datatablesAction();
     }
 
     /**
@@ -39,7 +39,7 @@ class UnidadeController extends ResourceController
      */
     public function create()
     {
-        return $this->form(new Unidade);
+        return $this->createAction();
     }
 
     /**
@@ -50,7 +50,7 @@ class UnidadeController extends ResourceController
      */
     public function store(SaveUnidadeRequest $request)
     {
-        return $this->save($request, new Unidade);
+        return $this->storeAction($request);
     }
 
     /**
@@ -61,7 +61,7 @@ class UnidadeController extends ResourceController
      */
     public function show(Unidade $unidade)
     {
-        return view('admin.unidades.show', compact('unidade'));
+        return $this->showAction($unidade);
     }
 
     /**
@@ -95,9 +95,6 @@ class UnidadeController extends ResourceController
      */
     public function destroy(Unidade $unidade)
     {
-        $response = to_route("{$this->name}.index");
-        if ($unidade->delete())
-            return $response->with('flash', ['warning' => "Unidade \"$unidade->nome\" Deletada"]);
-        return $response->with('flash', ['error' => "Não foi possível deletar \"$unidade->nome\""]);
+        return $this->destroyAction($unidade);
     }
 }

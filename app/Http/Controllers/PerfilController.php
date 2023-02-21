@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SavePerfilRequest;
 use App\Enums\Categorias;
 use App\Models\Perfil;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 
@@ -12,7 +14,7 @@ class PerfilController extends ResourceController
 {
     protected string $name = 'perfis';
 
-    protected string $parameter = 'perfil';
+    protected string $model_class = Perfil::class;
 
     public function __construct()
     {
@@ -57,7 +59,7 @@ class PerfilController extends ResourceController
      */
     public function create()
     {
-        return $this->form(new Perfil);
+        return $this->createAction();
     }
 
     /**
@@ -68,7 +70,7 @@ class PerfilController extends ResourceController
      */
     public function store(SavePerfilRequest $request)
     {
-        return $this->save($request, new Perfil);
+        return $this->storeAction($request);
     }
 
     /**
@@ -79,7 +81,7 @@ class PerfilController extends ResourceController
      */
     public function show(Perfil $perfil)
     {
-        return view('perfis.show', compact('perfil'));
+        return $this->showAction($perfil);
     }
 
     /**
@@ -116,5 +118,12 @@ class PerfilController extends ResourceController
         if ($perfil->delete())
             return to_route('home')->with('warning', "Perfil \"$perfil->nome\" Deletado");
         return to_route("{$this->name}.show", $perfil)->with('danger', 'Não foi possível deletar esse perfil');
+    }
+
+    protected function save(FormRequest $request, Model $model)
+    {
+        if ($model->fill($request->validated())->save())
+            return to_route("{$this->name}.show", $model)->with('success', 'Perfil Salvo.');
+        return back()->with('warning', 'Não foi possível salvar');
     }
 }
