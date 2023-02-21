@@ -79,14 +79,14 @@
 
         <div class="d-flex mt-3">
             <div class="ml-auto">
-                <button type="submit" class="btn btn-success">
-                    <i class="far fa-hdd"></i>
-                    Salvar
-                </button>
-                <a href="{{ url()->previous() }}" class="btn btn-secondary ml-3">
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">
                     <i class="far fa-times-circle"></i>
                     Cancelar
                 </a>
+                <button type="submit" class="btn btn-success ml-3">
+                    <i class="far fa-hdd"></i>
+                    Salvar
+                </button>
             </div>
         </div>
     </form>
