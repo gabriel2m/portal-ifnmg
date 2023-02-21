@@ -1,29 +1,64 @@
-@extends('layouts.admin')
+@extends('admin.setores.base')
 
 @php
-$title = $setor->exists ? [$setor->nome, 'Editar Setor'] : ['Adicionar Setor'];
+    $breadcrumb = [
+        [
+            'link' => route('admin.setores.index'),
+            'label' => 'Setores',
+        ],
+    ];
+    if ($setor->exists) {
+        $title = ['Editar', $setor->nome];
+        array_push(
+            $breadcrumb,
+            [
+                'label' => $setor->nome,
+                'link' => route('admin.setores.show', $setor),
+            ],
+            [
+                'label' => 'Editar',
+                'active' => true,
+            ],
+        );
+    } else {
+        $title = ['Adicionar'];
+        array_push($breadcrumb, [
+            'label' => 'Adicionar',
+            'active' => true,
+        ]);
+    }
 @endphp
 
-@section('main-content')
-    @include('admin.utils.content-title', [
-        'text' => $setor->exists ? $title[1] : null,
-    ])
-    <div class="mx-auto max-w-screen-lg">
-        <form method="POST"
-            action="{{ $setor->exists ? route('admin.setores.update', $setor) : route('admin.setores.store') }}"
-            class="form-primary" autocomplete="off">
-            @csrf
-            @if ($setor->exists)
-                @method('PUT')
-            @endif
-            <div>
-                <label class="label-primary" for="nome">
-                    Setor
-                </label>
-                <input type="text" name="nome" class="input-primary" value="{{ old('nome', $setor->nome) }}" required>
-                @include('utils.error', ['input' => 'nome'])
+@section('content')
+    <form method="POST" action="{{ $setor->exists ? route('admin.setores.update', $setor) : route('admin.setores.store') }}"
+        class="form-primary" autocomplete="off">
+        @csrf
+        @if ($setor->exists)
+            @method('PUT')
+        @endif
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label>
+                        Setor
+                    </label>
+                    <input type="text" name="nome" class="form-control" value="{{ $setor->nome }}">
+                    <x-input-error input='nome' />
+                </div>
             </div>
-            @include('admin.utils.form-footer')
-        </form>
-    </div>
+        </div>
+
+        <div class="d-flex mt-3">
+            <div class="ml-auto">
+                <button type="submit" class="btn btn-success">
+                    <i class="far fa-hdd"></i>
+                    Salvar
+                </button>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary ml-3">
+                    <i class="far fa-times-circle"></i>
+                    Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
 @endsection
