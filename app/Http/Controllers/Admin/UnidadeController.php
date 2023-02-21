@@ -12,8 +12,6 @@ class UnidadeController extends ResourceController
 
     protected string $parameter = 'unidade';
 
-    protected string $afterSaveRoute = 'admin.unidades.index';
-
     /**
      * Display a listing of the resource.
      *
