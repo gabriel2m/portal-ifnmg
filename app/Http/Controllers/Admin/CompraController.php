@@ -33,6 +33,16 @@ class CompraController extends ResourceController
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return $this->createAction();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Compra  $compra
