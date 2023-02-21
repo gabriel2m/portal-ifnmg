@@ -71,6 +71,11 @@
                 'label' => 'Unidades de Medida',
                 'icon' => 'balance-scale-right',
             ],
+            [
+                'link' => route('admin.setores.index'),
+                'label' => 'Setores',
+                'icon' => 'sitemap',
+            ],
         ] as $item)
                             <li class="nav-item">
                                 <a href="{{ $item['link'] }}" @class([

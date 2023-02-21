@@ -1,14 +1,59 @@
-@extends('layouts.admin')
+@extends('admin.setores.base')
 
-@php
-$title[] = 'Setores';
-@endphp
+@prepend('styles')
+    <link rel="stylesheet" href="{{ mix('css/datatables.css') }}">
+@endprepend
 
-@section('main-content')
-    @include('admin.utils.content-title')
-    @include('admin.utils.resource-table', [
-        'resource_name' => 'admin.setores',
-        'models' => $setores,
-        'attrs' => ['nome' => 'Setor'],
-    ])
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <table id="setores-table" class="table border-bottom table-hover w-100">
+            </table>
+        </div>
+    </div>
+    <div class="d-flex mt-3">
+        <div class="ml-auto">
+            <a href="{{ route('admin.setores.create') }}" class="btn btn-primary">
+                <i class="far fa-plus-square"></i>
+                Adicionar
+            </a>
+        </div>
+    </div>
 @endsection
+
+@prepend('scripts')
+    <script src="{{ mix('js/datatables.js') }}"></script>
+    <script>
+        let table = $('#setores-table').DataTable({
+            processing: true,
+            serverSide: true,
+            language: {
+                url: "{{ asset('datatables/pt-BR.json') }}"
+            },
+            ajax: {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                type: "POST",
+                url: "{{ route('admin.setores.datatables') }}",
+            },
+            columns: [{
+                title: 'Setor',
+                data: 'nome'
+            }],
+            rowCallback: (row, data, index) => {
+                let url = "{{ route('admin.setores.show', '=id=') }}".replace('=id=', data.id)
+                $(row)
+                    .attr('role', 'button')
+                    .children()
+                    .not('.action-col')
+                    .click(() => {
+                        window.location.href = url;
+                    })
+                    .on('auxclick', () => {
+                        window.open(url)
+                    });
+            }
+        });
+    </script>
+@endprepend

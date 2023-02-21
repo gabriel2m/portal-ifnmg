@@ -12,13 +12,6 @@ class SetorController extends ResourceController
 
     protected string $parameter = 'setor';
 
-    protected string $afterSaveRoute = 'admin.setores.index';
-
-    public function __construct()
-    {
-        $this->authorizeResource(Setor::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +22,16 @@ class SetorController extends ResourceController
         return view('admin.setores.index', [
             'setores' => Setor::orderBy('nome')->get()
         ]);
+    }
+
+    /**
+     * Return a datatables listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        return datatables(Setor::query())->toJson();
     }
 
     /**
