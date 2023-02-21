@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Categorias;
+use App\Http\Controllers\Admin\CompraController;
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
@@ -107,13 +108,16 @@ Route::name('admin.')
     ->middleware('auth')
     ->group(function () {
         Route::view('', 'admin.home')->name('home');
-        
+
         Route::post('unidades/datatables', [UnidadeController::class, 'datatables'])->name('unidades.datatables');
         Route::resource('unidades', UnidadeController::class);
 
         Route::post('setores/datatables', [SetorController::class, 'datatables'])->name('setores.datatables');
         Route::resource('setores', SetorController::class)->parameters(['setores' => 'setor']);
-        
+
         Route::post('materiais/datatables', [MaterialController::class, 'datatables'])->name('materiais.datatables');
         Route::resource('materiais', MaterialController::class)->parameters(['materiais' => 'material']);
+
+        Route::post('compras/datatables', [CompraController::class, 'datatables'])->name('compras.datatables');
+        Route::resource('compras', CompraController::class);
     });

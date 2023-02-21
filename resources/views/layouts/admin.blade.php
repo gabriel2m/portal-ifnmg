@@ -62,19 +62,24 @@
                         data-accordion="false">
                         @foreach ([
             [
+                'link' => route('admin.compras.index'),
+                'label' => 'Compras',
+                'icon' => 'file-invoice-dollar',
+            ],
+            [
                 'link' => route('admin.materiais.index'),
                 'label' => 'Materiais',
                 'icon' => 'boxes',
             ],
             [
-                'link' => route('admin.unidades.index'),
-                'label' => 'Unidades de Medida',
-                'icon' => 'balance-scale-right',
-            ],
-            [
                 'link' => route('admin.setores.index'),
                 'label' => 'Setores',
                 'icon' => 'sitemap',
+            ],
+            [
+                'link' => route('admin.unidades.index'),
+                'label' => 'Unidades de Medida',
+                'icon' => 'balance-scale-right',
             ],
         ] as $item)
                             <li class="nav-item">
