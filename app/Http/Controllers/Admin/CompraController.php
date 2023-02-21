@@ -65,6 +65,17 @@ class CompraController extends ResourceController
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Compra  $compra
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Compra $compra)
+    {
+        return $this->form($compra);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Compra  $compra
