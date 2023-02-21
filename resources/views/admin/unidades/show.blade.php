@@ -61,7 +61,7 @@
                             Deseja realmente deletar?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <button type="button" class="btn btn-secondary m-0" data-dismiss="modal">
                                 <i class="far fa-times-circle"></i>
                                 Cancelar
                             </button>
