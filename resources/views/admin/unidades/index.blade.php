@@ -14,6 +14,7 @@
     <div class="d-flex mt-3">
         <div class="ml-auto">
             <a href="{{ route('admin.unidades.create') }}" class="btn btn-primary">
+                <i class="far fa-plus-square"></i>
                 Adicionar
             </a>
         </div>

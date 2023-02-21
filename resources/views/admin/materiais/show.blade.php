@@ -65,12 +65,14 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <i class="far fa-times-circle"></i>
                                 Cancelar
                             </button>
                             <form action="{{ route('admin.materiais.destroy', $material) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-3">
+                                    <i class="far fa-trash-alt"></i>
                                     Deletar
                                 </button>
                             </form>
