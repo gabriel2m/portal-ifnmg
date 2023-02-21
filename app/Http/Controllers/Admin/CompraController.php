@@ -76,6 +76,18 @@ class CompraController extends ResourceController
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\SaveCompraRequest  $request
+     * @param  \App\Models\Compra  $compra
+     * @return \Illuminate\Http\Response
+     */
+    public function update(SaveCompraRequest $request, Compra $compra)
+    {
+        return $this->save($request, $compra);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Compra  $compra
