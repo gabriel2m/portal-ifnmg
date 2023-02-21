@@ -43,6 +43,17 @@ class CompraController extends ResourceController
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\SaveCompraRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(SaveCompraRequest $request)
+    {
+        return $this->storeAction($request);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Compra  $compra
