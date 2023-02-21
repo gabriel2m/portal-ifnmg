@@ -19,9 +19,7 @@ class SetorController extends ResourceController
      */
     public function index()
     {
-        return view('admin.setores.index', [
-            'setores' => Setor::orderBy('nome')->get()
-        ]);
+        return view('admin.setores.index');
     }
 
     /**
@@ -53,6 +51,17 @@ class SetorController extends ResourceController
     public function store(SaveSetorRequest $request)
     {
         return $this->save($request, new Setor);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Setor  $setor
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Setor $setor)
+    {
+        return view('admin.setores.show', compact('setor'));
     }
 
     /**
