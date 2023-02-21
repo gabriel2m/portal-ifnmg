@@ -98,7 +98,7 @@ Route::name('contato.')
                     ],
                 ]))
             );
-            return redirect()->route('home')->with('success', 'Mensagem Enviada.');
+            return to_route('home')->with('success', 'Mensagem Enviada.');
         })->name('send');
     });
 

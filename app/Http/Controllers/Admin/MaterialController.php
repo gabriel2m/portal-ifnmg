@@ -99,18 +99,16 @@ class MaterialController extends ResourceController
      */
     public function destroy(Material $material)
     {
-        $response = redirect()->route("{$this->name}.index");
+        $response = to_route("{$this->name}.index");
         if ($material->delete())
-            return $response->with('warning', "Material \"$material->nome\" Deletado");
-        return $response->with('danger', "Não foi possível deletar \"$material->nome\"");
+            return $response->with('flash', ['warning' => "Material \"$material->nome\" Deletado"]);
+        return $response->with('flash', ['error' => "Não foi possível deletar \"$material->nome\""]);
     }
 
     protected function form(Model $model, array $data = [])
     {
-        return parent::form($model, [
-            'unidades' => $this->unidades(),
-            ...$data
-        ]);
+        $data['unidades'] = $this->unidades();
+        return parent::form($model, $data);
     }
 
     protected function unidades()

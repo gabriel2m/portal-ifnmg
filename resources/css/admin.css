@@ -11,8 +11,8 @@
     background-color: var(--color-1);
 }
 
-.bg-color-2 {
-    background-color: var(--color-2);
+.preloader {
+    transition-duration: 135ms;
 }
 
 .bg-color-3 {

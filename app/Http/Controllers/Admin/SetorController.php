@@ -83,9 +83,9 @@ class SetorController extends ResourceController
      */
     public function destroy(Setor $setor)
     {
-        $response = redirect()->route("{$this->name}.index");
+        $response = to_route("{$this->name}.index");
         if ($setor->delete())
-            return $response->with('warning', "Setor \"$setor->nome\" Deletado");
-        return $response->with('danger', "Não foi possível deletar \"$setor->nome\"");
+            return $response->with('flash', ['warning' => "Setor \"$setor->nome\" Deletado"]);
+        return $response->with('flash', ['error' => "Não foi possível deletar \"$setor->nome\""]);
     }
 }

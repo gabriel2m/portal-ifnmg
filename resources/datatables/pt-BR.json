@@ -11,8 +11,8 @@
     "paginate": {
         "first": "<i class=\"first\"></i>",
         "last": "<i class=\"last\"></i>",
-        "next": "<i class=\"fas fa-chevron-right\"></i>",
-        "previous": "<i class=\"fas fa-chevron-left\"></i>"
+        "next": "<i class=\"fas fa-angle-right\"></i>",
+        "previous": "<i class=\"fas fa-angle-left\"></i>"
     },
     "aria": {
         "sortAscending": ": Ordenar colunas de forma ascendente",

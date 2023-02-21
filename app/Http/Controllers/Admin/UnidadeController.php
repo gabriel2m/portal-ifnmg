@@ -83,9 +83,9 @@ class UnidadeController extends ResourceController
      */
     public function destroy(Unidade $unidade)
     {
-        $response = redirect()->route("{$this->name}.index");
+        $response = to_route("{$this->name}.index");
         if ($unidade->delete())
-            return $response->with('warning', "Unidade \"$unidade->nome\" Deletada");
-        return $response->with('danger', "Não foi possível deletar \"$unidade->nome\"");
+            return $response->with('flash', ['warning' => "Unidade \"$unidade->nome\" Deletada"]);
+        return $response->with('flash', ['error' => "Não foi possível deletar \"$unidade->nome\""]);
     }
 }

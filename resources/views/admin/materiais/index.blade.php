@@ -1,23 +1,14 @@
-@extends('layouts.admin')
-
-@php
-    $title[] = 'Materiais';
-    $active_link = route('admin.materiais.index');
-@endphp
+@extends('admin.materiais.base')
 
 @prepend('styles')
     <link rel="stylesheet" href="{{ mix('css/datatables.css') }}">
 @endprepend
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <table id="materiais-table" class="table border-bottom border-top-0 table-hover w-100">
-                    </table>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <table id="materiais-table" class="table border-bottom border-top-0 table-hover w-100">
+            </table>
         </div>
     </div>
 @endsection
