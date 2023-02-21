@@ -31,3 +31,20 @@
     padding-left : 1rem;
     padding-right: 1rem;
 }
+
+.show-table td:first-child {
+    font-weight: 600;
+    width      : 7rem;
+}
+
+.show-table tr+tr td {
+    border-top: 1px solid #dee2e6;
+}
+
+.show-table tr:not(:first-child) td {
+    padding-top: .5rem;
+}
+
+.show-table tr:not(:last-child) td {
+    padding-bottom: .5rem;
+}

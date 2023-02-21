@@ -15,30 +15,12 @@
 @endphp
 
 @prepend('styles')
-    <style>
-        #material-table td:first-child {
-            font-weight: 600;
-            width: 7rem;
-        }
-
-        #material-table tr+tr td {
-            border-top: 1px solid #dee2e6;
-        }
-
-        #material-table tr:not(:first-child) td {
-            padding-top: .5rem;
-        }
-
-        #material-table tr:not(:last-child) td {
-            padding-bottom: .5rem;
-        }
-    </style>
 @endprepend
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="material-table" class="text-lg w-100">
+            <table class="show-table text-lg w-100">
                 <tbody>
                     @foreach ([
             'catmat' => 'CATMAT',
@@ -47,7 +29,7 @@
             'unidade_label' => 'Unidade',
         ] as $attr => $label)
                         <tr>
-                            <td class="font-bold">
+                            <td>
                                 {{ $label }}
                             </td>
                             <td>
@@ -63,9 +45,11 @@
     <div class="d-flex mt-3">
         <div class="ml-auto">
             <a href="{{ route('admin.materiais.edit', $material) }}" class="btn btn-primary">
+                <i class="far fa-edit"></i>
                 Editar
             </a>
             <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">
+                <i class="far fa-trash-alt"></i>
                 Deletar
             </button>
 
@@ -77,7 +61,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            Deseja realmente deletar esse material?
+                            Deseja realmente deletar?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
