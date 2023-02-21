@@ -8,11 +8,11 @@
         ],
     ];
     if ($setor->exists) {
-        $title = ['Editar', $setor->nome];
+        $title = ['Editar', $setor->getOriginal('nome')];
         array_push(
             $breadcrumb,
             [
-                'label' => $setor->nome,
+                'label' => $setor->getOriginal('nome'),
                 'link' => route('admin.setores.show', $setor),
             ],
             [

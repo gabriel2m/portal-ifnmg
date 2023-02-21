@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
 @php
-$title = $perfil->exists ? [$perfil->nome, 'Editar'] : ['Novo Perfil'];
-$showBanner = false;
+    $title = $perfil->exists ? [$perfil->getOriginal('nome'), 'Editar'] : ['Novo Perfil'];
+    $showBanner = false;
 @endphp
 
 @section('main-content')
@@ -21,7 +21,7 @@ $showBanner = false;
                 <label class="label-primary" for="nome">
                     Nome
                 </label>
-                <input type="text" name="nome" class="input-primary" value="{{ old('nome', $perfil->nome) }}" required>
+                <input type="text" name="nome" class="input-primary" value="{{ $perfil->nome }}" required>
                 @include('utils.error', ['input' => 'nome'])
             </div>
             <div>
@@ -38,7 +38,7 @@ $showBanner = false;
                 <select name="categoria" class="input-primary" required>
                     <option></option>
                     @foreach (Categorias::cases() as $categoria)
-                        <option value="{{ $categoria->value }}" @if (old('categoria', $perfil->categoria?->value) == $categoria->value) selected @endif>
+                        <option value="{{ $categoria->value }}" @if ($perfil->categoria?->value == $categoria->value) selected @endif>
                             {{ $categoria->label() }}
                         </option>
                     @endforeach
@@ -49,7 +49,7 @@ $showBanner = false;
                 <label class="label-primary" for="descricao">
                     Descrição
                 </label>
-                <textarea name="descricao" class="input-primary" rows="10" required>{{ old('descricao', $perfil->descricao) }}</textarea>
+                <textarea name="descricao" class="input-primary" rows="10" required>{{ $perfil->descricao }}</textarea>
                 @include('utils.error', ['input' => 'descricao'])
             </div>
 

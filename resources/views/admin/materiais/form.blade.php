@@ -8,11 +8,11 @@
         ],
     ];
     if ($material->exists) {
-        $title = ['Editar', $material->nome];
+        $title = ['Editar', $material->getOriginal('nome')];
         array_push(
             $breadcrumb,
             [
-                'label' => $material->nome,
+                'label' => $material->getOriginal('nome'),
                 'link' => route('admin.materiais.show', $material),
             ],
             [

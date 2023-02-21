@@ -8,11 +8,11 @@
         ],
     ];
     if ($compra->exists) {
-        $title = ['Editar', $compra->ano];
+        $title = ['Editar', $compra->getOriginal('ano')];
         array_push(
             $breadcrumb,
             [
-                'label' => $compra->ano,
+                'label' => $compra->getOriginal('ano'),
                 'link' => route('admin.compras.show', $compra),
             ],
             [

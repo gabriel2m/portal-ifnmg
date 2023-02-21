@@ -8,11 +8,11 @@
         ],
     ];
     if ($unidade->exists) {
-        $title = ['Editar', $unidade->nome];
+        $title = ['Editar', $unidade->getOriginal('nome')];
         array_push(
             $breadcrumb,
             [
-                'label' => $unidade->nome,
+                'label' => $unidade->getOriginal('nome'),
                 'link' => route('admin.unidades.show', $unidade),
             ],
             [
