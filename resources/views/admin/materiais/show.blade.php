@@ -62,7 +62,7 @@
 
     <div class="d-flex mt-3">
         <div class="ml-auto">
-            <a href="{{ route('admin.materiais.edit', $material) }}" class="btn btn-info">
+            <a href="{{ route('admin.materiais.edit', $material) }}" class="btn btn-primary">
                 Editar
             </a>
             <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">

@@ -64,6 +64,7 @@
             [
                 'link' => route('admin.materiais.index'),
                 'label' => 'Materiais',
+                'icon' => 'boxes',
             ],
         ] as $item)
                             <li class="nav-item">
@@ -71,7 +72,7 @@
                                     'nav-link',
                                     'active' => $item['link'] == ($active_link ?? false),
                                 ])>
-                                    <i class="nav-icon fas fa-boxes"></i>
+                                    <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
                                     <p>
                                         {{ $item['label'] }}
                                     </p>

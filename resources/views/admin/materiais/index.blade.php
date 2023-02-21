@@ -13,7 +13,7 @@
     </div>
     <div class="d-flex mt-3">
         <div class="ml-auto">
-            <a href="{{ route('admin.materiais.create') }}" class="btn btn-info">
+            <a href="{{ route('admin.materiais.create') }}" class="btn btn-primary">
                 Adicionar
             </a>
         </div>
