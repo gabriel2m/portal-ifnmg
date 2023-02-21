@@ -1,14 +1,45 @@
-@extends('layouts.admin')
+@extends('admin.unidades.base')
 
-@php
-$title[] = 'Unidades';
-@endphp
+@prepend('styles')
+    <link rel="stylesheet" href="{{ mix('css/datatables.css') }}">
+@endprepend
 
-@section('main-content')
-    @include('admin.utils.content-title')
-    @include('admin.utils.resource-table', [
-        'resource_name' => 'admin.unidades',
-        'models' => $unidades,
-        'attrs' => ['nome' => 'Unidade'],
-    ])
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <table id="unidades-table" class="table border-bottom table-hover w-100">
+            </table>
+        </div>
+    </div>
+    <div class="d-flex mt-3">
+        <div class="ml-auto">
+            <a href="{{ route('admin.unidades.create') }}" class="btn btn-primary">
+                Adicionar
+            </a>
+        </div>
+    </div>
 @endsection
+
+@prepend('scripts')
+    <script src="{{ mix('js/datatables.js') }}"></script>
+    <script>
+        let table = $('#unidades-table').DataTable({
+            processing: true,
+            serverSide: true,
+            language: {
+                url: "{{ asset('datatables/pt-BR.json') }}"
+            },
+            ajax: {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                type: "POST",
+                url: "{{ route('admin.unidades.datatables') }}",
+            },
+            columns: [{
+                title: 'Unidade',
+                data: 'nome'
+            }],
+        });
+    </script>
+@endprepend

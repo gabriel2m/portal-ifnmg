@@ -66,6 +66,11 @@
                 'label' => 'Materiais',
                 'icon' => 'boxes',
             ],
+            [
+                'link' => route('admin.unidades.index'),
+                'label' => 'Unidades de Medida',
+                'icon' => 'balance-scale-right',
+            ],
         ] as $item)
                             <li class="nav-item">
                                 <a href="{{ $item['link'] }}" @class([

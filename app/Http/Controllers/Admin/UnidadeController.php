@@ -14,11 +14,6 @@ class UnidadeController extends ResourceController
 
     protected string $afterSaveRoute = 'admin.unidades.index';
 
-    public function __construct()
-    {
-        $this->authorizeResource(Unidade::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +21,17 @@ class UnidadeController extends ResourceController
      */
     public function index()
     {
-        return view('admin.unidades.index', [
-            'unidades' => Unidade::orderBy('nome')->get()
-        ]);
+        return view('admin.unidades.index');
+    }
+
+    /**
+     * Return a datatables listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        return datatables(Unidade::query())->toJson();
     }
 
     /**
