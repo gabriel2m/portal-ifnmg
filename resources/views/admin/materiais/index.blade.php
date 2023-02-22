@@ -52,7 +52,7 @@
                 },
             ],
             rowCallback: (row, data, index) => {
-                let url = "{{ route('admin.materiais.show', '=id=') }}".replace('=id=', data.id)
+                let url = "{{ route('admin.materiais.show', '=catmat=') }}".replace('=catmat=', data.catmat)
                 $(row)
                     .attr('role', 'button')
                     .children()

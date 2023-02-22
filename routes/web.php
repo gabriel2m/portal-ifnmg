@@ -116,8 +116,8 @@ Route::name('admin.')
         Route::resource('setores', SetorController::class)->parameters(['setores' => 'setor']);
 
         Route::post('materiais/datatables', [MaterialController::class, 'datatables'])->name('materiais.datatables');
-        Route::resource('materiais', MaterialController::class)->parameters(['materiais' => 'material']);
+        Route::resource('materiais', MaterialController::class)->parameters(['materiais' => 'material'])->scoped(['material' => 'catmat']);
 
         Route::post('compras/datatables', [CompraController::class, 'datatables'])->name('compras.datatables');
-        Route::resource('compras', CompraController::class);
+        Route::resource('compras', CompraController::class)->scoped(['compra' => 'ano']);
     });

@@ -43,7 +43,7 @@
                 data: 'ano'
             }],
             rowCallback: (row, data, index) => {
-                let url = "{{ route('admin.compras.show', '=id=') }}".replace('=id=', data.id)
+                let url = "{{ route('admin.compras.show', '=ano=') }}".replace('=ano=', data.ano)
                 $(row)
                     .attr('role', 'button')
                     .children()
