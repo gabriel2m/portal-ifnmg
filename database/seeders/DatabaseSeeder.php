@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             CompraSeeder::class,
             MaterialCompraSeeder::class,
+            MaterialCompraSetorSeeder::class,
         ]);
     }
 }
