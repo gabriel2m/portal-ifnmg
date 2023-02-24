@@ -20,15 +20,15 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table class="show-table text-lg w-100">
+            <table class="table show-table w-100">
                 <tbody>
                     @foreach ([
             'nome' => 'Unidade',
         ] as $attr => $label)
                         <tr>
-                            <td>
+                            <th>
                                 {{ $label }}
-                            </td>
+                            </th>
                             <td>
                                 {{ $unidade->$attr }}
                             </td>

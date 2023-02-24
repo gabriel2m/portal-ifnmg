@@ -31,7 +31,7 @@
 
 @section('content')
     <form method="POST"
-        action="{{ $compra->exists ? route('admin.compras.update', $compra) : route('admin.compras.store') }}"
+        action="{{ $compra->exists ? route('admin.compras.update', $compra->getOriginal('ano')) : route('admin.compras.store') }}"
         class="form-primary" autocomplete="off">
         @csrf
         @if ($compra->exists)

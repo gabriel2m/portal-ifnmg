@@ -31,7 +31,7 @@
 
 @section('content')
     <form method="POST"
-        action="{{ $material->exists ? route('admin.materiais.update', $material) : route('admin.materiais.store') }}"
+        action="{{ $material->exists ? route('admin.materiais.update', $material->getOriginal('catmat')) : route('admin.materiais.store') }}"
         class="form-primary" autocomplete="off">
         @csrf
         @if ($material->exists)

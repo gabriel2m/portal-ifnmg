@@ -7,14 +7,14 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="unidades-table" class="table border-bottom table-hover w-100">
+            <table id="unidades-table" class="table border-bottom table-hover w-100 nowrap">
             </table>
         </div>
     </div>
     <div class="d-flex mt-3">
         <div class="ml-auto">
             <a href="{{ route('admin.unidades.create') }}" class="btn btn-primary">
-                <i class="far fa-plus-square"></i>
+                <i class="fas fa-plus"></i>
                 Adicionar
             </a>
         </div>
@@ -27,6 +27,7 @@
         let table = $('#unidades-table').DataTable({
             processing: true,
             serverSide: true,
+            scrollX: true,
             language: {
                 url: "{{ asset('datatables/pt-BR.json') }}"
             },
