@@ -67,6 +67,22 @@ class MaterialCompraController extends ResourceController
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(int $compra)
+    {
+        abort_unless(
+            $compra_id = Compra::where('ano', $compra)->value('id'),
+            404
+        );
+
+        return $this->form(
+            new MaterialCompra(compact('compra_id'))
+        );
+    }
+    /**
      * Display the specified resource.
      *
      * @return \Illuminate\Http\Response
