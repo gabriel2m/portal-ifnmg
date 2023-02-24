@@ -90,4 +90,16 @@ class MaterialCompraController extends ResourceController
         );
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(SaveMaterialCompraRequest $request, int $compra, int $material)
+    {
+        return $this->save(
+            $request,
+            $this->getMaterialCompra($compra, $material)
+        );
+    }
 }
