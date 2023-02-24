@@ -82,6 +82,26 @@ class MaterialCompraController extends ResourceController
             new MaterialCompra(compact('compra_id'))
         );
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\SaveCompraRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(SaveMaterialCompraRequest $request, int $compra)
+    {
+        abort_unless(
+            $compra_id = Compra::where('ano', $compra)->value('id'),
+            404
+        );
+
+        return $this->save(
+            $request,
+            new MaterialCompra(compact('compra_id'))
+        );
+    }
+
     /**
      * Display the specified resource.
      *
