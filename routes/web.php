@@ -2,6 +2,7 @@
 
 use App\Enums\Categorias;
 use App\Http\Controllers\Admin\CompraController;
+use App\Http\Controllers\Admin\MaterialCompraController;
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
@@ -116,8 +117,15 @@ Route::name('admin.')
         Route::resource('setores', SetorController::class)->parameters(['setores' => 'setor']);
 
         Route::post('materiais/datatables', [MaterialController::class, 'datatables'])->name('materiais.datatables');
-        Route::resource('materiais', MaterialController::class)->parameters(['materiais' => 'material'])->scoped(['material' => 'catmat']);
+        Route::resource('materiais', MaterialController::class)
+            ->parameters(['materiais' => 'material'])
+            ->scoped(['material' => 'catmat'])
+            ->whereNumber('material');
 
         Route::post('compras/datatables', [CompraController::class, 'datatables'])->name('compras.datatables');
-        Route::resource('compras', CompraController::class)->scoped(['compra' => 'ano']);
+        Route::resource('compras', CompraController::class)
+            ->scoped(['compra' => 'ano'])
+            ->whereNumber('compra');
+
+        Route::post('compras/{compra:ano}/materiais/datatables', [MaterialCompraController::class, 'datatables'])->name('compras.materiais.datatables');
     });

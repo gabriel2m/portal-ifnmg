@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\SaveCompraRequest;
 use App\Models\Compra;
+use App\Models\Setor;
 
 class CompraController extends ResourceController
 {
@@ -61,7 +62,9 @@ class CompraController extends ResourceController
      */
     public function show(Compra $compra)
     {
-        return $this->showAction($compra);
+        return $this->showAction($compra, [
+            'setores' => Setor::orderBy('nome')->select('nome', 'id')->get()
+        ]);
     }
 
     /**
