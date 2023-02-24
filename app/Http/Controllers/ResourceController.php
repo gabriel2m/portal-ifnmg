@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
 class ResourceController extends Controller
@@ -14,7 +15,7 @@ class ResourceController extends Controller
 
     public function modelName()
     {
-        return Str::slug(class_basename($this->model_class), '_');
+        return Str::snake(class_basename($this->model_class));
     }
 
     /**
@@ -22,9 +23,9 @@ class ResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected function indexAction()
+    protected function indexAction(array $data = [])
     {
-        return view("$this->name.index");
+        return view("$this->name.index", $data);
     }
 
     /**
@@ -42,9 +43,9 @@ class ResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected function createAction()
+    protected function createAction(array $data = [])
     {
-        return $this->form(new $this->model_class);
+        return $this->form(new $this->model_class, $data);
     }
 
     /**
@@ -62,9 +63,10 @@ class ResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected function showAction(Model $model)
+    protected function showAction(Model $model, array $data = [])
     {
-        return view("$this->name.show", [$this->modelName() => $model]);
+        $data[$this->modelName()] = $model;
+        return view("$this->name.show", $data);
     }
 
     /**
@@ -72,12 +74,11 @@ class ResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroyAction(Model $model)
+    public function destroyAction(Model $model, RedirectResponse $success_route = null)
     {
-        $response = to_route("{$this->name}.index");
         if ($model->delete())
-            return $response->with('flash', ['warning' => "Recurso Deletado"]);
-        return $response->with('flash', ['error' => 'Algo de errado ocorreu.']);
+            return ($success_route ?? to_route("{$this->name}.index"))->with('flash', ['warning' => "Recurso Deletado"]);
+        return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 
     /**
