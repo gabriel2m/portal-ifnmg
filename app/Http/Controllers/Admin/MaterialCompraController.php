@@ -78,4 +78,16 @@ class MaterialCompraController extends ResourceController
         );
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(int $compra, int $material)
+    {
+        return $this->form(
+            $this->getMaterialCompra($compra, $material)
+        );
+    }
+
 }
