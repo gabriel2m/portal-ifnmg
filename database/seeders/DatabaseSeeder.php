@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PerfilSeeder::class,
             MaterialSeeder::class,
-            CompraSeeder::class
+            CompraSeeder::class,
+            MaterialCompraSeeder::class,
         ]);
     }
 }
