@@ -33,8 +33,8 @@ mix
     .css('resources/css/admin.css', 'public/css')
 
 /*
-* Datatables
-*/
+ * Datatables
+ */
 mix
     .combine([
         'node_modules/datatables.net/js/jquery.dataTables.min.js',
@@ -44,3 +44,19 @@ mix
     ], 'public/js/datatables.js')
     .css('resources/css/datatables.css', 'public/css')
     .copy('resources/datatables', 'public/datatables')
+
+/*
+ * Inputmask
+ */
+mix
+    .copy('node_modules/inputmask/dist/jquery.inputmask.min.js', 'public/inputmask')
+
+/*
+ * Select2
+ */
+mix
+    .combine([
+        'node_modules/select2/dist/css/select2.min.css',
+        'node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css',
+    ], 'public/select2/select2.full.min.css')
+    .copy('node_modules/select2/dist/js/select2.full.min.js', 'public/select2')
