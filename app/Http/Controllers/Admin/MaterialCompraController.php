@@ -138,4 +138,93 @@ class MaterialCompraController extends ResourceController
             $this->getMaterialCompra($compra, $material)
         );
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $compra, int $material)
+    {
+        $material_compra = $this->getMaterialCompra($compra, $material);
+
+        return $this->destroyAction(
+            $material_compra,
+            to_route('admin.compras.show', $material_compra->compra)
+        );
+    }
+
+    /**
+     * @param MaterialCompra $model
+     */
+    protected function form(Model $model, array $data = [])
+    {
+        $model->fill(old());
+        $setores = Setor::orderBy('nome')->select('nome', 'id')->get();
+        $model_setores = $model->setores->keyBy('id');
+
+        return view("$this->name.form", [
+            ...$data,
+            $this->modelName() => $model,
+            'setores' => $setores,
+            'quantidades' => $setores->keyBy('id')->map(
+                fn (Setor $item) => old("material_compra_setor.$item->id.quantidade", $model_setores[$item->id]->pivot->quantidade ?? null),
+            ),
+            'materiais' => App::runningUnitTests()
+                ? []
+                : Material::selectRaw("CONCAT(catmat, ' - ', nome) as label, id")->orderBy('nome')->pluck('label', 'id'),
+            'material' => Material::find($model->getOriginal('material_id'))
+        ]);
+    }
+
+    /**
+     * Save the specified resource in storage.
+     * 
+     * @param MaterialCompra $model
+     */
+    protected function save(FormRequest $request, Model $model)
+    {
+        Validator::make(
+            $request->validated(),
+            [
+                'material_compra_setor' => [
+                    'required'
+                ],
+                'material_id' => [
+                    Rule::unique(MaterialCompra::class)
+                        ->where('compra_id', $model->compra->id)
+                        ->ignore($model)
+                ]
+            ],
+            ['required' => 'Ao menos um setor deve ser adicionado'],
+            ['material_id' => 'material']
+        )->validate();
+
+        return DB::transaction(function () use ($request, $model) {
+            if ($model->fill($request->validated())->save()) {
+
+                $model_setores = [];
+                foreach ($request->validated('material_compra_setor') as $item)
+                    $model_setores[$item['setor_id']] = ['quantidade' => $item['quantidade']];
+
+                $model->setores()->sync($model_setores);
+
+                return to_route('admin.compras.materiais.show', [
+                    'compra' => $model->compra->ano,
+                    'material' => $model->material->catmat
+                ])->with('flash', ['success' => 'Recurso Salvo.']);
+            }
+            return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
+        });
+    }
+
+    protected function getMaterialCompra(int $compra, int $material): MaterialCompra
+    {
+        abort_unless(
+            ($compra_id = Compra::where('ano', $compra)->value('id')) && ($material_id = Material::where('catmat', $material)->value('id')),
+            404
+        );
+
+        return MaterialCompra::where(compact('compra_id', 'material_id'))->firstOrFail();
+    }
 }
