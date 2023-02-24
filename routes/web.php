@@ -128,4 +128,8 @@ Route::name('admin.')
             ->whereNumber('compra');
 
         Route::post('compras/{compra:ano}/materiais/datatables', [MaterialCompraController::class, 'datatables'])->name('compras.materiais.datatables');
+        Route::resource('compras.materiais', MaterialCompraController::class)
+            ->parameters(['materiais' => 'material'])
+            ->whereNumber(['compra', 'material'])
+            ->except('index');
     });

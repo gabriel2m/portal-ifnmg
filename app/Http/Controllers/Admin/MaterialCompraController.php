@@ -65,4 +65,17 @@ class MaterialCompraController extends ResourceController
 
         return datatables($query)->toJson();
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(int $compra, int $material)
+    {
+        return $this->showAction(
+            $this->getMaterialCompra($compra, $material)
+        );
+    }
+
 }
