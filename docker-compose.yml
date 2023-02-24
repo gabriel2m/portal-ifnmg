@@ -41,6 +41,15 @@ services:
         networks:
             - app
 
+    adminer:
+        image: adminer
+        ports:
+            - ${ADMINER_PORT:-8002}:8080
+        depends_on:
+            - db
+        networks:
+            - app
+        
     elasticsearch:
         image: elasticsearch:7.17.1
         environment:
