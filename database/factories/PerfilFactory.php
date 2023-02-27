@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use App\Models\Perfil;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,7 +24,7 @@ class PerfilFactory extends Factory
     {
         return [
             'nome' => $this->faker->unique()->words(rand(1, 4), true),
-            'categoria' => $this->faker->randomElement(Categorias::valueList()),
+            'categoria' => $this->faker->randomElement(CategoriaPerfil::values()),
             'descricao' => $this->faker->text(500),
         ];
     }

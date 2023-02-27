@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use App\Http\Controllers\Controller;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class PerfilController extends Controller
             Perfil::where(
                 $request->validate([
                     'categoria' => [
-                        new Enum(Categorias::class)
+                        new Enum(CategoriaPerfil::class)
                     ]
                 ])
             )->paginate(),

@@ -23,7 +23,7 @@
                     'label' => $categoria->label(),
                     'route' => ['categorias.show', ['slug' => $categoria->slug()]],
                 ];
-            }, Categorias::cases()),
+            }, CategoriaPerfil::cases()),
             [
                 'label' => 'Cadastrar Perfil',
                 'route' => ['perfis.create'],

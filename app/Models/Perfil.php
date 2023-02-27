@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use App\Facades\DB;
 use Carbon\Carbon;
 use ElasticScoutDriverPlus\QueryDsl;
@@ -19,7 +19,7 @@ use RuntimeException;
  * @property UploadedFile|string $imagem
  * @property-read string $imagem_url
  * @property-read string $link
- * @property Categorias $categoria
+ * @property CategoriaPerfil $categoria
  * @property string $descricao
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -29,7 +29,7 @@ class Perfil extends Model
     use HasFactory, Searchable, QueryDsl;
 
     protected $casts = [
-        'categoria' => Categorias::class,
+        'categoria' => CategoriaPerfil::class,
     ];
 
     protected $guarded = [];

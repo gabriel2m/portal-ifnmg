@@ -9,7 +9,7 @@
 @endprepend
 
 @section('main-content')
-    @foreach (Categorias::cases() as $categoria)
+    @foreach (CategoriaPerfil::cases() as $categoria)
         <div class="categoria-carousel hidden">
             <h3 class="text-center mb-4 mt-6">{{ $categoria->label() }}</h3>
             <div class="show-on-scroll flex mx-auto max-w-screen-2xl carousel">

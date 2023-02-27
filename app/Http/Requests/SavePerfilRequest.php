@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -40,7 +40,7 @@ class SavePerfilRequest extends FormRequest
             ],
             'categoria' => [
                 'required',
-                new Enum(Categorias::class)
+                new Enum(CategoriaPerfil::class)
             ],
             'descricao' => [
                 'required',

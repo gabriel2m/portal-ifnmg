@@ -37,7 +37,7 @@
                 </label>
                 <select name="categoria" class="input-primary" required>
                     <option></option>
-                    @foreach (Categorias::cases() as $categoria)
+                    @foreach (CategoriaPerfil::cases() as $categoria)
                         <option value="{{ $categoria->value }}" @if ($perfil->categoria?->value == $categoria->value) selected @endif>
                             {{ $categoria->label() }}
                         </option>

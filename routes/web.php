@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use App\Http\Controllers\Admin\CompraController;
 use App\Http\Controllers\Admin\MaterialCompraController;
 use App\Http\Controllers\Admin\MaterialController;
@@ -29,12 +29,12 @@ use Illuminate\Support\Facades\Notification;
 Route::view('', 'home')->name('home');
 
 Route::get("categorias/{slug}", function (Request $request, string $slug) {
-    foreach (Categorias::cases() as $case)
+    foreach (CategoriaPerfil::cases() as $case)
         if ($case->slug() == $slug)
             $categoria = $case;
 
     if (!isset($categoria))
-        return abort(404, __('not_found', ['target' => 'Categoria']));
+        return abort(404);
 
     $filtro = null;
     extract($request->validate([

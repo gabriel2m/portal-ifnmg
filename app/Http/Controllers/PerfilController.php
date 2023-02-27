@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SavePerfilRequest;
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use App\Models\Perfil;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,7 +29,7 @@ class PerfilController extends ResourceController
      */
     public function advancedSearch(Request $request)
     {
-        $categoria = Categorias::DESENVOLVIMENTO_DE_PRODUTOS->value;
+        $categoria = CategoriaPerfil::DesenvolvimentoProdutos->value;
 
         extract($request->validate([
             'query' => [
@@ -38,7 +38,7 @@ class PerfilController extends ResourceController
                 'max:255',
             ],
             'categoria' => [
-                new Enum(Categorias::class)
+                new Enum(CategoriaPerfil::class)
             ],
         ]));
 
@@ -47,7 +47,7 @@ class PerfilController extends ResourceController
             ->{'postFilter'}('term', ['categoria' => $categoria])
             ->paginate(Perfil::PER_PAGE)->withQueryString();
 
-        $categoria = Categorias::from($categoria);
+        $categoria = CategoriaPerfil::from($categoria);
 
         return view('perfis.pesquisa-avancada.show', compact('perfis', 'query', 'categoria'));
     }

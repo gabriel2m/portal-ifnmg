@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Categorias;
+use App\Enums\CategoriaPerfil;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -196,7 +196,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Categorias' => Categorias::class
+        'CategoriaPerfil' => CategoriaPerfil::class
     ])->toArray(),
 
     'perfil' => [
