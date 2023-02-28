@@ -80,19 +80,22 @@
                 'link' => route('admin.users.index'),
                 'label' => 'Usuários',
                 'icon' => 'users',
+                'show' => auth()->user()->nivel == NivelUser::Admin,
             ],
         ] as $item)
-                            <li class="nav-item">
-                                <a href="{{ $item['link'] }}" @class([
-                                    'nav-link',
-                                    'active' => $item['link'] == ($active_link ?? false),
-                                ])>
-                                    <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
-                                    <p>
-                                        {{ $item['label'] }}
-                                    </p>
-                                </a>
-                            </li>
+                            @if ($item['show'] ?? true)
+                                <li class="nav-item">
+                                    <a href="{{ $item['link'] }}" @class([
+                                        'nav-link',
+                                        'active' => $item['link'] == ($active_link ?? false),
+                                    ])>
+                                        <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
+                                        <p>
+                                            {{ $item['label'] }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </nav>

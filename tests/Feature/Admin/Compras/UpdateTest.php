@@ -13,7 +13,7 @@ class UpdateTest extends TestCase
             ->actingAsAdmin()
             ->put(
                 route('admin.compras.update', Compra::factory()->createOne()),
-                $data = Compra::factory()->makeOne()->attributesToArray()
+                $data = Compra::factory()->raw()
             )
             ->assertRedirect();
 

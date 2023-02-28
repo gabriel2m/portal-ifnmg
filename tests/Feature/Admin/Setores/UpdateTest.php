@@ -9,14 +9,17 @@ class UpdateTest extends TestCase
 {
     public function test_put()
     {
+        $count = Setor::count();
+
         $this
             ->actingAsAdmin()
             ->put(
-                route('admin.setores.update', Setor::factory()->createOne()),
-                $data = Setor::factory()->makeOne()->attributesToArray()
+                route('admin.setores.update', Setor::first()),
+                $data = Setor::factory()->raw()
             )
             ->assertRedirect();
 
         $this->assertDatabaseHas(Setor::class, $data);
+        $this->assertDatabaseCount(Setor::class, $count);
     }
 }

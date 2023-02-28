@@ -11,7 +11,7 @@ class StoreTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->post(route('admin.materiais.store'), $data = Material::factory()->makeOne()->attributesToArray())
+            ->post(route('admin.materiais.store'), $data = Material::factory()->raw())
             ->assertRedirect();
 
         $this->assertDatabaseHas(Material::class, $data);

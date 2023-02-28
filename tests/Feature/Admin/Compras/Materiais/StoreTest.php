@@ -20,7 +20,7 @@ class StoreTest extends TestCase
             'valor' => 10,
         ];
 
-        $material_compra_setor_data = MaterialCompraSetor::factory()->makeOne()->attributesToArray();
+        $material_compra_setor_data = MaterialCompraSetor::factory()->raw();
 
         $this
             ->actingAsAdmin()

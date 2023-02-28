@@ -9,14 +9,17 @@ class UpdateTest extends TestCase
 {
     public function test_put()
     {
+        $count = Unidade::count();
+
         $this
             ->actingAsAdmin()
             ->put(
-                route('admin.unidades.update', Unidade::factory()->createOne()),
-                $data = Unidade::factory()->makeOne()->attributesToArray()
+                route('admin.unidades.update', Unidade::first()),
+                $data = Unidade::factory()->raw()
             )
             ->assertRedirect();
 
         $this->assertDatabaseHas(Unidade::class, $data);
+        $this->assertDatabaseCount(Unidade::class, $count);
     }
 }

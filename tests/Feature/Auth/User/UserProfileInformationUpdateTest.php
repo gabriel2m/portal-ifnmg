@@ -18,5 +18,6 @@ class UserProfileInformationUpdateTest extends TestCase
             ->assertRedirect();
 
         $this->assertDatabaseHas(User::class, $data);
+        $this->assertDatabaseCount(User::class, 1);
     }
 }

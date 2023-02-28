@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Middleware\NivelAdmin;
 use App\Http\Middleware\NivelAdminTecnico;
 use App\Models\Perfil;
 use App\Models\User;
@@ -115,9 +116,6 @@ Route::name('admin.')
     ->group(function () {
         Route::view('', 'admin.home')->name('home');
 
-        Route::post('users/datatables', [UserController::class, 'datatables'])->name('users.datatables');
-        Route::resource('users', UserController::class);
-
         Route::post('unidades/datatables', [UnidadeController::class, 'datatables'])->name('unidades.datatables');
         Route::resource('unidades', UnidadeController::class);
 
@@ -140,4 +138,9 @@ Route::name('admin.')
             ->parameters(['materiais' => 'material'])
             ->whereNumber(['compra', 'material'])
             ->except('index');
+
+        Route::middleware(NivelAdmin::class)->group(function () {
+            Route::post('users/datatables', [UserController::class, 'datatables'])->name('users.datatables');
+            Route::resource('users', UserController::class);
+        });
     });

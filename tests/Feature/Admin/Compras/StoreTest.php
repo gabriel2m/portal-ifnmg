@@ -11,9 +11,10 @@ class StoreTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->post(route('admin.compras.store'), $data = Compra::factory()->makeOne()->attributesToArray())
+            ->post(route('admin.compras.store'), $data = Compra::factory()->raw())
             ->assertRedirect();
 
         $this->assertDatabaseHas(Compra::class, $data);
+        $this->assertDatabaseCount(Compra::class, 1);
     }
 }

@@ -13,7 +13,7 @@ class UpdateTest extends TestCase
             ->actingAsAdmin()
             ->put(
                 route('admin.materiais.update', Material::factory()->createOne()),
-                $data = Material::factory()->makeOne()->attributesToArray()
+                $data = Material::factory()->raw()
             )
             ->assertRedirect();
 
