@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MaterialCompraController;
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Middleware\NivelAdminTecnico;
 use App\Models\Perfil;
@@ -61,7 +62,7 @@ Route::get("categorias/{slug}", function (Request $request, string $slug) {
 Route::name('perfis.pesquisa-avancada.')
     ->prefix('pesquisa-avancada')
     ->group(function () {
-        Route::get('', PerfilController::class . '@advancedSearch')->name('show');
+        Route::get('', [PerfilController::class, 'advancedSearch'])->name('show');
 
         Route::view('sobre', 'perfis.pesquisa-avancada.about')->name('about');
     });
@@ -113,6 +114,9 @@ Route::name('admin.')
     ])
     ->group(function () {
         Route::view('', 'admin.home')->name('home');
+
+        Route::post('users/datatables', [UserController::class, 'datatables'])->name('users.datatables');
+        Route::resource('users', UserController::class);
 
         Route::post('unidades/datatables', [UnidadeController::class, 'datatables'])->name('unidades.datatables');
         Route::resource('unidades', UnidadeController::class);

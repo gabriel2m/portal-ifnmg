@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\ResourceController;
+use App\Models\User;
+
+class UserController extends ResourceController
+{
+    protected string $name = 'admin.users';
+
+    protected string $model_class = User::class;
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return $this->indexAction();
+    }
+
+    /**
+     * Return a datatables listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        return $this->datatablesAction();
+    }
+}

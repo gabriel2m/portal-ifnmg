@@ -76,6 +76,11 @@
                 'label' => 'Unidades de Medida',
                 'icon' => 'balance-scale-right',
             ],
+            [
+                'link' => route('admin.users.index'),
+                'label' => 'Usuários',
+                'icon' => 'users',
+            ],
         ] as $item)
                             <li class="nav-item">
                                 <a href="{{ $item['link'] }}" @class([
