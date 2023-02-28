@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin\Unidades;
 
+use App\Models\Unidade;
 use Tests\TestCase;
 
 class EditTest extends TestCase
@@ -10,7 +11,7 @@ class EditTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->get(route('admin.unidades.edit', 1))
+            ->get(route('admin.unidades.edit', Unidade::first()))
             ->assertOk();
     }
 }

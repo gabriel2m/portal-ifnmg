@@ -11,7 +11,7 @@ class ShowTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->get(route('admin.unidades.show', Unidade::factory()->create()))
+            ->get(route('admin.unidades.show', Unidade::first()))
             ->assertOk();
     }
 }

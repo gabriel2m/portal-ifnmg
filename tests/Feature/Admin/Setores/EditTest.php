@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin\Setores;
 
+use App\Models\Setor;
 use Tests\TestCase;
 
 class EditTest extends TestCase
@@ -10,7 +11,7 @@ class EditTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->get(route('admin.setores.edit', 1))
+            ->get(route('admin.setores.edit', Setor::first()))
             ->assertOk();
     }
 }

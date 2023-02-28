@@ -11,7 +11,7 @@ class ShowTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->get(route('admin.setores.show', Setor::factory()->create()))
+            ->get(route('admin.setores.show', Setor::first()))
             ->assertOk();
     }
 }

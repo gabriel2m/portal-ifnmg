@@ -11,7 +11,7 @@ class DestroyTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->delete(route('admin.unidades.destroy', $unidade = Unidade::factory()->createOne()))
+            ->delete(route('admin.unidades.destroy', $unidade = Unidade::first()))
             ->assertRedirect();
 
         $this->assertSoftDeleted($unidade);
