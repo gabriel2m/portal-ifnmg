@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\TipoMaterial;
 use App\Models\Unidade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,9 +16,10 @@ class MaterialFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => ucwords($this->faker->unique()->words(rand(1, 4), true)),
-            'descricao' => $this->faker->text(),
             'catmat' => $this->faker->numberBetween(1),
+            'nome' => ucwords($this->faker->unique()->words(rand(1, 4), true)),
+            'tipo' => $this->faker->randomElement(TipoMaterial::values()),
+            'descricao' => $this->faker->text(),
             'unidade_id' => $this->faker->randomElement(Unidade::pluck('id'))
         ];
     }

@@ -81,19 +81,29 @@
         </div>
     </div>
 
-    <div class="card card-light mt-4">
+    <div class="card card-outline card-secondary mt-4" style="border-top-color: #6c757dc4">
         <div class="card-header">
-            <span class="card-title text-lg">Materiais</span>
+            <span class="card-title text-lg">Materiais permanentes</span>
         </div>
         <div class="card-body">
-            <table id="materiais-compra-table" class="table border-bottom table-hover w-100 nowrap">
+            <table id="permanente-table" class="table border-bottom table-hover w-100 nowrap">
             </table>
         </div>
     </div>
+
+    <div class="card card-outline card-secondary mt-4" style="border-top-color: #6c757dc4">
+        <div class="card-header">
+            <span class="card-title text-lg">Materiais de consumo</span>
+        </div>
+        <div class="card-body">
+            <table id="consumo-table" class="table border-bottom table-hover w-100 nowrap">
+            </table>
+        </div>
+    </div>
+
     <div class="d-flex mt-3">
         <div class="ml-auto">
-            <a href="{{ route('admin.compras.materiais.create', ['compra' => $compra->ano]) }}"
-                class="btn btn-primary">
+            <a href="{{ route('admin.compras.materiais.create', ['compra' => $compra->ano]) }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Adicionar
             </a>
@@ -107,7 +117,7 @@
         let setores = @js($setores);
         let ano_compra = '{{ $compra->ano }}';
 
-        let table = $('#materiais-compra-table').DataTable({
+        let table_config = () => ({
             processing: true,
             serverSide: true,
             scrollX: true,
@@ -136,29 +146,23 @@
                     title: 'Quantidade',
                     data: 'quantidade_total',
                     searchable: false,
-                    render: (val, type, data) => {
-                        return Number(val).toLocaleString('pt-br');
-                    }
+                    render: (val, type, data) => Number(val).toLocaleString('pt-br')
                 },
                 {
                     title: 'Valor unitário',
                     data: 'valor',
-                    render: (val, type, data) => {
-                        return Number(val).toLocaleString('pt-br', {
-                            style: 'currency',
-                            currency: 'BRL'
-                        });
-                    }
+                    render: val => Number(val).toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    })
                 },
                 {
                     title: 'Valor total',
                     data: 'valor_total',
-                    render: (val, type, data) => {
-                        return Number(val).toLocaleString('pt-br', {
-                            style: 'currency',
-                            currency: 'BRL'
-                        });
-                    }
+                    render: val => Number(val).toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    })
                 },
                 ...setores.map(setor => ({
                     title: setor.nome,
@@ -190,5 +194,18 @@
                     });
             }
         });
+
+        let permanente_table_config = table_config();
+        let consumo_table_config = table_config();
+
+        permanente_table_config.ajax.data = (body) => {
+            body.tipo = '{{ TipoMaterial::Permanente->value }}';
+        };
+        consumo_table_config.ajax.data = (body) => {
+            body.tipo = '{{ TipoMaterial::Consumo->value }}';
+        };
+
+        let permanente_table = $('#permanente-table').DataTable(permanente_table_config);
+        let consumo_table = $('#consumo-table').DataTable(consumo_table_config);
     </script>
 @endprepend

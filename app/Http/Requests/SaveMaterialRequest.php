@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\TipoMaterial;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,16 +26,20 @@ class SaveMaterialRequest extends FormRequest
     public function rules()
     {
         return [
+            'catmat' => [
+                'required',
+                'integer',
+                Rule::unique('materiais')->ignore($this->material),
+            ],
             'nome' => [
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('materiais')->ignore($this->material),
             ],
-            'catmat' => [
+            'tipo' => [
                 'required',
-                'integer',
-                Rule::unique('materiais')->ignore($this->material),
+                Rule::enum(TipoMaterial::class),
             ],
             'unidade_id' => [
                 'required',

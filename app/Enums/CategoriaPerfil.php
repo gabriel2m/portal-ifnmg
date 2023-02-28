@@ -6,6 +6,8 @@ use Illuminate\Support\Str;
 
 enum CategoriaPerfil: int
 {
+    use ValuesTrait;
+
     case DesenvolvimentoProdutos = 1;
     case PrestacaoServicos = 2;
     case EmpresasJunior = 3;
@@ -46,10 +48,5 @@ enum CategoriaPerfil: int
     public function slug(): string
     {
         return Str::slug($this->name);
-    }
-
-    public static function values()
-    {
-        return array_column(CategoriaPerfil::cases(), 'value');
     }
 }

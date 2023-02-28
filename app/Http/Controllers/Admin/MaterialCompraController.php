@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\TipoMaterial;
 use App\Facades\DB;
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\SaveMaterialCompraRequest;
@@ -12,6 +13,7 @@ use App\Models\MaterialCompraSetor;
 use App\Models\Setor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -27,12 +29,21 @@ class MaterialCompraController extends ResourceController
      *
      * @return \Illuminate\Http\Response
      */
-    public function datatables(Compra $compra)
+    public function datatables(Request $request, Compra $compra)
     {
+        extract($request->validate([
+            'tipo' => [
+                'required',
+                Rule::enum(TipoMaterial::class)
+            ]
+        ]));
+
         /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder */
         $query = MaterialCompra::query();
 
-        $query->where('compra_id', $compra->id)
+        $query
+            ->where('compra_id', $compra->id)
+            ->where('materiais.tipo', $tipo)
             ->join('materiais', 'materiais_compras.material_id', 'materiais.id')
             ->select(
                 'materiais_compras.*',

@@ -24,6 +24,8 @@
 @prepend('scripts')
     <script src="{{ mix('js/datatables.js') }}"></script>
     <script>
+        let tipos = @js(TipoMaterial::toArray());
+
         let table = $('#materiais-table').DataTable({
             processing: true,
             serverSide: true,
@@ -46,6 +48,11 @@
                 {
                     title: 'Nome',
                     data: 'nome'
+                },
+                {
+                    title: 'Tipo',
+                    data: 'tipo',
+                    render: (val) => tipos[val]
                 },
                 {
                     title: 'Descrição',

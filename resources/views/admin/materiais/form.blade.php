@@ -55,6 +55,20 @@
                 </div>
                 <div class="form-group">
                     <label>
+                        Tipo
+                    </label>
+                    <select class="custom-select" name="tipo" required>
+                        <option></option>
+                        @foreach (TipoMaterial::cases() as $tipo)
+                            <option value="{{ $tipo->value }}" @selected($material->tipo?->value == $tipo->value)>
+                                {{ $tipo->label() }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error input='tipo' />
+                </div>
+                <div class="form-group">
+                    <label>
                         Unidade de Medida
                     </label>
                     <select class="custom-select" name="unidade_id" required>

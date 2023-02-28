@@ -22,21 +22,46 @@
         <div class="card-body">
             <table class="table show-table w-100">
                 <tbody>
-                    @foreach ([
-            'catmat' => 'CATMAT',
-            'nome' => 'Nome',
-            'descricao' => 'Descrição',
-            'unidade_label' => 'Unidade',
-        ] as $attr => $label)
-                        <tr>
-                            <th>
-                                {{ $label }}
-                            </th>
-                            <td>
-                                {{ $material->$attr }}
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <th>
+                            CATMAT
+                        </th>
+                        <td>
+                            {{ $material->catmat }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Nome
+                        </th>
+                        <td>
+                            {{ $material->nome }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Tipo
+                        </th>
+                        <td>
+                            {{ $material->tipo->label() }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Descrição
+                        </th>
+                        <td>
+                            {{ $material->descricao }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Unidade
+                        </th>
+                        <td>
+                            {{ $material->unidade->nome }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

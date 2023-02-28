@@ -24,12 +24,13 @@
 
 @prepend('styles')
     <style>
-        #material-compra-table td {
+        #material-compra-table td:last-child {
             width: 1%;
         }
 
         #material-compra-table thead th {
             border-top: 0;
+            white-space: nowrap;
         }
     </style>
 @endprepend
@@ -59,6 +60,12 @@
                                     {{ reais($material_compra->valor) }}
                                 </span>
                             </th>
+                            <th>
+                                Tipo
+                                <span class="ml-3 font-weight-normal">
+                                    {{ $material_compra->material->tipo->label() }}
+                                </span>
+                            </th>
                         </tr>
                         <tr>
                             <th>
@@ -69,6 +76,8 @@
                             </th>
                             <th>
                                 Valor
+                            </th>
+                            <th>
                             </th>
                         </tr>
                     </thead>
@@ -87,6 +96,8 @@
                                 <td>
                                     {{ reais($material_compra->valor * $item->pivot->quantidade) }}
                                 </td>
+                                <td>
+                                </td>
                             </tr>
                             @php
                                 $quantidade_total += $item->pivot->quantidade;
@@ -103,6 +114,8 @@
                             </td>
                             <td>
                                 {{ reais($material_compra->valor * $quantidade_total) }}
+                            </td>
+                            <td>
                             </td>
                         </tr>
                     </tfoot>
