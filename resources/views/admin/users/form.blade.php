@@ -42,8 +42,8 @@
                     <label>
                         Usuário
                     </label>
-                    <input type="text" name="nome" class="form-control" value="{{ $user->nome }}" required>
-                    <x-input-error input='nome' />
+                    <input type="text" name="name" class="form-control" value="{{ $user->name }}" required>
+                    <x-input-error input='name' />
                 </div>
                 <div class="form-group">
                     <label>

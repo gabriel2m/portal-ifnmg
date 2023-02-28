@@ -19,17 +19,20 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Validator::make($input, [
-            'name' => $this->nameRules(),
-            'email' => $this->emailRules(),
-            'password' => $this->passwordRules(),
-            'nivel' => $this->nivelRules()
-        ])->validate();
+        extract(
+            Validator::make($input, [
+                'name' => $this->nameRules(),
+                'email' => $this->emailRules(),
+                'password' => $this->passwordRules(),
+                'nivel' => $this->nivelRules()
+            ])->validate()
+        );
 
         return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'nivel' => $nivel
         ]);
     }
 }

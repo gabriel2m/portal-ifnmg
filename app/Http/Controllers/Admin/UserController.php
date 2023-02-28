@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\ResourceController;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends ResourceController
 {
@@ -39,6 +41,20 @@ class UserController extends ResourceController
     public function create()
     {
         return $this->createAction();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $model = (new CreateNewUser)->create($request->all());
+
+        if ($model->exists)
+            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso Salvo.']);
+        return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 
     /**
