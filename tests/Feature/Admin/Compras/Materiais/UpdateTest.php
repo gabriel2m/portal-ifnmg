@@ -29,7 +29,7 @@ class UpdateTest extends TestCase
         ];
 
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->put(
                 route('admin.compras.materiais.update', [
                     'compra' => $compra->ano,

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Enums\NivelUser;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -50,6 +51,14 @@ trait UserValidationRules
             ...$this->baseRules(),
             'email',
             Rule::unique('users')->ignore($ignore),
+        ];
+    }
+
+    protected function nivelRules()
+    {
+        return [
+            'required',
+            Rule::enum(NivelUser::class),
         ];
     }
 }

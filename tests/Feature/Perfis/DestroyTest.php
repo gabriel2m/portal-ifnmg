@@ -10,7 +10,7 @@ class DestroyTest extends TestCase
     public function test_delete()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsEditor()
             ->delete(route('perfis.destroy', $perfil = Perfil::factory()->createOne()))
             ->assertRedirect();
 

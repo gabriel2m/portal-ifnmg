@@ -10,7 +10,7 @@ class StoreTest extends TestCase
     public function test_post()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->post(route('admin.materiais.store'), $data = Material::factory()->makeOne()->attributesToArray())
             ->assertRedirect();
 

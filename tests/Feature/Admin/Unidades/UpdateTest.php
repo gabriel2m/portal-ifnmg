@@ -10,7 +10,7 @@ class UpdateTest extends TestCase
     public function test_put()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->put(
                 route('admin.unidades.update', Unidade::factory()->createOne()),
                 $data = Unidade::factory()->makeOne()->attributesToArray()

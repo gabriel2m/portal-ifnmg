@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\CategoriaPerfil;
+use App\Enums\NivelUser;
 use App\Enums\TipoMaterial;
 use Illuminate\Support\Facades\Facade;
 
@@ -199,6 +200,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'CategoriaPerfil' => CategoriaPerfil::class,
         'TipoMaterial' => TipoMaterial::class,
+        'NivelUser' => NivelUser::class,
     ])->toArray(),
 
     'perfil' => [

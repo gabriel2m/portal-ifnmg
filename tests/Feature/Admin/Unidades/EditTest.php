@@ -9,7 +9,7 @@ class EditTest extends TestCase
     public function test_get()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->get(route('admin.unidades.edit', 1))
             ->assertOk();
     }

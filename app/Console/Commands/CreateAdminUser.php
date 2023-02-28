@@ -3,26 +3,24 @@
 namespace App\Console\Commands;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\UserValidationRules;
+use App\Enums\NivelUser;
 use Illuminate\Console\Command;
 
-class CreateUser extends Command
+class CreateAdminUser extends Command
 {
-    use UserValidationRules;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'user:create';
+    protected $signature = 'admin:create';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Cria um novo usuário';
+    protected $description = 'Cria um novo usuário admin';
 
     /**
      * Create a new command instance.
@@ -46,7 +44,8 @@ class CreateUser extends Command
                 'name' => $this->ask('Name'),
                 'email' => $this->ask('Email'),
                 'password' => $this->secret('Password'),
-                'password_confirmation' => $this->secret('Confirme Password')
+                'password_confirmation' => $this->secret('Confirme Password'),
+                'nivel' => NivelUser::Admin->value
             ])) {
                 $this->info("Usuário criado!");
                 return 0;

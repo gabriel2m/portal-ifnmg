@@ -10,7 +10,7 @@ class EditTest extends TestCase
     public function test_get()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsEditor()
             ->get(route('perfis.edit', Perfil::factory()->create()))
             ->assertOk();
     }

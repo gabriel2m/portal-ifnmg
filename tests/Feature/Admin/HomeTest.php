@@ -9,7 +9,7 @@ class HomeTest extends TestCase
     public function test_get()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->get(route('admin.home'))
             ->assertOk();
     }

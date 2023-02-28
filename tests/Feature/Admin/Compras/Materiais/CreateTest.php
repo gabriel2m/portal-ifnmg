@@ -12,7 +12,7 @@ class CreateTest extends TestCase
         $compra = Compra::factory()->createOne();
 
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->get(route('admin.compras.materiais.create', [
                 'compra' => $compra->ano
             ]))

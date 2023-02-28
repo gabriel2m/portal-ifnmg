@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Enums\NivelUser;
 
 /**
  * @property int $id
@@ -12,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string $email
  * @property Carbon $email_verified_at
  * @property string $password
+ * @property NivelUser $nivel
  * @property string $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -29,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nivel'
     ];
 
     /**
@@ -48,5 +51,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'nivel' => NivelUser::class,
     ];
 }

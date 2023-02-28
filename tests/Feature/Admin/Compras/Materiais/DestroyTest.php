@@ -18,7 +18,7 @@ class DestroyTest extends TestCase
         MaterialCompraSetor::factory()->create();
 
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->delete(route('admin.compras.materiais.destroy', [
                 'compra' => $compra->ano,
                 'material' => $material->catmat

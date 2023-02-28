@@ -10,7 +10,7 @@ class UpdateTest extends TestCase
     public function test_put()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsEditor()
             ->put(
                 route('perfis.update', Perfil::factory()->createOne()),
                 $data = Perfil::factory()->raw()

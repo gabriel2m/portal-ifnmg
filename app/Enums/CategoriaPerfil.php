@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 enum CategoriaPerfil: int
 {
-    use ValuesTrait;
+    use EnumTrait;
 
     case DesenvolvimentoProdutos = 1;
     case PrestacaoServicos = 2;

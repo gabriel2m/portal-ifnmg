@@ -18,7 +18,7 @@ class EditTest extends TestCase
         MaterialCompraSetor::factory()->create();
 
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->get(route('admin.compras.materiais.edit', [
                 'compra' => $compra->ano,
                 'material' => $material->catmat

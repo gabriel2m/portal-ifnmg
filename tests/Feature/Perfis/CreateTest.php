@@ -9,7 +9,7 @@ class CreateTest extends TestCase
     public function test_get()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsEditor()
             ->get(route('perfis.create'))
             ->assertOk();
     }

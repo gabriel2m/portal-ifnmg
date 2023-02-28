@@ -10,7 +10,7 @@ class DestroyTest extends TestCase
     public function test_delete()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->delete(route('admin.setores.destroy', $setor = Setor::factory()->createOne()))
             ->assertRedirect();
 

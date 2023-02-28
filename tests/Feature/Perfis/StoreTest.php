@@ -10,7 +10,7 @@ class StoreTest extends TestCase
     public function test_post()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsEditor()
             ->post(route('perfis.store'), $data = Perfil::factory()->raw())
             ->assertRedirect();
 

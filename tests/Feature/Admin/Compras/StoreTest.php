@@ -10,7 +10,7 @@ class StoreTest extends TestCase
     public function test_post()
     {
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->post(route('admin.compras.store'), $data = Compra::factory()->makeOne()->attributesToArray())
             ->assertRedirect();
 

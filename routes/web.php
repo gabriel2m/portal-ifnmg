@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Middleware\NivelAdminTecnico;
 use App\Models\Perfil;
 use App\Models\User;
 use App\Notifications\ContatoNotification;
@@ -106,7 +107,10 @@ Route::name('contato.')
 
 Route::name('admin.')
     ->prefix('admin')
-    ->middleware('auth')
+    ->middleware([
+        'auth',
+        NivelAdminTecnico::class
+    ])
     ->group(function () {
         Route::view('', 'admin.home')->name('home');
 

@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum TipoMaterial: int
 {
-    use ValuesTrait;
+    use EnumTrait;
 
     case Consumo = 1;
     case Permanente = 2;
@@ -15,10 +15,5 @@ enum TipoMaterial: int
             self::Consumo => 'Consumo',
             self::Permanente => 'Permanente',
         };
-    }
-
-    public static function toArray()
-    {
-        return collect(self::cases())->pluck('name', 'value');
     }
 }

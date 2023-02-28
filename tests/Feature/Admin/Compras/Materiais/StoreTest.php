@@ -23,7 +23,7 @@ class StoreTest extends TestCase
         $material_compra_setor_data = MaterialCompraSetor::factory()->makeOne()->attributesToArray();
 
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->post(
                 route('admin.compras.materiais.store', [
                     'compra' => $compra->ano

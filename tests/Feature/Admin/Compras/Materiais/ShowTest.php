@@ -16,7 +16,7 @@ class ShowTest extends TestCase
         MaterialCompra::factory()->create();
         
         $this
-            ->actingAsRandom()
+            ->actingAsAdmin()
             ->get(route('admin.compras.materiais.show', [
                 'compra' => $compra->ano,
                 'material' => $material->catmat
