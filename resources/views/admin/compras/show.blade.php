@@ -159,6 +159,7 @@
                 {
                     title: 'Valor total',
                     data: 'valor_total',
+                    searchable: false,
                     render: val => Number(val).toLocaleString('pt-br', {
                         style: 'currency',
                         currency: 'BRL'
