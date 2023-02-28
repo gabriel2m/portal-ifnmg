@@ -45,7 +45,7 @@
                     data: 'name'
                 },
                 {
-                    title: 'Nivel',
+                    title: 'Nível',
                     data: 'nivel',
                     render: nivel => niveis[nivel]
                 },

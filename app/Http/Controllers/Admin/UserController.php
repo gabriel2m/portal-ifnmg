@@ -30,4 +30,14 @@ class UserController extends ResourceController
     {
         return $this->datatablesAction();
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return $this->createAction();
+    }
 }
