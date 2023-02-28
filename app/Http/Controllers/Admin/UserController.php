@@ -66,4 +66,14 @@ class UserController extends ResourceController
     {
         return $this->showAction($user);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        return $this->form($user);
+    }
 }

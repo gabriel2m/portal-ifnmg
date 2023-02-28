@@ -8,11 +8,11 @@
         ],
     ];
     if ($user->exists) {
-        $title = ['Editar', $user->getOriginal('nome')];
+        $title = ['Editar', $user->getOriginal('name')];
         array_push(
             $breadcrumb,
             [
-                'label' => $user->getOriginal('nome'),
+                'label' => $user->getOriginal('name'),
                 'link' => route('admin.users.show', $user),
             ],
             [
