@@ -1,4 +1,4 @@
-@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~line-awesome/dist/line-awesome/css/line-awesome.css";
 @import "~admin-lte/dist/css/adminlte.css";
 
 :root {
@@ -59,4 +59,26 @@
 
 .btn {
     border-radius: 0;
+}
+
+.nav-sidebar>.nav-item .nav-icon.las {
+    font-size: 1.5rem;
+}
+
+.nav-sidebar .nav-link p {
+    vertical-align: text-bottom;
+}
+
+.nav-sidebar .nav-link {
+    padding: .4rem .6rem;
+}
+
+.sidebar-collapse.sidebar-mini .main-sidebar .nav-sidebar .nav-link,
+.sidebar-collapse.sidebar-mini-md .main-sidebar .nav-sidebar .nav-link,
+.sidebar-collapse.sidebar-mini-xs .main-sidebar .nav-sidebar .nav-link {
+    width: 3rem;
+}
+
+.nav-sidebar .nav-item>.nav-link {
+    margin-bottom: 0.4rem;
 }

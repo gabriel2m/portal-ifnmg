@@ -22,7 +22,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#" role="button">
-                        <i class="fas fa-bars"></i>
+                        <i class="la-lg las la-bars"></i>
                     </a>
                 </li>
             </ul>
@@ -31,7 +31,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link">
-                        <i class="fas fa-external-link-alt"></i>
+                        <i class="la-lg las la-external-link-alt"></i>
                         Portal
                     </a>
                 </li>
@@ -79,7 +79,7 @@
             [
                 'link' => route('admin.users.index'),
                 'label' => 'Usuários',
-                'icon' => 'users',
+                'icon' => 'user',
                 'show' => auth()->user()->nivel == NivelUser::Admin,
             ],
         ] as $item)
@@ -89,7 +89,7 @@
                                         'nav-link',
                                         'active' => $item['link'] == ($active_link ?? false),
                                     ])>
-                                        <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
+                                        <i class="nav-icon las la-{{ $item['icon'] }}"></i>
                                         <p>
                                             {{ $item['label'] }}
                                         </p>

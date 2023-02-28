@@ -54,11 +54,11 @@
     <div class="d-flex mt-3">
         <div class="ml-auto">
             <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary">
-                <i class="far fa-edit"></i>
+                <i class="la-lg las la-edit"></i>
                 Editar
             </a>
             <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">
-                <i class="far fa-trash-alt"></i>
+                <i class="la-lg las la-trash"></i>
                 Deletar
             </button>
 
@@ -74,14 +74,14 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary m-0" data-dismiss="modal">
-                                <i class="far fa-times-circle"></i>
+                                <i class="la-lg las la-times-circle"></i>
                                 Cancelar
                             </button>
                             <form action="{{ route('admin.users.destroy', $user) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-3">
-                                    <i class="far fa-trash-alt"></i>
+                                    <i class="la-lg las la-trash"></i>
                                     Deletar
                                 </button>
                             </form>
