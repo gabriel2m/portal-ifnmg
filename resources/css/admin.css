@@ -38,7 +38,23 @@
 
 .show-table.table tbody tr:first-child td,
 .show-table.table tbody tr:first-child th {
-    border-top: 0;
+    border-top : 0;
+    padding-top: 0;
+}
+
+.show-table.table tbody tr:last-child td,
+.show-table.table tbody tr:last-child th {
+    padding-bottom: 0;
+}
+
+.show-table.table tbody tr td:first-child,
+.show-table.table tbody tr th:first-child {
+    padding-left: 0;
+}
+
+.show-table.table tbody tr td:last-child,
+.show-table.table tbody tr th:last-child {
+    padding-right: 0;
 }
 
 .btn {
