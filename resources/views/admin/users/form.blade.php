@@ -54,6 +54,20 @@
                 </div>
                 <div class="form-group">
                     <label>
+                        Nível
+                    </label>
+                    <select class="custom-select" name="nivel" required>
+                        <option></option>
+                        @foreach (NivelUser::cases() as $nivel)
+                            <option value="{{ $nivel->value }}" @selected($user->nivel?->value == $nivel->value)>
+                                {{ $nivel->label() }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error input='nivel' />
+                </div>
+                <div class="form-group">
+                    <label>
                         Senha
                     </label>
                     <input type="password" name="password" class="form-control"
@@ -67,20 +81,6 @@
                     <input type="password" name="password_confirmation" class="form-control"
                         @if (!$user->exists) required @endif>
                     <x-input-error input='password_confirmation' />
-                </div>
-                <div class="form-group">
-                    <label>
-                        Nível
-                    </label>
-                    <select class="custom-select" name="nivel" required>
-                        <option></option>
-                        @foreach (NivelUser::cases() as $nivel)
-                            <option value="{{ $nivel->value }}" @selected($user->nivel?->value == $nivel->value)>
-                                {{ $nivel->label() }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <x-input-error input='nivel' />
                 </div>
             </div>
         </div>
