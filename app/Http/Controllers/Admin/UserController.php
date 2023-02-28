@@ -108,4 +108,14 @@ class UserController extends ResourceController
             return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso Salvo.']);
         return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        return $this->destroyAction($user);
+    }
 }
