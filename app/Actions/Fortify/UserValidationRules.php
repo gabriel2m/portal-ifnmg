@@ -14,13 +14,14 @@ trait UserValidationRules
      *
      * @return array
      */
-    protected function baseRules()
+    protected function baseRules(bool $required = true)
     {
-        return [
-            'required',
+        return array_filter([
+            $required ? 'required' : false,
+            'nullable',
             'string',
             'max:255'
-        ];
+        ]);
     }
 
     /**
@@ -28,10 +29,10 @@ trait UserValidationRules
      *
      * @return array
      */
-    protected function passwordRules()
+    protected function passwordRules(bool $required = true)
     {
         return [
-            ...$this->baseRules(),
+            ...$this->baseRules($required),
             Password::min(8),
             'confirmed'
         ];

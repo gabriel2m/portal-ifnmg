@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Actions\Fortify\CreateNewUser;
+use App\Actions\Fortify\UserValidationRules;
 use App\Http\Controllers\ResourceController;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends ResourceController
 {
+    use UserValidationRules;
+
     protected string $name = 'admin.users';
 
     protected string $model_class = User::class;
@@ -50,10 +54,10 @@ class UserController extends ResourceController
      */
     public function store(Request $request)
     {
-        $model = (new CreateNewUser)->create($request->all());
+        $user = (new CreateNewUser)->create($request->all());
 
-        if ($model->exists)
-            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso Salvo.']);
+        if ($user->exists)
+            return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso Salvo.']);
         return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 
@@ -75,5 +79,33 @@ class UserController extends ResourceController
     public function edit(User $user)
     {
         return $this->form($user);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        extract(
+            $request->validate([
+                'name' => $this->nameRules($user),
+                'email' => $this->emailRules($user),
+                'password' => $this->passwordRules(required: false),
+                'nivel' => $this->nivelRules()
+            ])
+        );
+
+        if (
+            $user->forceFill(array_filter([
+                'name' => $name,
+                'email' => $email,
+                'password' => isset($password) ? Hash::make($password) : false,
+                'nivel' => $nivel
+            ]))->save()
+        )
+            return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso Salvo.']);
+        return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 }

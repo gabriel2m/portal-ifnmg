@@ -56,14 +56,16 @@
                     <label>
                         Senha
                     </label>
-                    <input type="password" name="password" class="form-control" required>
+                    <input type="password" name="password" class="form-control"
+                        @if (!$user->exists) required @endif>
                     <x-input-error input='password' />
                 </div>
                 <div class="form-group">
                     <label>
                         Confirmação Senha
                     </label>
-                    <input type="password" name="password_confirmation" class="form-control" required>
+                    <input type="password" name="password_confirmation" class="form-control"
+                        @if (!$user->exists) required @endif>
                     <x-input-error input='password_confirmation' />
                 </div>
                 <div class="form-group">
