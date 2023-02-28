@@ -45,13 +45,13 @@
                     data: 'name'
                 },
                 {
+                    title: 'Email',
+                    data: 'email'
+                },
+                {
                     title: 'Nível',
                     data: 'nivel',
                     render: nivel => niveis[nivel]
-                },
-                {
-                    title: 'Email',
-                    data: 'email'
                 },
             ],
             rowCallback: (row, data, index) => {

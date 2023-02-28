@@ -40,4 +40,14 @@ class UserController extends ResourceController
     {
         return $this->createAction();
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        return $this->showAction($user);
+    }
 }
