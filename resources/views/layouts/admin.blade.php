@@ -74,7 +74,7 @@
             [
                 'link' => route('admin.unidades.index'),
                 'label' => 'Unidades de Medida',
-                'icon' => 'balance-scale-right',
+                'icon' => 'balance-scale',
             ],
             [
                 'link' => route('admin.users.index'),
