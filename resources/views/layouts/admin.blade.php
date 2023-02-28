@@ -35,6 +35,15 @@
                         Portal
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="$('#logout-form').submit()">
+                        <i class="la-lg las la-door-open"></i>
+                        Sair
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
