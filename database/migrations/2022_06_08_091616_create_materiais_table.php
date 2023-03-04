@@ -19,6 +19,7 @@ class CreateMateriaisTable extends Migration
             $table->text('descricao');
             $table->integer('catmat')->unique();
             $table->foreignId('unidade_id')->constrained();
+            $table->tinyInteger('tipo');
             $table->timestamps();
             $table->softDeletes();
         });
