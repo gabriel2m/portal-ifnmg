@@ -169,12 +169,7 @@
                     title: setor.nome,
                     data: `quantidade_setor_${setor.id}`,
                     searchable: false,
-                    render: (val) => {
-                        if (val) {
-                            return Number(val).toLocaleString('pt-br');
-                        }
-                        return val;
-                    }
+                    render: val => val ? Number(val).toLocaleString('pt-br') : val
                 }))
             ],
             rowCallback: (row, data, index) => {

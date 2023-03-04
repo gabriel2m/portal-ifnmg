@@ -56,7 +56,7 @@
                     </tr>
                     <tr>
                         <th>
-                            Unidade
+                            Unidade de medida
                         </th>
                         <td>
                             {{ $material->unidade->nome }}
