@@ -60,3 +60,9 @@ mix
         'node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css',
     ], 'public/select2/select2.full.min.css')
     .copy('node_modules/select2/dist/js/select2.full.min.js', 'public/select2')
+
+/*
+ * Repeater
+ */
+mix
+    .copy('node_modules/jquery.repeater/jquery.repeater.min.js', 'public/repeater')
