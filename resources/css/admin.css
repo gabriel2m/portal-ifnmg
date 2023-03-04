@@ -61,6 +61,11 @@
     border-radius: 0;
 }
 
+.nav-sidebar .nav-item {
+    margin-left : auto;
+    margin-right: auto;
+}
+
 .nav-sidebar>.nav-item .nav-icon.las {
     font-size: 1.5rem;
 }

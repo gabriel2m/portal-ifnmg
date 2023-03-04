@@ -52,7 +52,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-3 bg-color-3">
             <!-- Brand Logo -->
             <a href="{{ route('admin.home') }}" class="brand-link">
-                <img src="{{ asset('img/ifnmg-logo.png') }}" alt="Logo" class="brand-image" style="opacity: .8">
+                <img src="{{ asset('img/ifnmg-logo.png') }}" alt="Logo" class="brand-image">
                 <span class="brand-text h3">
                     {{ config('app.name') }}
                 </span>
@@ -82,7 +82,7 @@
             ],
             [
                 'link' => route('admin.unidades.index'),
-                'label' => 'Unidades de Medida',
+                'label' => 'Unidades de medida',
                 'icon' => 'balance-scale',
             ],
             [

@@ -5,7 +5,7 @@
     $breadcrumb = [
         [
             'link' => route('admin.unidades.index'),
-            'label' => 'Unidades de Medida',
+            'label' => 'Unidades de medida',
         ],
         [
             'label' => $unidade->nome,

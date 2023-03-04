@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @php
-    $title[] = 'Unidades de Medida';
+    $title[] = 'Unidades de medida';
     $active_link = route('admin.unidades.index');
 @endphp
 
