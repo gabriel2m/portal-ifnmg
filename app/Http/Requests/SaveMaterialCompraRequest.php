@@ -40,16 +40,10 @@ class SaveMaterialCompraRequest extends FormRequest
             'material_compra_setor' => [
                 'required',
                 'array',
+                'min:1',
             ],
-            'material_compra_setor.*' => Rule::forEach(function ($value, $attribute) {
-                return [
-                    'array',
-                    Rule::excludeIf(empty($value['quantidade'] ?? null))
-                ];
-            }),
             'material_compra_setor.*.setor_id' => [
                 'required',
-                'distinct',
                 Rule::exists(Setor::class, 'id'),
             ],
             'material_compra_setor.*.quantidade' => [

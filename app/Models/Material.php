@@ -27,10 +27,6 @@ class Material extends Model
 
     protected $guarded = [];
 
-    protected $with = [
-        'unidade'
-    ];
-
     protected $casts = [
         'tipo' => TipoMaterial::class,
     ];

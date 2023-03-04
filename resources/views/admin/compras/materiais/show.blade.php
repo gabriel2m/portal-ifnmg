@@ -85,22 +85,22 @@
                         @php
                             $quantidade_total = 0;
                         @endphp
-                        @foreach ($material_compra->setores as $item)
+                        @foreach ($material_compra->material_compra_setores as $material_compra_setor)
                             <tr>
                                 <td class="text-muted">
-                                    {{ $item->nome }}
+                                    {{ $material_compra_setor->setor->nome }}
                                 </td>
                                 <td>
-                                    {{ int_br($item->pivot->quantidade) }}
+                                    {{ int_br($material_compra_setor->quantidade) }}
                                 </td>
                                 <td>
-                                    {{ reais($material_compra->valor * $item->pivot->quantidade) }}
+                                    {{ reais($material_compra->valor * $material_compra_setor->quantidade) }}
                                 </td>
                                 <td>
                                 </td>
                             </tr>
                             @php
-                                $quantidade_total += $item->pivot->quantidade;
+                                $quantidade_total += $material_compra_setor->quantidade;
                             @endphp
                         @endforeach
                     </tbody>
