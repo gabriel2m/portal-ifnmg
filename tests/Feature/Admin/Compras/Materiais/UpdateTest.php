@@ -18,15 +18,13 @@ class UpdateTest extends TestCase
         $material_compra_setor = MaterialCompraSetor::factory()->create();
         $material_novo = Material::factory()->createOne();
 
-        $material_compra_data = [
+        $material_compra_data = MaterialCompra::factory()->raw([
             'material_id' => $material_novo->id,
-            'valor' => 10,
-        ];
+        ]);
 
-        $material_compra_setor_data = [
-            'setor_id' => $material_compra_setor->setor_id,
-            'quantidade' => 10
-        ];
+        $material_compra_setor_data = MaterialCompraSetor::factory()->raw([
+            'setor_id' => $material_compra_setor->setor_id
+        ]);
 
         $this
             ->actingAsAdmin()

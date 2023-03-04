@@ -15,10 +15,9 @@ class StoreTest extends TestCase
         $material = Material::factory()->createOne();
         $compra = Compra::factory()->createOne();
 
-        $material_compra_data = [
+        $material_compra_data = MaterialCompra::factory()->raw([
             'material_id' => $material->id,
-            'valor' => 10,
-        ];
+        ]);
 
         $material_compra_setor_data = MaterialCompraSetor::factory()->raw();
 
