@@ -33,7 +33,7 @@
 }
 
 .show-table th {
-    width: 1%;
+    width      : 1%;
     white-space: nowrap;
 }
 
@@ -87,4 +87,14 @@
 
 .nav-sidebar .nav-item>.nav-link {
     margin-bottom: 0.4rem;
+}
+
+.select2-container--bootstrap4.primary .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff;
+    border-color    : #006fe6;
+    color           : #fff;
+}
+
+.select2-container--bootstrap4.primary .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff;
 }

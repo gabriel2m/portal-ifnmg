@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('materiais_compras', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Material::class)->constrained('materiais');
-            $table->foreignIdFor(Compra::class)->constrained();
+            $table->foreignIdFor(Compra::class)->constrained()->cascadeOnDelete();
             $table->float('valor');
             $table->timestamps();
         });

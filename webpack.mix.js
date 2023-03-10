@@ -59,7 +59,10 @@ mix
         'node_modules/select2/dist/css/select2.min.css',
         'node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css',
     ], 'public/select2/select2.full.min.css')
-    .copy('node_modules/select2/dist/js/select2.full.min.js', 'public/select2')
+    .combine([
+        'node_modules/select2/dist/js/select2.full.min.js',
+        'node_modules/select2/dist/js/i18n/pt-BR.js',
+    ], 'public/select2/select2.full.min.js')
 
 /*
  * Repeater

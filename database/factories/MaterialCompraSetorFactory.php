@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\MaterialCompra;
-use App\Models\MaterialCompraSetor;
 use App\Models\Setor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,12 +18,9 @@ class MaterialCompraSetorFactory extends Factory
      */
     public function definition()
     {
-        $material_compra_id = $this->faker->randomElement(MaterialCompra::pluck('id'));
-        $ids = MaterialCompraSetor::where('material_compra_id', $material_compra_id)->pluck('setor_id');
-
         return [
-            'material_compra_id' => $material_compra_id,
-            'setor_id' => $this->faker->randomElement(Setor::whereNotIn('id', $ids)->pluck('id')),
+            'material_compra_id' => MaterialCompra::factory(),
+            'setor_id' => Setor::factory(),
             'quantidade' => $this->faker->numberBetween(1, 99)
         ];
     }
