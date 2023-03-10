@@ -11,9 +11,9 @@ class DestroyTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->delete(route('admin.compras.destroy', $compra = Compra::factory()->createOne()))
+            ->delete(route('admin.compras.destroy', Compra::factory()->create()))
             ->assertRedirect();
 
-        $this->assertSoftDeleted($compra);
+        $this->assertDatabaseEmpty(Compra::class);
     }
 }
