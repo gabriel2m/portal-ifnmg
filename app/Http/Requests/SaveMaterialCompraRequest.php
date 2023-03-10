@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Material;
+use App\Models\MaterialUnidade;
 use App\Models\Setor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,9 +27,9 @@ class SaveMaterialCompraRequest extends FormRequest
     public function rules()
     {
         return [
-            'material_id' => [
+            'material_unidade_id' => [
                 'required',
-                Rule::exists(Material::class, 'id'),
+                Rule::exists(MaterialUnidade::class, 'id')->whereNull('deleted_at'),
             ],
             'valor' => [
                 'required',
@@ -40,11 +40,11 @@ class SaveMaterialCompraRequest extends FormRequest
             'material_compra_setor' => [
                 'required',
                 'array',
-                'min:1',
             ],
             'material_compra_setor.*.setor_id' => [
                 'required',
-                Rule::exists(Setor::class, 'id'),
+                'distinct',
+                Rule::exists(Setor::class, 'id')->whereNull('deleted_at'),
             ],
             'material_compra_setor.*.quantidade' => [
                 'required',
@@ -58,8 +58,9 @@ class SaveMaterialCompraRequest extends FormRequest
     public function attributes()
     {
         return [
+            'material_compra_setor.*.setor_id' => 'setor',
             'material_compra_setor.*.quantidade' => 'quantidade',
-            'material_id' => 'material'
+            'material_unidade_id' => 'material'
         ];
     }
 }

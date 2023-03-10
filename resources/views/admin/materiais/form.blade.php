@@ -29,6 +29,10 @@
     }
 @endphp
 
+@prepend('styles')
+    <link rel="stylesheet" href="{{ mix('select2/select2.full.min.css') }}">
+@endprepend
+
 @section('content')
     <form method="POST"
         action="{{ $material->exists ? route('admin.materiais.update', $material->getOriginal('catmat')) : route('admin.materiais.store') }}"
@@ -46,6 +50,7 @@
                     <input type="text" name="catmat" class="form-control" value="{{ $material->catmat }}" required>
                     <x-input-error input='catmat' />
                 </div>
+
                 <div class="form-group">
                     <label>
                         Nome
@@ -53,6 +58,7 @@
                     <input type="text" name="nome" class="form-control" value="{{ $material->nome }}" required>
                     <x-input-error input='nome' />
                 </div>
+
                 <div class="form-group">
                     <label>
                         Tipo
@@ -67,26 +73,32 @@
                     </select>
                     <x-input-error input='tipo' />
                 </div>
-                <div class="form-group">
-                    <label>
-                        Unidade de Medida
-                    </label>
-                    <select class="custom-select" name="unidade_id" required>
-                        <option></option>
-                        @foreach ($unidades as $unidade_id => $unidade)
-                            <option value="{{ $unidade_id }}" @selected($material->unidade_id == $unidade_id)>
-                                {{ $unidade }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <x-input-error input='unidade_id' />
-                </div>
+
                 <div class="form-group">
                     <label>
                         Descrição
                     </label>
                     <textarea name="descricao" class="form-control" required>{{ $material->descricao }}</textarea>
                     <x-input-error input='descricao' />
+                </div>
+                <div class="form-group">
+                    <label>
+                        Unidades de medida
+                    </label>
+                    @php
+                        $material_unidades = collect(old('unidades', $material->material_unidades))
+                            ->pluck('unidade_id')
+                            ->toArray();
+                    @endphp
+                    <select id="unidades" name="unidades[][unidade_id]" multiple required>
+                        @foreach ($unidades as $unidade_id => $unidade_nome)
+                            <option value="{{ $unidade_id }}" @selected(in_array($unidade_id, $material_unidades))>
+                                {{ $unidade_nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error input='unidades' />
+                    <x-input-error input='unidades.*' />
                 </div>
             </div>
         </div>
@@ -105,3 +117,14 @@
         </div>
     </form>
 @endsection
+
+@prepend('scripts')
+    <script src="{{ mix('select2/select2.full.min.js') }}"></script>
+
+    <script>
+        $('#unidades').select2({
+            language: "pt",
+            theme: 'bootstrap4 primary w-100'
+        })
+    </script>
+@endprepend

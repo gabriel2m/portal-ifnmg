@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Compra;
-use App\Models\Material;
-use App\Models\MaterialCompra;
+use App\Models\MaterialUnidade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +18,9 @@ class MaterialCompraFactory extends Factory
      */
     public function definition()
     {
-        $compra_id = $this->faker->randomElement(Compra::pluck('id'));
-        $ids = MaterialCompra::where('compra_id', $compra_id)->pluck('material_id');
-
         return [
-            'compra_id' => $compra_id,
-            'material_id' => $this->faker->randomElement(Material::whereNotIn('id', $ids)->pluck('id')),
+            'compra_id' => Compra::factory(),
+            'material_unidade_id' => MaterialUnidade::factory(),
             'valor' => $this->faker->randomFloat(2, 0.01, 999),
         ];
     }

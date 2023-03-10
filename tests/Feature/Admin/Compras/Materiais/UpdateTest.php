@@ -12,26 +12,22 @@ class UpdateTest extends TestCase
 {
     public function test_put()
     {
-        $material = Material::factory()->createOne();
-        $compra = Compra::factory()->createOne();
-        $material_compra = MaterialCompra::factory()->create();
         $material_compra_setor = MaterialCompraSetor::factory()->create();
-        $material_novo = Material::factory()->createOne();
 
         $material_compra_data = MaterialCompra::factory()->raw([
-            'material_id' => $material_novo->id,
+            'compra_id' => $material_compra_setor->material_compra->compra,
         ]);
 
         $material_compra_setor_data = MaterialCompraSetor::factory()->raw([
-            'setor_id' => $material_compra_setor->setor_id
+            'material_compra_id' => $material_compra_setor->material_compra_id,
         ]);
 
         $this
             ->actingAsAdmin()
             ->put(
                 route('admin.compras.materiais.update', [
-                    'compra' => $compra->ano,
-                    'material' => $material->catmat
+                    'compra' => $material_compra_setor->material_compra->compra->ano,
+                    'material' => $material_compra_setor->material_compra->material_unidade_id
                 ]),
                 [
                     ...$material_compra_data,
@@ -45,7 +41,7 @@ class UpdateTest extends TestCase
         $this->assertDatabaseHas(MaterialCompra::class, $material_compra_data);
         $this->assertDatabaseCount(MaterialCompra::class, 1);
 
-        $material_compra_setor_data['material_compra_id'] = $material_compra->id;
+        $material_compra_setor_data['material_compra_id'] = $material_compra_setor->material_compra_id;
         $this->assertDatabaseHas(MaterialCompraSetor::class, $material_compra_setor_data);
         $this->assertDatabaseCount(MaterialCompraSetor::class, 1);
     }

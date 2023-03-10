@@ -3,23 +3,26 @@
 namespace Tests\Feature\Admin\Compras\Materiais;
 
 use App\Models\Compra;
-use App\Models\Material;
 use App\Models\MaterialCompra;
 use App\Models\MaterialCompraSetor;
+use App\Models\MaterialUnidade;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
     public function test_put()
     {
-        $material = Material::factory()->createOne();
+        $material_unidade = MaterialUnidade::factory()->createOne();
         $compra = Compra::factory()->createOne();
 
         $material_compra_data = MaterialCompra::factory()->raw([
-            'material_id' => $material->id,
+            'material_unidade_id' => $material_unidade,
+            'compra_id' => $compra,
         ]);
 
-        $material_compra_setor_data = MaterialCompraSetor::factory()->raw();
+        $material_compra_setor_data = MaterialCompraSetor::factory()->raw([
+            'material_compra_id' => null,
+        ]);
 
         $this
             ->actingAsAdmin()

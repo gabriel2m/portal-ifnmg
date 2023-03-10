@@ -16,14 +16,26 @@
         ],
     ];
     if ($material_compra->exists) {
-        $title = ['Editar', $material->nome];
+        $tipo_label = match ($material_unidade->material->tipo) {
+            TipoMaterial::Consumo => 'Consumo',
+            TipoMaterial::Permanente => 'Permanentes',
+        };
+        $title = ['Editar', $material_unidade->unidade->nome, $material_unidade->material->nome, $tipo_label];
         array_push(
             $breadcrumb,
             [
-                'label' => $material->nome,
+                'link' => route('admin.compras.show', $material_compra->compra),
+                'label' => $tipo_label,
+            ],
+            [
+                'label' => $material_unidade->material->nome,
+                'link' => route('admin.compras.show', $material_compra->compra),
+            ],
+            [
+                'label' => $material_unidade->unidade->nome,
                 'link' => route('admin.compras.materiais.show', [
                     'compra' => $material_compra->compra->ano,
-                    'material' => $material->catmat,
+                    'material' => $material_unidade->id,
                 ]),
             ],
             [
@@ -42,19 +54,6 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ mix('select2/select2.full.min.css') }}">
-    <style>
-        #quantidades-table thead th {
-            border-top: 0;
-        }
-
-        #quantidades-table th {
-            white-space: nowrap;
-        }
-
-        #quantidades-table td {
-            width: 100%;
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -62,7 +61,7 @@
         action="{{ $material_compra->exists
             ? route('admin.compras.materiais.update', [
                 'compra' => $material_compra->compra->ano,
-                'material' => $material->catmat,
+                'material' => $material_unidade->id,
             ])
             : route('admin.compras.materiais.store', [
                 'compra' => $material_compra->compra->ano,
@@ -78,16 +77,17 @@
                     <label>
                         Material
                     </label>
-                    <select id="material_id" name="material_id" class="form-control" style="width: 100%;">
+                    <select id="material_unidade_id" name="material_unidade_id" class="form-control">
                         <option></option>
-                        @foreach ($materiais as $material_id => $label)
-                            <option value="{{ $material_id }}" @selected($material_compra->material_id == $material_id)>
-                                {{ $label }}
+                        @foreach ($materiais_unidades as $item)
+                            <option value="{{ $item->id }}" @selected($item->id == $material_compra->material_unidade_id)>
+                                {{ $item->material->catmat }} - {{ $item->material->nome }} - {{ $item->unidade->nome }}
                             </option>
                         @endforeach
                     </select>
-                    <x-input-error input='material_id' />
+                    <x-input-error input='material_unidade_id' />
                 </div>
+
                 <div class="form-group">
                     <label>
                         Valor unitário
@@ -103,36 +103,99 @@
                     </div>
                     <x-input-error input='valor' />
                 </div>
-                <div class="table-responsive">
-                    <x-input-error input='material_compra_setor' />
-                    <table id="quantidades-table" class="table w-100">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Setor
-                                </th>
-                                <th>
-                                    Quantidade
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($setores as $item)
-                                <tr>
-                                    <th class="text-muted">
-                                        {{ $item->nome }}
-                                    </th>
-                                    <td>
-                                        <input type="hidden" name="material_compra_setor[{{ $item->id }}][setor_id]"
-                                            value="{{ $item->id }}">
-                                        <input type="text" name="material_compra_setor[{{ $item->id }}][quantidade]"
-                                            class="form-control quantidade" value="{{ $quantidades[$item->id] ?? '' }}">
-                                        <x-input-error input='{{ "material_compra_setor.$item->id.quantidade" }}' />
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+
+                <x-input-error input='material_compra_setor' />
+                <div class="table-responsive-md">
+                    <div style="min-width: max-content;">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Setor
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <label>
+                                            Quantidade
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-block btn-danger invisible">
+                                            <i class="la-lg las la-trash"></i>
+                                            Remover
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="repeater">
+                            <div data-repeater-list="material_compra_setor">
+                                @php
+                                    $material_compra_setores = old(
+                                        'material_compra_setor',
+                                        $material_compra->exists
+                                            ? $material_compra->material_compra_setores
+                                            : [
+                                                [
+                                                    'setor_id' => null,
+                                                    'quantidade' => null,
+                                                ],
+                                            ],
+                                    );
+                                @endphp
+                                @foreach ($material_compra_setores as $index => $material_compra_setor)
+                                    <div data-repeater-item>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <select class="custom-select"
+                                                                name="[{{ $index }}][setor_id]" required>
+                                                                <option></option>
+                                                                @foreach ($setores as $setor_id => $setor_nome)
+                                                                    <option value="{{ $setor_id }}"
+                                                                        @selected($setor_id == $material_compra_setor['setor_id'])>
+                                                                        {{ $setor_nome }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            <x-input-error
+                                                                input='{{ "material_compra_setor.$index.setor_id" }}' />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <input type="text" name="[{{ $index }}][quantidade]"
+                                                                class="form-control quantidade"
+                                                                value="{{ $material_compra_setor['quantidade'] }}"
+                                                                required>
+                                                            <x-input-error
+                                                                input='{{ "material_compra_setor.$index.quantidade" }}' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-block btn-danger"
+                                                    data-repeater-delete>
+                                                    <i class="la-lg las la-trash"></i>
+                                                    Remover
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button type="button" class="btn btn-primary ml-auto" data-repeater-create>
+                                <i class="la-lg las la-plus"></i>
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,9 +218,12 @@
 @prepend('scripts')
     <script src="{{ mix('select2/select2.full.min.js') }}"></script>
     <script src="{{ mix('inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ mix('repeater/jquery.repeater.min.js') }}"></script>
+
     <script>
-        $('#material_id').select2({
-            theme: 'bootstrap4'
+        $('#material_unidade_id').select2({
+            language: "pt",
+            theme: 'bootstrap4 w-100'
         });
 
         $('#valor').inputmask("currency", {
@@ -172,5 +238,15 @@
         $('.quantidade').inputmask('integer', {
             "rightAlign": false,
         });
+
+        $('.repeater').repeater({
+            show: function() {
+                $(this).slideDown();
+            },
+
+            hide: function(deleteElement) {
+                $(this).slideUp(deleteElement);
+            }
+        })
     </script>
 @endprepend

@@ -7,9 +7,9 @@ use App\Facades\DB;
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\SaveMaterialCompraRequest;
 use App\Models\Compra;
-use App\Models\Material;
 use App\Models\MaterialCompra;
 use App\Models\MaterialCompraSetor;
+use App\Models\MaterialUnidade;
 use App\Models\Setor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
@@ -44,11 +44,14 @@ class MaterialCompraController extends ResourceController
         $query
             ->where('compra_id', $compra->id)
             ->where('materiais.tipo', $tipo)
-            ->join('materiais', 'materiais_compras.material_id', 'materiais.id')
+            ->join('materiais_unidades', 'materiais_compras.material_unidade_id', 'materiais_unidades.id')
+            ->join('materiais', 'materiais_unidades.material_id', 'materiais.id')
+            ->join('unidades', 'materiais_unidades.unidade_id', 'unidades.id')
             ->select(
                 'materiais_compras.*',
                 'materiais.catmat as catmat_material',
                 'materiais.nome as nome_material',
+                'unidades.nome as unidade_material',
             )->selectSub(
                 MaterialCompraSetor::query()
                     ->getQuery()
@@ -176,8 +179,11 @@ class MaterialCompraController extends ResourceController
             ...$data,
             'material_compra' => $material_compra,
             'setores' => Setor::orderBy('nome')->pluck('nome', 'id'),
-            'materiais' => Material::orderBy('nome')->get(),
-            'material' => Material::find($material_compra->getOriginal('material_id'))
+            'materiais_unidades' => MaterialUnidade::join('materiais', 'materiais_unidades.material_id', 'materiais.id')
+                ->select('materiais_unidades.*')
+                ->orderBy('materiais.nome')
+                ->get(),
+            'material_unidade' => MaterialUnidade::whereKey($material_compra->getOriginal('material_unidade_id'))->withTrashed()->first()
         ]);
     }
 
@@ -191,14 +197,14 @@ class MaterialCompraController extends ResourceController
         Validator::make(
             $request->validated(),
             [
-                'material_id' => [
+                'material_unidade_id' => [
                     Rule::unique(MaterialCompra::class)
-                        ->where('compra_id', $material_compra->compra->id)
+                        ->where('compra_id', $material_compra->compra_id)
                         ->ignore($material_compra)
                 ]
             ],
             [],
-            ['material_id' => 'material']
+            ['material_unidade_id' => 'material']
         )->validate();
 
         return DB::transaction(function () use ($request, $material_compra) {
@@ -211,20 +217,20 @@ class MaterialCompraController extends ResourceController
 
                 return to_route('admin.compras.materiais.show', [
                     'compra' => $material_compra->compra->ano,
-                    'material' => $material_compra->material->catmat
+                    'material' => $material_compra->material_unidade_id
                 ])->with('flash', ['success' => 'Recurso Salvo.']);
             }
             return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
         });
     }
 
-    protected function getMaterialCompra(int $compra, int $material): MaterialCompra
+    protected function getMaterialCompra(int $compra, int $material_unidade_id): MaterialCompra
     {
         abort_unless(
-            ($compra_id = Compra::where('ano', $compra)->value('id')) && ($material_id = Material::where('catmat', $material)->value('id')),
+            $compra_id = Compra::where('ano', $compra)->value('id'),
             404
         );
 
-        return MaterialCompra::where(compact('compra_id', 'material_id'))->firstOrFail();
+        return MaterialCompra::where(compact('compra_id', 'material_unidade_id'))->firstOrFail();
     }
 }

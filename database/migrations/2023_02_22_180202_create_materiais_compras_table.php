@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Compra;
-use App\Models\Material;
+use App\Models\MaterialUnidade;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('materiais_compras', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Material::class)->constrained('materiais');
+            $table->foreignIdFor(MaterialUnidade::class)->constrained('materiais_unidades');
             $table->foreignIdFor(Compra::class)->constrained()->cascadeOnDelete();
             $table->float('valor');
             $table->timestamps();

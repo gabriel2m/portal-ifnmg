@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Material;
+use App\Models\Unidade;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMateriaisTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +15,12 @@ class CreateMateriaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('materiais', function (Blueprint $table) {
+        Schema::create('materiais_unidades', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique();
-            $table->text('descricao');
-            $table->integer('catmat')->unique();
-            $table->tinyInteger('tipo');
-            $table->timestamps();
+            $table->foreignIdFor(Material::class)->constrained('materiais');
+            $table->foreignIdFor(Unidade::class)->constrained();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +31,6 @@ class CreateMateriaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materiais');
+        Schema::dropIfExists('materiais_unidades');
     }
-}
+};

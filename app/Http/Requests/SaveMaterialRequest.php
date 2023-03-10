@@ -41,10 +41,15 @@ class SaveMaterialRequest extends FormRequest
                 'required',
                 Rule::enum(TipoMaterial::class),
             ],
-            'unidade_id' => [
+            'unidades' => [
+                'required',
+                'array'
+            ],
+            'unidades.*.unidade_id' => [
                 'required',
                 'integer',
-                'exists:unidades,id'
+                'distinct',
+                'exists:unidades,id',
             ],
             'descricao' => [
                 'required',
@@ -63,7 +68,8 @@ class SaveMaterialRequest extends FormRequest
     {
         return [
             'descricao' => 'descrição',
-            'unidade_id' => 'unidade'
+            'unidades' => 'unidades de medida',
+            'unidades.*.unidade_id' => 'unidade de medida',
         ];
     }
 }

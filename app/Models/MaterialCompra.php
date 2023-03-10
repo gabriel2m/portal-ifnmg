@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property integer $compra_id
  * @property Compra $compra
- * @property integer $material_id
- * @property Material $material
+ * @property integer $material_unidade_id
+ * @property MaterialUnidade $material_unidade
  * @property MaterialCompraSetor[]|HasMany $material_compra_setores
  * @property float $valor
  * @property Carbon $created_at
@@ -25,18 +25,18 @@ class MaterialCompra extends Model
 
     protected $fillable = [
         'compra_id',
-        'material_id',
+        'material_unidade_id',
         'valor'
     ];
 
-    public function material()
-    {
-        return $this->belongsTo(Material::class)->withTrashed();
-    }
-
     public function compra()
     {
-        return $this->belongsTo(Compra::class)->withTrashed();
+        return $this->belongsTo(Compra::class);
+    }
+
+    public function material_unidade()
+    {
+        return $this->belongsTo(MaterialUnidade::class)->withTrashed();
     }
 
     public function material_compra_setores()

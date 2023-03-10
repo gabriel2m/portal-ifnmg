@@ -56,10 +56,10 @@
                     </tr>
                     <tr>
                         <th>
-                            Unidade de medida
+                            Unidades de medida
                         </th>
                         <td>
-                            {{ $material->unidade->nome }}
+                            {{ $material->material_unidades->pluck('unidade.nome')->join(', ') }}
                         </td>
                     </tr>
                 </tbody>

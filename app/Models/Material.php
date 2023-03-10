@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Enums\TipoMaterial;
+use App\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @property int $id
@@ -13,8 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $descricao
  * @property TipoMaterial $tipo
  * @property integer $catmat
- * @property integer $unidade_id
- * @property Unidade $unidade
+ * @property Collection<int, MaterialUnidade> $material_unidades
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -25,14 +26,30 @@ class Material extends Model
 
     protected $table = 'materiais';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'nome',
+        'descricao',
+        'tipo',
+        'catmat'
+    ];
 
     protected $casts = [
         'tipo' => TipoMaterial::class,
     ];
 
-    public function unidade()
+    public function material_unidades()
     {
-        return $this->belongsTo(Unidade::class)->withTrashed();
+        return $this
+            ->hasMany(MaterialUnidade::class)
+            ->join('unidades', 'materiais_unidades.unidade_id', 'unidades.id')
+            ->orderBy('unidades.nome');
+    }
+
+    public function delete()
+    {
+        return DB::transaction(function () {
+            $this->material_unidades()->delete();
+            return parent::delete();
+        });
     }
 }

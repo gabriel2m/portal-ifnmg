@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PerfilSeeder::class,
             MaterialSeeder::class,
+            MaterialUnidadeSeeder::class,
             CompraSeeder::class,
             MaterialCompraSeeder::class,
             MaterialCompraSetorSeeder::class,

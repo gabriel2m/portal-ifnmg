@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Facades\DB;
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\SaveMaterialRequest;
 use App\Models\Material;
 use App\Models\Unidade;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 
 class MaterialController extends ResourceController
 {
@@ -63,6 +65,7 @@ class MaterialController extends ResourceController
      */
     public function show(Material $material)
     {
+        $material->material_unidades->load('unidade');
         return $this->showAction($material);
     }
 
@@ -104,5 +107,22 @@ class MaterialController extends ResourceController
     {
         $data['unidades'] = Unidade::orderBy('nome')->pluck('nome', 'id');
         return parent::form($material, $data);
+    }
+
+    protected function save(FormRequest $request, Model $model)
+    {
+        /** @var Material $model */
+        return DB::transaction(function () use ($model, $request) {
+            if (!$model->fill($request->validated())->save())
+                return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
+
+            $model->material_unidades()->delete();
+
+            $model->material_unidades()->createMany(
+                $request->validated('unidades')
+            );
+
+            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso Salvo.']);
+        });
     }
 }

@@ -23,18 +23,14 @@
         <div class="card-body">
             <table class="table show-table w-100">
                 <tbody>
-                    @foreach ([
-            'ano' => 'Ano',
-        ] as $attr => $label)
-                        <tr>
-                            <th>
-                                {{ $label }}
-                            </th>
-                            <td>
-                                {{ $compra->$attr }}
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <th>
+                            Ano
+                        </th>
+                        <td>
+                            {{ $compra->ano }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -81,9 +77,9 @@
         </div>
     </div>
 
-    <div class="card card-outline card-secondary mt-4" style="border-top-color: #6c757dc4">
+    <div class="card card-outline card-secondary mt-4">
         <div class="card-header">
-            <span class="card-title text-lg">Materiais permanentes</span>
+            <span class="card-title">Materiais permanentes</span>
         </div>
         <div class="card-body">
             <table id="permanente-table" class="table border-bottom table-hover w-100 nowrap">
@@ -91,9 +87,9 @@
         </div>
     </div>
 
-    <div class="card card-outline card-secondary mt-4" style="border-top-color: #6c757dc4">
+    <div class="card card-outline card-secondary mt-4">
         <div class="card-header">
-            <span class="card-title text-lg">Materiais de consumo</span>
+            <span class="card-title">Materiais de consumo</span>
         </div>
         <div class="card-body">
             <table id="consumo-table" class="table border-bottom table-hover w-100 nowrap">
@@ -140,10 +136,15 @@
                 {
                     title: 'Material',
                     data: 'nome_material',
-                    name: 'materiais.nome'
+                    name: 'materiais.nome',
                 },
                 {
-                    title: 'Quantidade',
+                    title: 'Unidade de medida',
+                    data: 'unidade_material',
+                    name: 'unidades.nome',
+                },
+                {
+                    title: 'Quantidade total',
                     data: 'quantidade_total',
                     searchable: false,
                     render: (val, type, data) => Number(val).toLocaleString('pt-br')
@@ -176,7 +177,7 @@
                 let url =
                     "{{ route('admin.compras.materiais.show', ['compra' => '=compra=', 'material' => '=material=']) }}"
                     .replace('=compra=', ano_compra)
-                    .replace('=material=', data.catmat_material);
+                    .replace('=material=', data.material_unidade_id);
 
                 $(row)
                     .attr('role', 'button')
@@ -194,10 +195,10 @@
         let permanente_table_config = table_config();
         let consumo_table_config = table_config();
 
-        permanente_table_config.ajax.data = (body) => {
+        permanente_table_config.ajax.data = body => {
             body.tipo = '{{ TipoMaterial::Permanente->value }}';
         };
-        consumo_table_config.ajax.data = (body) => {
+        consumo_table_config.ajax.data = body => {
             body.tipo = '{{ TipoMaterial::Consumo->value }}';
         };
 

@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property integer $material_compra_id
+ * @property MaterialCompra $material_compra
  * @property integer $setor_id
  * @property Setor $setor
  * @property integer $quantidade
- * @property integer $unidade_id
- * @property Unidade $unidade
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -24,9 +23,9 @@ class MaterialCompraSetor extends Model
 
     protected $guarded = [];
 
-    public function unidade()
+    public function material_compra()
     {
-        return $this->belongsTo(Unidade::class)->withTrashed();
+        return $this->belongsTo(MaterialCompra::class);
     }
 
     public function setor()
