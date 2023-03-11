@@ -10,7 +10,7 @@ class SuccessfulPasswordResetLinkRequestResponse extends FortifySuccessfulPasswo
     {
         $response = parent::toResponse($request);
         if (!$request->wantsJson())
-            $response->{'setTargetUrl'}(route('login'));
+            $response->setTargetUrl(route('login'));
         return $response;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SavePerfilRequest;
 use App\Enums\CategoriaPerfil;
-use App\Http\Middleware\NivelAdminEditor;
+use App\Http\Middleware\EditorPermission;
 use App\Models\Perfil;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,7 +21,7 @@ class PerfilController extends ResourceController
     {
         $this->middleware([
             'auth',
-            NivelAdminEditor::class
+            EditorPermission::class
         ])->except(['advancedSearch', 'show']);
     }
 
