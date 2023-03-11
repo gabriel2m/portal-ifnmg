@@ -40,15 +40,4 @@ class Handler extends ExceptionHandler
             //
         });
     }
-
-    protected function prepareException(Throwable $e)
-    {
-        if ($e instanceof ModelNotFoundException)
-            return new NotFoundHttpException(
-                __('not_found', ['target' => class_basename($e->getModel())]),
-                $e
-            );
-
-        return parent::prepareException($e);
-    }
 }
