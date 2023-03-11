@@ -77,7 +77,7 @@
                     <label>
                         Material
                     </label>
-                    <select id="material_unidade_id" name="material_unidade_id" class="form-control">
+                    <select id="material_unidade_id" name="material_unidade_id" class="form-control" required>
                         <option></option>
                         @foreach ($materiais_unidades as $item)
                             <option value="{{ $item->id }}" @selected($item->id == $material_compra->material_unidade_id)>
