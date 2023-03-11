@@ -21,7 +21,6 @@ class MaterialCompraFactory extends Factory
         return [
             'compra_id' => Compra::factory(),
             'material_unidade_id' => MaterialUnidade::factory(),
-            'valor' => $this->faker->randomFloat(2, 0.01, 999),
         ];
     }
 }

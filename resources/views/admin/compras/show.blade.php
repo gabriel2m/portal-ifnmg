@@ -149,23 +149,6 @@
                     searchable: false,
                     render: (val, type, data) => Number(val).toLocaleString('pt-br')
                 },
-                {
-                    title: 'Valor unitário',
-                    data: 'valor',
-                    render: val => Number(val).toLocaleString('pt-br', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    })
-                },
-                {
-                    title: 'Valor total',
-                    data: 'valor_total',
-                    searchable: false,
-                    render: val => Number(val).toLocaleString('pt-br', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    })
-                },
                 ...setores.map(setor => ({
                     title: setor.nome,
                     data: `quantidade_setor_${setor.id}`,

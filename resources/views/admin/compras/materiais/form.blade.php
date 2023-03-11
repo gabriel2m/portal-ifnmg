@@ -88,22 +88,6 @@
                     <x-input-error input='material_unidade_id' />
                 </div>
 
-                <div class="form-group">
-                    <label>
-                        Valor unitário
-                    </label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                R$
-                            </span>
-                        </div>
-                        <input type="text" id="valor" name="valor" class="form-control"
-                            value="{{ $material_compra->valor }}" required>
-                    </div>
-                    <x-input-error input='valor' />
-                </div>
-
                 <x-input-error input='material_compra_setor' />
                 <div class="table-responsive-md">
                     <div style="min-width: max-content;">
@@ -224,15 +208,6 @@
         $('#material_unidade_id').select2({
             language: "pt",
             theme: 'bootstrap4 w-100'
-        });
-
-        $('#valor').inputmask("currency", {
-            onBeforeMask: val => val.replace('.', ','),
-            "radixPoint": ",",
-            "groupSeparator": ".",
-            "rightAlign": false,
-            "unmaskAsNumber": true,
-            "removeMaskOnSubmit": true
         });
 
         $('.quantidade').inputmask('integer', {

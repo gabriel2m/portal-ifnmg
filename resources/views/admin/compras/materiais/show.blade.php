@@ -74,14 +74,6 @@
                             {{ $material_compra->material_unidade->material->tipo->label() }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            Valor unitário
-                        </th>
-                        <td>
-                            {{ reais($material_compra->valor) }}
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -99,9 +91,6 @@
                             <th>
                                 Quantidade
                             </th>
-                            <th>
-                                Valor
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,9 +105,6 @@
                                 <td>
                                     {{ int_br($material_compra_setor->quantidade) }}
                                 </td>
-                                <td>
-                                    {{ reais($material_compra->valor * $material_compra_setor->quantidade) }}
-                                </td>
                             </tr>
                             @php
                                 $quantidade_total += $material_compra_setor->quantidade;
@@ -132,9 +118,6 @@
                             </td>
                             <td>
                                 {{ int_br($quantidade_total) }}
-                            </td>
-                            <td>
-                                {{ reais($material_compra->valor * $quantidade_total) }}
                             </td>
                         </tr>
                     </tfoot>

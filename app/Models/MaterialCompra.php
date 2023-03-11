@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property integer $material_unidade_id
  * @property MaterialUnidade $material_unidade
  * @property MaterialCompraSetor[]|HasMany $material_compra_setores
- * @property float $valor
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -26,7 +25,6 @@ class MaterialCompra extends Model
     protected $fillable = [
         'compra_id',
         'material_unidade_id',
-        'valor'
     ];
 
     public function compra()

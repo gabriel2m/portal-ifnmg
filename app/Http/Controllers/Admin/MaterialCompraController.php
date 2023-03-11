@@ -58,12 +58,6 @@ class MaterialCompraController extends ResourceController
                     ->whereColumn('material_compra_id', 'materiais_compras.id')
                     ->selectRaw("SUM(quantidade)"),
                 "quantidade_total"
-            )->selectSub(
-                MaterialCompraSetor::query()
-                    ->getQuery()
-                    ->whereColumn('material_compra_id', 'materiais_compras.id')
-                    ->selectRaw("SUM(quantidade)*materiais_compras.valor"),
-                "valor_total"
             );
 
         foreach (Setor::pluck('id') as $setor_id) {

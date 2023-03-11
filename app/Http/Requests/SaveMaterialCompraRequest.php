@@ -31,12 +31,6 @@ class SaveMaterialCompraRequest extends FormRequest
                 'required',
                 Rule::exists(MaterialUnidade::class, 'id')->whereNull('deleted_at'),
             ],
-            'valor' => [
-                'required',
-                'numeric',
-                'min:0.01',
-                'max:999999'
-            ],
             'material_compra_setor' => [
                 'required',
                 'array',

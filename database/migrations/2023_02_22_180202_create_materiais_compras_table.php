@@ -19,7 +19,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(MaterialUnidade::class)->constrained('materiais_unidades');
             $table->foreignIdFor(Compra::class)->constrained()->cascadeOnDelete();
-            $table->float('valor');
             $table->timestamps();
         });
     }
