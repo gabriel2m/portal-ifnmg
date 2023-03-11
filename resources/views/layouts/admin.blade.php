@@ -53,7 +53,7 @@
             <!-- Brand Logo -->
             <a href="{{ route('admin.home') }}" class="brand-link">
                 <img src="{{ asset('img/ifnmg-logo.png') }}" alt="Logo" class="brand-image">
-                <span class="brand-text h3">
+                <span class="brand-text h3 m-0">
                     {{ config('app.name') }}
                 </span>
             </a>
