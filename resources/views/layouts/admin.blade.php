@@ -2,7 +2,7 @@
 
 @php
     $title[] = 'Área Administrativa';
-    $body_attrs = ['class' => 'hold-transition sidebar-mini'];
+    $body_attrs = ['class' => 'hold-transition sidebar-mini sidebar-mini-md layout-fixed layout-navbar-fixed'];
 @endphp
 
 @prepend('styles')
@@ -51,7 +51,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-3 bg-color-3">
             <!-- Brand Logo -->
-            <a href="{{ route('admin.home') }}" class="brand-link">
+            <a href="{{ route('admin.home') }}" class="brand-link bg-color-3">
                 <img src="{{ asset('img/ifnmg-logo.png') }}" alt="Logo" class="brand-image">
                 <span class="brand-text h3 m-0">
                     {{ config('app.name') }}
@@ -62,7 +62,7 @@
             <div class="sidebar">
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    <ul class="nav nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         @foreach ([
             [

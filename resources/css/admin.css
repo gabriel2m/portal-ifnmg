@@ -16,7 +16,7 @@
 }
 
 .bg-color-3 {
-    background-color: var(--color-3);
+    background-color: var(--color-3) !important;
 }
 
 .show-table th {
@@ -62,6 +62,11 @@
     color           : #fff;
 }
 
+.sidebar .nav-link,
+.sidebar .nav-link p {
+    white-space: nowrap;
+}
+
 @media (min-width: 992px) {
 
     .sidebar-mini .main-sidebar .brand-image {
@@ -75,6 +80,19 @@
     .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand):hover .brand-image,
     .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand).sidebar-focused .brand-image {
         margin-left: .8rem;
+    }
+
+    .sidebar-mini .main-sidebar .nav-link {
+        transition: border-radius ease-in-out 0.3s, width ease-in-out 0.3s;
+    }
+
+    .sidebar-mini.sidebar-collapse .main-sidebar .nav-link {
+        border-radius: 0.25rem;
+    }
+
+    .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand):hover .nav-link,
+    .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand).sidebar-focused .nav-link {
+        border-radius: 0;
     }
 }
 
