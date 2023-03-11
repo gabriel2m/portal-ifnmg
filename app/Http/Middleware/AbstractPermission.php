@@ -2,14 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\NivelUser;
+use App\Enums\UserPermission;
 use Closure;
 use Illuminate\Http\Request;
 
-abstract class AbstractNivel
+abstract class AbstractPermission
 {
-    /** @var NivelUser[] */
-    protected $niveis;
+    protected UserPermission $permission;
 
     /**
      * Handle an incoming request.
@@ -20,11 +19,9 @@ abstract class AbstractNivel
      */
     public function handle(Request $request, Closure $next)
     {
-        foreach ($this->niveis as $nivel) {
-            if (auth()->user()->nivel == $nivel) {
-                return $next($request);
-            }
+        if (!auth()->user()->hasPermission($this->permission)) {
+            abort(403);
         }
-        abort(403);
+        return $next($request);
     }
 }

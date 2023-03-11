@@ -89,7 +89,7 @@
                 'link' => route('admin.users.index'),
                 'label' => 'Usuários',
                 'icon' => 'user',
-                'show' => auth()->user()->nivel == NivelUser::Admin,
+                'show' => auth()->user()->hasPermission(UserPermission::Admin),
             ],
         ] as $item)
                             @if ($item['show'] ?? true)

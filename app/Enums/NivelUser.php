@@ -18,4 +18,18 @@ enum NivelUser: int
             self::Editor => 'Editor',
         };
     }
+
+    public function permissions(): string
+    {
+        return match ($this) {
+            self::Admin => UserPermission::Admin->value | UserPermission::Tecnico->value | UserPermission::Editor->value,
+            self::Tecnico => UserPermission::Tecnico->value,
+            self::Editor => UserPermission::Editor->value,
+        };
+    }
+
+    public function hasPermission(UserPermission $permission): bool
+    {
+        return boolval($this->permissions() & $permission->value);
+    }
 }

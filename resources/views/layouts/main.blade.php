@@ -11,11 +11,6 @@
 
 @section('content')
     <header>
-        @php
-            $user = auth()->user();
-            $editor_level = $user && ($user->nivel == NivelUser::Admin || $user->nivel == NivelUser::Editor);
-            $admin_area_level = $user && ($user->nivel == NivelUser::Admin || $user->nivel == NivelUser::Tecnico);
-        @endphp
         <nav class="py-1 bg-ifnmg-green-2 app-row">
             <ul class="max-w-screen-2xl mx-auto flex justify-between flex-wrap text-yellow-50">
                 @foreach ([
@@ -32,22 +27,26 @@
             [
                 'label' => 'Cadastrar Perfil',
                 'route' => ['perfis.create'],
-                'show' => $editor_level,
+                'show' =>
+                    auth()->check() &&
+                    auth()->user()->hasPermission(UserPermission::Editor),
             ],
             [
                 'label' => 'Área Administrativa',
                 'route' => ['admin.home'],
-                'show' => $admin_area_level,
+                'show' =>
+                    auth()->check() &&
+                    auth()->user()->hasPermission(UserPermission::Tecnico),
             ],
             [
                 'label' => 'Entre em Contato',
                 'route' => ['contato.show'],
-                'show' => Auth::guest(),
+                'show' => auth()->guest(),
             ],
             [
                 'label' => 'Login',
                 'route' => ['login'],
-                'show' => Auth::guest(),
+                'show' => auth()->guest(),
             ],
             [
                 'label' => 'Usuário',
@@ -62,7 +61,7 @@
                         'post' => true,
                     ],
                 ],
-                'show' => Auth::check(),
+                'show' => auth()->check(),
             ],
         ] as $item)
                     @if ($item['show'] ?? true)

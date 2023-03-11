@@ -3,6 +3,7 @@
 use App\Enums\CategoriaPerfil;
 use App\Enums\NivelUser;
 use App\Enums\TipoMaterial;
+use App\Enums\UserPermission;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -201,6 +202,7 @@ return [
         'CategoriaPerfil' => CategoriaPerfil::class,
         'TipoMaterial' => TipoMaterial::class,
         'NivelUser' => NivelUser::class,
+        'UserPermission' => UserPermission::class,
     ])->toArray(),
 
     'perfil' => [

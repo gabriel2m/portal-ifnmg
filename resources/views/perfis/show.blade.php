@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @php
-$title[] = $perfil->nome;
+    $title[] = $perfil->nome;
 @endphp
 
 @section('main-content')
@@ -18,7 +18,8 @@ $title[] = $perfil->nome;
                 {{ $perfil->descricao }}
             </p>
         </div>
-        @auth
+        @if (auth()->user()
+                ?->hasPermission(UserPermission::Editor))
             <div class="form-footer-primary mt-12">
                 <a href="{{ route('perfis.edit', $perfil) }}" class="button-primary">
                     Editar
@@ -30,9 +31,8 @@ $title[] = $perfil->nome;
                     <button type="submit" class="text-red-500 hover:text-gray-400 underline">Deletar</button>
                 </form>
             </div>
-        @endauth
-        @guest
+        @else
             <div class="my-20"></div>
-        @endguest
+        @endif
     </div>
 @endsection

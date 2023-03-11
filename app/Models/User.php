@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\NivelUser;
+use App\Enums\UserPermission;
 
 /**
  * @property int $id
@@ -53,4 +54,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'nivel' => NivelUser::class,
     ];
+
+    public function hasPermission(UserPermission $permission): bool
+    {
+        return $this->nivel->hasPermission($permission);
+    }
 }

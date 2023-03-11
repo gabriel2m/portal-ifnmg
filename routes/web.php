@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\CategoriaPerfil;
+use App\Enums\UserPermission;
 use App\Http\Controllers\Admin\CompraController;
 use App\Http\Controllers\Admin\MaterialCompraController;
 use App\Http\Controllers\Admin\MaterialController;
@@ -8,8 +9,8 @@ use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PerfilController;
-use App\Http\Middleware\NivelAdmin;
-use App\Http\Middleware\NivelAdminTecnico;
+use App\Http\Middleware\AdminPermission;
+use App\Http\Middleware\TecnicoPermission;
 use App\Models\Perfil;
 use App\Models\User;
 use App\Notifications\ContatoNotification;
@@ -111,7 +112,7 @@ Route::name('admin.')
     ->prefix('admin')
     ->middleware([
         'auth',
-        NivelAdminTecnico::class
+        TecnicoPermission::class
     ])
     ->group(function () {
         Route::view('', 'admin.home')->name('home');
@@ -139,7 +140,7 @@ Route::name('admin.')
             ->whereNumber(['compra', 'material'])
             ->except('index');
 
-        Route::middleware(NivelAdmin::class)->group(function () {
+        Route::middleware(AdminPermission::class)->group(function () {
             Route::post('users/datatables', [UserController::class, 'datatables'])->name('users.datatables');
             Route::resource('users', UserController::class);
         });
