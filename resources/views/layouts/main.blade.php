@@ -16,7 +16,7 @@
                 @foreach ([
             [
                 'label' => 'Home',
-                'route' => ['home'],
+                'route' => ['portal.home'],
             ],
             ...array_map(function ($categoria) {
                 return [
@@ -108,7 +108,7 @@
             <div class="bg-ifnmg-green-1 app-row">
                 <div class="max-w-screen-md mx-auto">
                     <div class="pb-5 pt-10">
-                        <a class="md:flex" href="{{ route('home') }}">
+                        <a class="md:flex" href="{{ route('portal.home') }}">
                             <img src="{{ asset('img/ifnmg-logo.png') }}" alt="logo ifnmg" width="170">
                             <div class="text-white mt-auto ml-3">
                                 <h1 class="text-6xl">

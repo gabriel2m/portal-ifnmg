@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Notification;
 |
 */
 
-Route::view('', 'home')->name('home');
+Route::view('', 'home')->name('portal.home');
 
 Route::get("categorias/{slug}", function (Request $request, string $slug) {
     foreach (CategoriaPerfil::cases() as $case)
@@ -145,3 +145,11 @@ Route::name('admin.')
             Route::resource('users', UserController::class);
         });
     });
+
+Route::get('home', function () {
+    return to_route(
+        auth()->user()?->hasPermission(UserPermission::Tecnico)
+            ? 'admin.home'
+            : 'portal.home'
+    );
+})->name('home');

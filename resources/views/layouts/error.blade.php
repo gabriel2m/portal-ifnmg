@@ -26,10 +26,10 @@
             @yield('message')
         </p>
 
-        <a href="{{ url()->previous() }}">
+        <a href="{{ route('home') }}">
             <button
                 class="text-gray-500 font-bold uppercase tracking-wide py-2 px-6 border-2 border-gray-300 hover:border-gray-400 rounded-xl">
-                {{ '<- ' . __('Voltar') }}
+                {{ '<- ' . __('voltar') }}
             </button>
         </a>
     </main>

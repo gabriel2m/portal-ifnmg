@@ -30,7 +30,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
+                    <a href="{{ route('portal.home') }}" class="nav-link">
                         <i class="la-lg las la-external-link-alt"></i>
                         Portal
                     </a>

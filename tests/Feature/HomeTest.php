@@ -8,7 +8,7 @@ class HomeTest extends TestCase
     public function test_get()
     {
         $this
-            ->get(route('home'))
+            ->get(route('portal.home'))
             ->assertOk();
     }
 }
