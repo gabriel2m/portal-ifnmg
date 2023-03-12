@@ -178,7 +178,8 @@ class MaterialCompraController extends ResourceController
             'materiais_unidades' => MaterialUnidade::join(Material::tableName(), MaterialUnidade::columnName('material_id'), Material::columnName('id'))
                 ->select(MaterialUnidade::columnName('*'))
                 ->orderBy(Material::columnName('nome'))
-                ->get(),
+                ->get()
+                ->load('material', 'unidade'),
             'material_unidade' => MaterialUnidade::whereKey($material_compra->getOriginal('material_unidade_id'))->withTrashed()->first()
         ]);
     }

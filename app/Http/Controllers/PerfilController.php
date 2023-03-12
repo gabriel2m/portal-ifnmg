@@ -48,7 +48,7 @@ class PerfilController extends ResourceController
 
         $perfis = Perfil::rawSearch()
             ->query(['simple_query_string' => ["query" => $query]])
-            ->{'postFilter'}('term', ['categoria' => $categoria])
+            ->postFilter('term', ['categoria' => $categoria])
             ->paginate(Perfil::PER_PAGE)->withQueryString();
 
         $categoria = CategoriaPerfil::from($categoria);

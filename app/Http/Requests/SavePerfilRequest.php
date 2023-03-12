@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\CategoriaPerfil;
+use App\Models\Perfil;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +31,7 @@ class SavePerfilRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('perfis')->ignore($this->perfil),
+                Rule::unique(Perfil::class)->ignore($this->perfil),
             ],
             'imagem' => [
                 'exclude_if:imagem,null',

@@ -16,7 +16,7 @@ class PasswordUpdateResponse extends FortifyPasswordUpdateResponse
     {
         $response = parent::toResponse($request);
         if (!$request->wantsJson())
-            $response->{'setTargetUrl'}(route('user-profile-information.update'));
+            $response->setTargetUrl(route('user-profile-information.update'));
         return $response;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Setor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,7 +30,7 @@ class SaveSetorRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('setores')->ignore($this->setor),
+                Rule::unique(Setor::class)->ignore($this->setor),
             ],
         ];
     }

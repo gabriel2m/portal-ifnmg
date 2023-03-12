@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Unidade;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,7 +30,7 @@ class SaveUnidadeRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('unidades')->ignore($this->unidade),
+                Rule::unique(Unidade::class)->ignore($this->unidade),
             ],
         ];
     }

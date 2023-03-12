@@ -210,6 +210,10 @@
             theme: 'bootstrap4 w-100'
         });
 
+        $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+        });
+
         $('.quantidade').inputmask('integer', {
             "rightAlign": false,
         });
