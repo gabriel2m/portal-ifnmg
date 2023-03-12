@@ -20,7 +20,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(MaterialCompra::class)->constrained(MaterialCompra::tableName())->cascadeOnDelete();
             $table->foreignIdFor(Setor::class)->constrained(Setor::tableName());
-            $table->float('quantidade');
+            $table->integer('quantidade');
             $table->timestamps();
         });
     }
