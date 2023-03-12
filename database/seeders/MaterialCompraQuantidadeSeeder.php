@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\MaterialCompra;
-use App\Models\MaterialCompraSetor;
+use App\Models\MaterialCompraQuantidade;
 use App\Models\Setor;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Database\Seeder;
 
-class MaterialCompraSetorSeeder extends Seeder
+class MaterialCompraQuantidadeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,17 +19,17 @@ class MaterialCompraSetorSeeder extends Seeder
     {
         $setores = Setor::all();
         foreach (MaterialCompra::all() as $material_compra) {
-            MaterialCompraSetor::factory(rand(1, $setores->count()))
+            MaterialCompraQuantidade::factory(rand(1, $setores->count()))
                 ->recycle($setores)
                 ->create([
                     'material_compra_id' => $material_compra
                 ]);
         }
 
-        MaterialCompraSetor::query()
+        MaterialCompraQuantidade::query()
             ->getQuery()
             ->rightJoinSub(
-                MaterialCompraSetor::query()
+                MaterialCompraQuantidade::query()
                     ->getQuery()
                     ->selectRaw('MIN(id) as id')
                     ->addSelect('material_compra_id', 'setor_id')
@@ -38,11 +38,11 @@ class MaterialCompraSetorSeeder extends Seeder
                 'duplicates',
                 function (JoinClause $join) {
                     $join
-                        ->on(MaterialCompraSetor::columnName('material_compra_id'), 'duplicates.material_compra_id')
-                        ->on(MaterialCompraSetor::columnName('setor_id'), 'duplicates.setor_id');
+                        ->on(MaterialCompraQuantidade::columnName('material_compra_id'), 'duplicates.material_compra_id')
+                        ->on(MaterialCompraQuantidade::columnName('setor_id'), 'duplicates.setor_id');
                 }
             )
-            ->whereColumn(MaterialCompraSetor::columnName('id'), '!=', 'duplicates.id')
+            ->whereColumn(MaterialCompraQuantidade::columnName('id'), '!=', 'duplicates.id')
             ->delete();
     }
 }

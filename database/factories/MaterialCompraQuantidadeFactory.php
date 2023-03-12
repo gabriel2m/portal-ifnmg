@@ -7,9 +7,9 @@ use App\Models\Setor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MaterialCompraSetor>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MaterialCompraQuantidade>
  */
-class MaterialCompraSetorFactory extends Factory
+class MaterialCompraQuantidadeFactory extends Factory
 {
     /**
      * Define the model's default state.

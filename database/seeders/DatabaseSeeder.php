@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             MaterialUnidadeSeeder::class,
             CompraSeeder::class,
             MaterialCompraSeeder::class,
-            MaterialCompraSetorSeeder::class,
+            MaterialCompraQuantidadeSeeder::class,
         ]);
     }
 }

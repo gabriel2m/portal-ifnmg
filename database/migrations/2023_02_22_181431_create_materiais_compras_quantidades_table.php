@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\MaterialCompra;
-use App\Models\MaterialCompraSetor;
+use App\Models\MaterialCompraQuantidade;
 use App\Models\Setor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +16,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(MaterialCompraSetor::tableName(), function (Blueprint $table) {
+        Schema::create(MaterialCompraQuantidade::tableName(), function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(MaterialCompra::class)->constrained(MaterialCompra::tableName())->cascadeOnDelete();
             $table->foreignIdFor(Setor::class)->constrained(Setor::tableName());
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(MaterialCompraSetor::tableName());
+        Schema::dropIfExists(MaterialCompraQuantidade::tableName());
     }
 };

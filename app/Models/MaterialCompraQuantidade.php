@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class MaterialCompraSetor extends Model
+class MaterialCompraQuantidade extends Model
 {
     use HasFactory;
     use TableName;
 
-    protected $table = 'materiais_compras_setores';
+    protected $table = 'materiais_compras_quantidades';
 
     protected $guarded = [];
 

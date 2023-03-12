@@ -88,7 +88,7 @@
                     <x-input-error input='material_unidade_id' />
                 </div>
 
-                <x-input-error input='material_compra_setor' />
+                <x-input-error input='quantidades' />
                 <div class="table-responsive-md">
                     <div style="min-width: max-content;">
                         <div class="row">
@@ -116,12 +116,12 @@
                         </div>
 
                         <div class="repeater">
-                            <div data-repeater-list="material_compra_setor">
+                            <div data-repeater-list="quantidades">
                                 @php
-                                    $material_compra_setores = old(
-                                        'material_compra_setor',
+                                    $quantidades = old(
+                                        'quantidades',
                                         $material_compra->exists
-                                            ? $material_compra->material_compra_setores
+                                            ? $material_compra->quantidades
                                             : [
                                                 [
                                                     'setor_id' => null,
@@ -130,7 +130,7 @@
                                             ],
                                     );
                                 @endphp
-                                @foreach ($material_compra_setores as $index => $material_compra_setor)
+                                @foreach ($quantidades as $index => $quantidade)
                                     <div data-repeater-item>
                                         <div class="row">
                                             <div class="col">
@@ -142,23 +142,23 @@
                                                                 <option></option>
                                                                 @foreach ($setores as $setor_id => $setor_nome)
                                                                     <option value="{{ $setor_id }}"
-                                                                        @selected($setor_id == $material_compra_setor['setor_id'])>
+                                                                        @selected($setor_id == $quantidade['setor_id'])>
                                                                         {{ $setor_nome }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                             <x-input-error
-                                                                input='{{ "material_compra_setor.$index.setor_id" }}' />
+                                                                input='{{ "quantidades.$index.setor_id" }}' />
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <input type="text" name="[{{ $index }}][quantidade]"
                                                                 class="form-control quantidade"
-                                                                value="{{ $material_compra_setor['quantidade'] }}"
+                                                                value="{{ $quantidade['quantidade'] }}"
                                                                 required>
                                                             <x-input-error
-                                                                input='{{ "material_compra_setor.$index.quantidade" }}' />
+                                                                input='{{ "quantidades.$index.quantidade" }}' />
                                                         </div>
                                                     </div>
                                                 </div>

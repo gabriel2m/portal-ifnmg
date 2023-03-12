@@ -4,7 +4,7 @@ namespace Tests\Feature\Admin\Compras\Materiais;
 
 use App\Models\Compra;
 use App\Models\MaterialCompra;
-use App\Models\MaterialCompraSetor;
+use App\Models\MaterialCompraQuantidade;
 use App\Models\MaterialUnidade;
 use Tests\TestCase;
 
@@ -20,7 +20,7 @@ class StoreTest extends TestCase
             'compra_id' => $compra,
         ]);
 
-        $material_compra_setor_data = MaterialCompraSetor::factory()->raw([
+        $quantidade_data = MaterialCompraQuantidade::factory()->raw([
             'material_compra_id' => null,
         ]);
 
@@ -32,8 +32,8 @@ class StoreTest extends TestCase
                 ]),
                 [
                     ...$material_compra_data,
-                    'material_compra_setor' => [
-                        $material_compra_setor_data
+                    'quantidades' => [
+                        $quantidade_data
                     ]
                 ]
             )
@@ -42,8 +42,8 @@ class StoreTest extends TestCase
         $this->assertDatabaseHas(MaterialCompra::class, $material_compra_data);
         $this->assertDatabaseCount(MaterialCompra::class, 1);
 
-        $material_compra_setor_data['material_compra_id'] = 1;
-        $this->assertDatabaseHas(MaterialCompraSetor::class, $material_compra_setor_data);
-        $this->assertDatabaseCount(MaterialCompraSetor::class, 1);
+        $quantidade_data['material_compra_id'] = 1;
+        $this->assertDatabaseHas(MaterialCompraQuantidade::class, $quantidade_data);
+        $this->assertDatabaseCount(MaterialCompraQuantidade::class, 1);
     }
 }

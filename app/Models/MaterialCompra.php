@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Compra $compra
  * @property integer $material_unidade_id
  * @property MaterialUnidade $material_unidade
- * @property MaterialCompraSetor[]|HasMany $material_compra_setores
+ * @property MaterialCompraQuantidade[]|HasMany $quantidades
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -39,11 +39,11 @@ class MaterialCompra extends Model
         return $this->belongsTo(MaterialUnidade::class)->withTrashed();
     }
 
-    public function material_compra_setores()
+    public function quantidades()
     {
         return $this
-            ->hasMany(MaterialCompraSetor::class)
-            ->join(Setor::tableName(),  MaterialCompraSetor::columnName('setor_id'), Setor::columnName('id'))
+            ->hasMany(MaterialCompraQuantidade::class)
+            ->join(Setor::tableName(),  MaterialCompraQuantidade::columnName('setor_id'), Setor::columnName('id'))
             ->orderBy(Setor::columnName('nome'));
     }
 }

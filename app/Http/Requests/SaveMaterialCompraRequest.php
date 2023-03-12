@@ -31,16 +31,16 @@ class SaveMaterialCompraRequest extends FormRequest
                 'required',
                 Rule::exists(MaterialUnidade::class, 'id')->whereNull('deleted_at'),
             ],
-            'material_compra_setor' => [
+            'quantidades' => [
                 'required',
                 'array',
             ],
-            'material_compra_setor.*.setor_id' => [
+            'quantidades.*.setor_id' => [
                 'required',
                 'distinct',
                 Rule::exists(Setor::class, 'id')->whereNull('deleted_at'),
             ],
-            'material_compra_setor.*.quantidade' => [
+            'quantidades.*.quantidade' => [
                 'required',
                 'integer',
                 'min:1',
@@ -52,8 +52,8 @@ class SaveMaterialCompraRequest extends FormRequest
     public function attributes()
     {
         return [
-            'material_compra_setor.*.setor_id' => 'setor',
-            'material_compra_setor.*.quantidade' => 'quantidade',
+            'quantidades.*.setor_id' => 'setor',
+            'quantidades.*.quantidade' => 'quantidade',
             'material_unidade_id' => 'material'
         ];
     }

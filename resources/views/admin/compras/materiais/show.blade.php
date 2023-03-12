@@ -97,17 +97,17 @@
                         @php
                             $quantidade_total = 0;
                         @endphp
-                        @foreach ($material_compra->material_compra_setores as $material_compra_setor)
+                        @foreach ($material_compra->quantidades as $quantidade)
                             <tr>
                                 <td class="text-nowrap">
-                                    {{ $material_compra_setor->setor->nome }}
+                                    {{ $quantidade->setor->nome }}
                                 </td>
                                 <td>
-                                    {{ int_br($material_compra_setor->quantidade) }}
+                                    {{ int_br($quantidade->quantidade) }}
                                 </td>
                             </tr>
                             @php
-                                $quantidade_total += $material_compra_setor->quantidade;
+                                $quantidade_total += $quantidade->quantidade;
                             @endphp
                         @endforeach
                     </tbody>

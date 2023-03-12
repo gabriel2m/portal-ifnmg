@@ -9,7 +9,7 @@ use App\Http\Requests\SaveMaterialCompraRequest;
 use App\Models\Compra;
 use App\Models\Material;
 use App\Models\MaterialCompra;
-use App\Models\MaterialCompraSetor;
+use App\Models\MaterialCompraQuantidade;
 use App\Models\MaterialUnidade;
 use App\Models\Setor;
 use App\Models\Unidade;
@@ -55,7 +55,7 @@ class MaterialCompraController extends ResourceController
                 Material::columnName('nome as nome_material'),
                 Unidade::columnName('nome as unidade_material'),
             )->selectSub(
-                MaterialCompraSetor::query()
+                MaterialCompraQuantidade::query()
                     ->getQuery()
                     ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
                     ->selectRaw("SUM(quantidade)"),
@@ -64,7 +64,7 @@ class MaterialCompraController extends ResourceController
 
         foreach (Setor::pluck('id') as $setor_id) {
             $query->selectSub(
-                MaterialCompraSetor::query()
+                MaterialCompraQuantidade::query()
                     ->getQuery()
                     ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
                     ->where('setor_id', $setor_id)
@@ -207,9 +207,9 @@ class MaterialCompraController extends ResourceController
         return DB::transaction(function () use ($request, $material_compra) {
             if ($material_compra->fill($request->validated())->save()) {
 
-                $material_compra->material_compra_setores()->delete();
-                $material_compra->material_compra_setores()->createMany(
-                    $request->validated('material_compra_setor')
+                $material_compra->quantidades()->delete();
+                $material_compra->quantidades()->createMany(
+                    $request->validated('quantidades')
                 );
 
                 return to_route('admin.compras.materiais.show', [
