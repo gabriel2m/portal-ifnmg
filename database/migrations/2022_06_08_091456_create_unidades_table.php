@@ -14,7 +14,7 @@ class CreateUnidadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('unidades', function (Blueprint $table) {
+        Schema::create(Unidade::tableName(), function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
             $table->timestamps();
@@ -46,6 +46,6 @@ class CreateUnidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unidades');
+        Schema::dropIfExists(Unidade::tableName());
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\CategoriaPerfil;
 use App\Facades\DB;
+use App\Models\Traits\TableName;
 use Carbon\Carbon;
 use ElasticScoutDriverPlus\QueryDsl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,7 +27,12 @@ use RuntimeException;
  */
 class Perfil extends Model
 {
-    use HasFactory, Searchable, QueryDsl;
+    use HasFactory;
+    use Searchable;
+    Use QueryDsl;
+    use TableName;
+
+    protected $table = 'perfis';
 
     protected $casts = [
         'categoria' => CategoriaPerfil::class,
@@ -48,8 +54,6 @@ class Perfil extends Model
         'link'
     ];
 
-    protected $table = 'perfis';
-
     public const PER_PAGE = 10;
 
     protected $perPage = SELF::PER_PAGE;
@@ -66,7 +70,7 @@ class Perfil extends Model
     public function getImagemUrlAttribute()
     {
         return isset($this->imagem) && $this->imagemDisk()->exists($this->imagem)
-            ? $this->imagemDisk()->{'url'}($this->imagem)
+            ? $this->imagemDisk()->url($this->imagem)
             : config('app.perfil.imagem.default_url');
     }
 

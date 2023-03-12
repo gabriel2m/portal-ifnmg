@@ -34,11 +34,11 @@ class MaterialCompraSeeder extends Seeder
                 'duplicates',
                 function (JoinClause $join) {
                     $join
-                        ->on('materiais_compras.material_unidade_id', 'duplicates.material_unidade_id')
-                        ->on('materiais_compras.compra_id', 'duplicates.compra_id');
+                        ->on(MaterialCompra::columnName('material_unidade_id'), 'duplicates.material_unidade_id')
+                        ->on(MaterialCompra::columnName('compra_id'), 'duplicates.compra_id');
                 }
             )
-            ->whereColumn('materiais_compras.id', '!=', 'duplicates.id')
+            ->whereColumn(MaterialCompra::columnName('id'), '!=', 'duplicates.id')
             ->delete();
     }
 }

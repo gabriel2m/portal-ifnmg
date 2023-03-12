@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\NivelUser;
 use App\Enums\UserPermission;
+use App\Models\Traits\TableName;
 
 /**
  * @property int $id
@@ -21,7 +22,9 @@ use App\Enums\UserPermission;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
+    use TableName;
 
     /**
      * The attributes that are mass assignable.

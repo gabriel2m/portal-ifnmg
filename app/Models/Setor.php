@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\TableName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,9 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Setor extends Model
 {
-    use HasFactory, SoftDeletes;
-
-    protected $guarded = [];
+    use HasFactory;
+    use SoftDeletes;
+    use TableName;
 
     protected $table = 'setores';
+
+    protected $guarded = [];
 }

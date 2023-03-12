@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Compra;
+use App\Models\MaterialCompra;
 use App\Models\MaterialUnidade;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,9 +16,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materiais_compras', function (Blueprint $table) {
+        Schema::create(MaterialCompra::tableName(), function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(MaterialUnidade::class)->constrained('materiais_unidades');
+            $table->foreignIdFor(MaterialUnidade::class)->constrained(MaterialUnidade::tableName());
             $table->foreignIdFor(Compra::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materiais_compras');
+        Schema::dropIfExists(MaterialCompra::tableName());
     }
 };

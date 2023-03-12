@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\MaterialCompra;
+use App\Models\MaterialCompraSetor;
 use App\Models\Setor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,10 +16,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materiais_compras_setores', function (Blueprint $table) {
+        Schema::create(MaterialCompraSetor::tableName(), function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(MaterialCompra::class)->constrained('materiais_compras')->cascadeOnDelete();
-            $table->foreignIdFor(Setor::class)->constrained('setores');
+            $table->foreignIdFor(MaterialCompra::class)->constrained(MaterialCompra::tableName())->cascadeOnDelete();
+            $table->foreignIdFor(Setor::class)->constrained(Setor::tableName());
             $table->float('quantidade');
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('setores_materiais_compras');
+        Schema::dropIfExists(MaterialCompraSetor::tableName());
     }
 };

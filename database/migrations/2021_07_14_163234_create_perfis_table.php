@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Perfil;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ class CreatePerfisTable extends Migration
      */
     public function up()
     {
-        Schema::create('perfis', function (Blueprint $table) {
+        Schema::create(Perfil::tableName(), function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
             $table->string('imagem')->nullable();
@@ -30,6 +31,6 @@ class CreatePerfisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfis');
+        Schema::dropIfExists(Perfil::tableName());
     }
 }

@@ -14,7 +14,7 @@ class CreateSetoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('setores', function (Blueprint $table) {
+        Schema::create(Setor::tableName(), function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
             $table->timestamps();
@@ -56,6 +56,6 @@ class CreateSetoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('setores');
+        Schema::dropIfExists(Setor::tableName());
     }
 }

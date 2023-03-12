@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\TableName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class MaterialCompraSetor extends Model
 {
     use HasFactory;
+    use TableName;
 
     protected $table = 'materiais_compras_setores';
 

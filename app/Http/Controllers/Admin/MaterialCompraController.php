@@ -7,10 +7,12 @@ use App\Facades\DB;
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\SaveMaterialCompraRequest;
 use App\Models\Compra;
+use App\Models\Material;
 use App\Models\MaterialCompra;
 use App\Models\MaterialCompraSetor;
 use App\Models\MaterialUnidade;
 use App\Models\Setor;
+use App\Models\Unidade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -42,20 +44,20 @@ class MaterialCompraController extends ResourceController
         $query = MaterialCompra::query();
 
         $query
-            ->where('compra_id', $compra->id)
-            ->where('materiais.tipo', $tipo)
-            ->join('materiais_unidades', 'materiais_compras.material_unidade_id', 'materiais_unidades.id')
-            ->join('materiais', 'materiais_unidades.material_id', 'materiais.id')
-            ->join('unidades', 'materiais_unidades.unidade_id', 'unidades.id')
+            ->where(MaterialCompra::columnName('compra_id'), $compra->id)
+            ->where(Material::columnName('tipo'), $tipo)
+            ->join(MaterialUnidade::tableName(), MaterialCompra::columnName('material_unidade_id'), MaterialUnidade::columnName('id'))
+            ->join(Material::tableName(), MaterialUnidade::columnName('material_id'), Material::columnName('id'))
+            ->join(Unidade::tableName(), MaterialUnidade::columnName('unidade_id'), Unidade::columnName('id'))
             ->select(
-                'materiais_compras.*',
-                'materiais.catmat as catmat_material',
-                'materiais.nome as nome_material',
-                'unidades.nome as unidade_material',
+                MaterialCompra::columnName('*'),
+                Material::columnName('catmat as catmat_material'),
+                Material::columnName('nome as nome_material'),
+                Unidade::columnName('nome as unidade_material'),
             )->selectSub(
                 MaterialCompraSetor::query()
                     ->getQuery()
-                    ->whereColumn('material_compra_id', 'materiais_compras.id')
+                    ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
                     ->selectRaw("SUM(quantidade)"),
                 "quantidade_total"
             );
@@ -64,7 +66,7 @@ class MaterialCompraController extends ResourceController
             $query->selectSub(
                 MaterialCompraSetor::query()
                     ->getQuery()
-                    ->whereColumn('material_compra_id', 'materiais_compras.id')
+                    ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
                     ->where('setor_id', $setor_id)
                     ->select("quantidade"),
                 "quantidade_setor_$setor_id"
@@ -173,9 +175,9 @@ class MaterialCompraController extends ResourceController
             ...$data,
             'material_compra' => $material_compra,
             'setores' => Setor::orderBy('nome')->pluck('nome', 'id'),
-            'materiais_unidades' => MaterialUnidade::join('materiais', 'materiais_unidades.material_id', 'materiais.id')
-                ->select('materiais_unidades.*')
-                ->orderBy('materiais.nome')
+            'materiais_unidades' => MaterialUnidade::join(Material::tableName(), MaterialUnidade::columnName('material_id'), Material::columnName('id'))
+                ->select(MaterialUnidade::columnName('*'))
+                ->orderBy(Material::columnName('nome'))
                 ->get(),
             'material_unidade' => MaterialUnidade::whereKey($material_compra->getOriginal('material_unidade_id'))->withTrashed()->first()
         ]);

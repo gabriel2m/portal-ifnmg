@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Compra;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('compras', function (Blueprint $table) {
+        Schema::create(Compra::tableName(), function (Blueprint $table) {
             $table->id();
             $table->integer('ano');
             $table->timestamps();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compras');
+        Schema::dropIfExists(Compra::tableName());
     }
 };

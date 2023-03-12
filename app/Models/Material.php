@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\TipoMaterial;
 use App\Facades\DB;
+use App\Models\Traits\TableName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +23,9 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Material extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
+    use TableName;
 
     protected $table = 'materiais';
 
@@ -41,8 +44,8 @@ class Material extends Model
     {
         return $this
             ->hasMany(MaterialUnidade::class)
-            ->join('unidades', 'materiais_unidades.unidade_id', 'unidades.id')
-            ->orderBy('unidades.nome');
+            ->join(Unidade::tableName(), MaterialUnidade::columnName('unidade_id'), Unidade::columnName('id'))
+            ->orderBy(Unidade::columnName('nome'));
     }
 
     public function delete()

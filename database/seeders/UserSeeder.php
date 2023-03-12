@@ -21,6 +21,6 @@ class UserSeeder extends Seeder
                 'nivel' => NivelUser::Admin->value,
                 'email' => 'gabriel2m.contact@gmail.com'
             ]);
-        User::factory(5)->create();
+        User::factory(10)->create();
     }
 }

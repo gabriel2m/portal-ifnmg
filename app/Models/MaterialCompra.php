@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\TableName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class MaterialCompra extends Model
 {
     use HasFactory;
+    use TableName;
 
     protected $table = 'materiais_compras';
 
@@ -41,7 +43,7 @@ class MaterialCompra extends Model
     {
         return $this
             ->hasMany(MaterialCompraSetor::class)
-            ->join('setores', 'materiais_compras_setores.setor_id', 'setores.id')
-            ->orderBy('setores.nome');
+            ->join(Setor::tableName(),  MaterialCompraSetor::columnName('setor_id'), Setor::columnName('id'))
+            ->orderBy(Setor::columnName('nome'));
     }
 }

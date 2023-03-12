@@ -37,11 +37,11 @@ class MaterialUnidadeSeeder extends Seeder
                 'duplicates',
                 function (JoinClause $join) {
                     $join
-                        ->on('materiais_unidades.material_id', 'duplicates.material_id')
-                        ->on('materiais_unidades.unidade_id', 'duplicates.unidade_id');
+                        ->on(MaterialUnidade::columnName('material_id'), 'duplicates.material_id')
+                        ->on(MaterialUnidade::columnName('unidade_id'), 'duplicates.unidade_id');
                 }
             )
-            ->whereColumn('materiais_unidades.id', '!=', 'duplicates.id')
+            ->whereColumn(MaterialUnidade::columnName('id'), '!=', 'duplicates.id')
             ->forceDelete();
     }
 }
