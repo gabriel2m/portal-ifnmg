@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\TipoMaterial;
 use App\Facades\DB;
 use App\Http\Controllers\ResourceController;
+use App\Http\Middleware\AdminPermission;
 use App\Http\Requests\SaveMaterialCompraRequest;
 use App\Models\Compra;
 use App\Models\Material;
@@ -25,6 +26,11 @@ class MaterialCompraController extends ResourceController
     protected string $name = 'admin.compras.materiais';
 
     protected string $model_class = MaterialCompra::class;
+
+    public function __construct()
+    {
+        $this->middleware(AdminPermission::class)->only('destroy');
+    }
 
     /**
      * Return a datatables listing of the resource.

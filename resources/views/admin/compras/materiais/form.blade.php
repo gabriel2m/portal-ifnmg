@@ -50,6 +50,10 @@
             'active' => true,
         ]);
     }
+    
+    $has_admin_permission = auth()
+        ->user()
+        ->hasPermission(UserPermission::Admin);
 @endphp
 
 @push('styles')
@@ -77,7 +81,8 @@
                     <label>
                         Material
                     </label>
-                    <select id="material_unidade_id" name="material_unidade_id" class="form-control" required>
+                    <select id="material_unidade_id" name="material_unidade_id" class="form-control" required
+                        @disabled(!$has_admin_permission && $material_compra->exists)>
                         <option></option>
                         @foreach ($materiais_unidades as $item)
                             <option value="{{ $item->id }}" @selected($item->id == $material_compra->material_unidade_id)>

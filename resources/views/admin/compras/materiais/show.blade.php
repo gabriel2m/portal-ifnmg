@@ -135,43 +135,46 @@
                 <i class="la-lg las la-edit"></i>
                 Editar
             </a>
-            <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">
-                <i class="la-lg las la-trash"></i>
-                Deletar
-            </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            Deseja realmente deletar?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary m-0" data-dismiss="modal">
-                                <i class="la-lg las la-times-circle"></i>
-                                Cancelar
-                            </button>
-                            <form
-                                action="{{ route('admin.compras.materiais.destroy', [
-                                    'compra' => $material_compra->compra->ano,
-                                    'material' => $material_compra->material_unidade_id,
-                                ]) }}"
-                                method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger ml-3">
-                                    <i class="la-lg las la-trash"></i>
-                                    Deletar
+            @if (auth()->user()->hasPermission(UserPermission::Admin))
+                <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#delete-modal">
+                    <i class="la-lg las la-trash"></i>
+                    Deletar
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
-                            </form>
+                                Deseja realmente deletar?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary m-0" data-dismiss="modal">
+                                    <i class="la-lg las la-times-circle"></i>
+                                    Cancelar
+                                </button>
+                                <form
+                                    action="{{ route('admin.compras.materiais.destroy', [
+                                        'compra' => $material_compra->compra->ano,
+                                        'material' => $material_compra->material_unidade_id,
+                                    ]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger ml-3">
+                                        <i class="la-lg las la-trash"></i>
+                                        Deletar
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

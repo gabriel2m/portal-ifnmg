@@ -23,7 +23,7 @@ enum NivelUser: int
     {
         return match ($this) {
             self::Admin => UserPermission::Admin->value | UserPermission::Tecnico->value | UserPermission::Editor->value,
-            self::Tecnico => UserPermission::Tecnico->value,
+            self::Tecnico => UserPermission::Tecnico->value | UserPermission::Editor->value,
             self::Editor => UserPermission::Editor->value,
         };
     }

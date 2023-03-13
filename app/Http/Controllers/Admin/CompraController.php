@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\ResourceController;
+use App\Http\Middleware\AdminPermission;
 use App\Http\Requests\SaveCompraRequest;
 use App\Models\Compra;
 use App\Models\Setor;
@@ -12,6 +13,13 @@ class CompraController extends ResourceController
     protected string $name = 'admin.compras';
 
     protected string $model_class = Compra::class;
+
+    public function __construct()
+    {
+        $this
+            ->middleware(AdminPermission::class)
+            ->except('index', 'datatables', 'show');
+    }
 
     /**
      * Display a listing of the resource.
