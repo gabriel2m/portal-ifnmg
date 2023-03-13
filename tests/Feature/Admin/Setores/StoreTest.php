@@ -14,7 +14,8 @@ class StoreTest extends TestCase
         $this
             ->actingAsAdmin()
             ->post(route('admin.setores.store'), $data = Setor::factory()->raw())
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Setor::class, $data);
         $this->assertDatabaseCount(Setor::class, $count + 1);

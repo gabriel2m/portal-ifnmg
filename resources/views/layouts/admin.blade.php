@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @php
-    $title[] = 'Área Administrativa';
+    $title[] = 'Área administrativa';
     $body_attrs = ['class' => 'hold-transition sidebar-mini sidebar-mini-md layout-fixed layout-navbar-fixed'];
 @endphp
 
@@ -62,8 +62,7 @@
             <div class="sidebar">
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         @foreach ([
             [
                 'link' => route('admin.compras.index'),
@@ -120,7 +119,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">{{ $title[0] }}</h1>
+                            <h1 class="m-0">{{ $content_title ?? $title[0] }}</h1>
                         </div>
                         <!-- /.col -->
                         @isset($breadcrumb)

@@ -11,7 +11,7 @@ class DestroyTest extends TestCase
     {
         $this
             ->actingAsEditor()
-            ->delete(route('perfis.destroy', $perfil = Perfil::factory()->createOne()))
+            ->delete(route('perfis.destroy', $perfil = Perfil::factory()->create()))
             ->assertRedirect();
 
         $this->assertModelMissing($perfil);

@@ -26,7 +26,8 @@ class UpdateTest extends TestCase
                     $material_unidade_data
                 ]
             ])
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Material::class, $material_data);
         $this->assertDatabaseCount(Material::class, 1);

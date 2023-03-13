@@ -15,7 +15,8 @@ class UserProfileInformationUpdateTest extends TestCase
                 route('user-profile-information.update'),
                 $data = User::factory()->makeOne()->only(['name', 'email'])
             )
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(User::class, $data);
         $this->assertDatabaseCount(User::class, 1);

@@ -11,7 +11,7 @@ class DestroyTest extends TestCase
     {
         $this
             ->actingAsAdmin()
-            ->delete(route('admin.materiais.destroy', $material = Material::factory()->createOne()))
+            ->delete(route('admin.materiais.destroy', $material = Material::factory()->create()))
             ->assertRedirect();
 
         $this->assertDatabaseCount(Material::class, 1);

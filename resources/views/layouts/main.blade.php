@@ -25,21 +25,21 @@
                 ];
             }, CategoriaPerfil::cases()),
             [
-                'label' => 'Cadastrar Perfil',
+                'label' => 'Cadastrar perfil',
                 'route' => ['perfis.create'],
                 'show' =>
                     auth()->check() &&
                     auth()->user()->hasPermission(UserPermission::Editor),
             ],
             [
-                'label' => 'Área Administrativa',
+                'label' => 'Área administrativa',
                 'route' => ['admin.home'],
                 'show' =>
                     auth()->check() &&
                     auth()->user()->hasPermission(UserPermission::Tecnico),
             ],
             [
-                'label' => 'Entre em Contato',
+                'label' => 'Entre em contato',
                 'route' => ['contato.show'],
                 'show' => auth()->guest(),
             ],

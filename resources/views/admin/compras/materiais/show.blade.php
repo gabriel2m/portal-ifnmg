@@ -6,6 +6,7 @@
         TipoMaterial::Permanente => 'Permanentes',
     };
     $title = [$material_compra->material_unidade->unidade->nome, $material_compra->material_unidade->material->nome, $tipo_label];
+    $content_title = "{$material_compra->material_unidade->material->nome} - {$material_compra->material_unidade->unidade->nome}";
     $breadcrumb = [
         [
             'link' => route('admin.compras.index'),
@@ -35,6 +36,11 @@
 @endphp
 
 @prepend('styles')
+    <style>
+        .material-compra-table {
+            table-layout: fixed;
+        }
+    </style>
 @endprepend
 
 @section('content')
@@ -79,52 +85,51 @@
         </div>
     </div>
 
-    <div class="card card-secondary mt-4">
+    <div class="card card-outline card-secondary mt-4">
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover mb-0 w-100">
-                    <thead>
+            <table class="table material-compra-table table-hover mb-0 w-100">
+                <thead>
+                    <tr>
+                        <th>
+                            Setor
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $quantidade_total = 0;
+                    @endphp
+                    @foreach ($material_compra->quantidades as $quantidade)
                         <tr>
-                            <th>
-                                Setor
-                            </th>
-                            <th>
-                                Quantidade
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $quantidade_total = 0;
-                        @endphp
-                        @foreach ($material_compra->quantidades as $quantidade)
-                            <tr>
-                                <td class="text-nowrap">
-                                    {{ $quantidade->setor->nome }}
-                                </td>
-                                <td>
-                                    {{ int_br($quantidade->quantidade) }}
-                                </td>
-                            </tr>
-                            @php
-                                $quantidade_total += $quantidade->quantidade;
-                            @endphp
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td class="text-bold">
-                                Total
+                            <td>
+                                {{ $quantidade->setor->nome }}
                             </td>
                             <td>
-                                {{ int_br($quantidade_total) }}
+                                {{ int_br($quantidade->quantidade) }}
                             </td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
+                        @php
+                            $quantidade_total += $quantidade->quantidade;
+                        @endphp
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-bold">
+                            Total
+                        </td>
+                        <td>
+                            {{ int_br($quantidade_total) }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
+
     <div class="d-flex mt-3">
         <div class="ml-auto">
             <a href="{{ route('admin.compras.materiais.edit', [

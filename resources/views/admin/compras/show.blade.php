@@ -79,6 +79,8 @@
         </div>
     @endif
 
+    <div class="p-2"></div>
+
     <div class="card card-outline card-secondary mt-4">
         <div class="card-header">
             <span class="card-title">Materiais permanentes</span>
@@ -115,7 +117,7 @@
         let setores = @js($setores);
         let ano_compra = '{{ $compra->ano }}';
 
-        let table_config = () => ({
+        let material_table_config = () => ({
             processing: true,
             serverSide: true,
             scrollX: true,
@@ -133,17 +135,17 @@
             columns: [{
                     title: 'CATMAT',
                     data: 'catmat_material',
-                    name: 'materiais.catmat'
+                    name: "{{ Material::columnName('catmat') }}"
                 },
                 {
                     title: 'Material',
                     data: 'nome_material',
-                    name: 'materiais.nome',
+                    name: "{{ Material::columnName('nome') }}",
                 },
                 {
                     title: 'Unidade de medida',
                     data: 'unidade_material',
-                    name: 'unidades.nome',
+                    name: "{{ Unidade::columnName('nome') }}",
                 },
                 {
                     title: 'Quantidade total',
@@ -160,8 +162,7 @@
             ],
             rowCallback: (row, data, index) => {
                 let url =
-                    "{{ route('admin.compras.materiais.show', ['compra' => '=compra=', 'material' => '=material=']) }}"
-                    .replace('=compra=', ano_compra)
+                    "{{ route('admin.compras.materiais.show', ['compra' => $compra->ano, 'material' => '=material=']) }}"
                     .replace('=material=', data.material_unidade_id);
 
                 $(row)
@@ -177,8 +178,8 @@
             }
         });
 
-        let permanente_table_config = table_config();
-        let consumo_table_config = table_config();
+        let permanente_table_config = material_table_config();
+        let consumo_table_config = material_table_config();
 
         permanente_table_config.ajax.data = body => {
             body.tipo = '{{ TipoMaterial::Permanente->value }}';

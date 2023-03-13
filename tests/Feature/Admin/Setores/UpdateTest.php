@@ -17,7 +17,8 @@ class UpdateTest extends TestCase
                 route('admin.setores.update', Setor::first()),
                 $data = Setor::factory()->raw()
             )
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Setor::class, $data);
         $this->assertDatabaseCount(Setor::class, $count);

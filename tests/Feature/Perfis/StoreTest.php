@@ -12,7 +12,8 @@ class StoreTest extends TestCase
         $this
             ->actingAsEditor()
             ->post(route('perfis.store'), $data = Perfil::factory()->raw())
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Perfil::class, $data);
         $this->assertDatabaseCount(Perfil::class, 1);

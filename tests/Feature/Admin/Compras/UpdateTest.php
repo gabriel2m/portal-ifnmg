@@ -12,10 +12,11 @@ class UpdateTest extends TestCase
         $this
             ->actingAsAdmin()
             ->put(
-                route('admin.compras.update', Compra::factory()->createOne()),
+                route('admin.compras.update', Compra::factory()->create()),
                 $data = Compra::factory()->raw()
             )
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Compra::class, $data);
         $this->assertDatabaseCount(Compra::class, 1);

@@ -28,7 +28,8 @@ class UpdateTest extends TestCase
                     'password_confirmation' => $password,
                 ]
             )
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(User::class, $data);
         $this->assertDatabaseCount(User::class, 2);

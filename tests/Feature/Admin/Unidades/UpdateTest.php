@@ -17,7 +17,8 @@ class UpdateTest extends TestCase
                 route('admin.unidades.update', Unidade::first()),
                 $data = Unidade::factory()->raw()
             )
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Unidade::class, $data);
         $this->assertDatabaseCount(Unidade::class, $count);

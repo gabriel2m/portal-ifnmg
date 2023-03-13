@@ -12,10 +12,11 @@ class UpdateTest extends TestCase
         $this
             ->actingAsEditor()
             ->put(
-                route('perfis.update', Perfil::factory()->createOne()),
+                route('perfis.update', Perfil::factory()->create()),
                 $data = Perfil::factory()->raw()
             )
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Perfil::class, $data);
         $this->assertDatabaseCount(Perfil::class, 1);

@@ -12,7 +12,8 @@ class StoreTest extends TestCase
         $this
             ->actingAsAdmin()
             ->post(route('admin.compras.store'), $data = Compra::factory()->raw())
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas(Compra::class, $data);
         $this->assertDatabaseCount(Compra::class, 1);

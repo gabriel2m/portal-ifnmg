@@ -17,7 +17,7 @@ class MaterialCompraSeeder extends Seeder
      */
     public function run()
     {
-        MaterialCompra::factory(50)
+        MaterialCompra::factory(100)
             ->recycle(Compra::all())
             ->recycle(MaterialUnidade::all())
             ->create();

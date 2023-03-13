@@ -9,7 +9,7 @@ class CreateTest extends TestCase
 {
     public function test_get()
     {
-        $compra = Compra::factory()->createOne();
+        $compra = Compra::factory()->create();
 
         $this
             ->actingAsAdmin()

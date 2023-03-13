@@ -22,7 +22,8 @@ class UpdateTest extends TestCase
                 'password' => $password = $this->faker->text(20),
                 'password_confirmation' => $password,
             ])
-            ->assertRedirect();
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
 
         $this->assertCredentials(['name' => $user->name, 'password' => $password]);
     }
