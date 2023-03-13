@@ -16,6 +16,11 @@
 
 @prepend('styles')
     <link rel="stylesheet" href="{{ mix('css/datatables.css') }}">
+    <style>
+        #valores-table td {
+            vertical-align: middle;
+        }
+    </style>
 @endprepend
 
 @section('content')
@@ -109,13 +114,25 @@
             </a>
         </div>
     </div>
+
+    <div class="p-2"></div>
+
+    <div class="card card-outline card-secondary mt-4">
+        <div class="card-header">
+            <span class="card-title">Mapa de preços comparativo</span>
+        </div>
+        <div class="card-body">
+            <table id="valores-table" class="table border-bottom table-hover w-100 nowrap">
+            </table>
+        </div>
+    </div>
 @endsection
 
 @prepend('scripts')
     <script src="{{ mix('js/datatables.js') }}"></script>
     <script>
         let setores = @js($setores);
-        let ano_compra = '{{ $compra->ano }}';
+        let tipos = @js(TipoMaterial::labels())
 
         let material_table_config = () => ({
             processing: true,
@@ -190,5 +207,87 @@
 
         let permanente_table = $('#permanente-table').DataTable(permanente_table_config);
         let consumo_table = $('#consumo-table').DataTable(consumo_table_config);
+
+        let valores_table = $('#valores-table').DataTable({
+            processing: true,
+            serverSide: true,
+            scrollX: true,
+            language: {
+                url: "{{ asset('datatables/pt-BR.json') }}"
+            },
+            ajax: {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                type: "POST",
+                url: "{{ route('admin.compras.materiais.valores-datatables', $compra) }}",
+            },
+            order: [2, 'asc'],
+            columns: [{
+                    title: '#',
+                    searchable: false,
+                    orderable: false,
+                    render: (data, type, row, meta) => {
+                        let page_info = valores_table.page.info();
+                        return `#${meta.row+1+((page_info.page*page_info.length))}`;
+                    },
+                    className: 'text-bold'
+                },
+                {
+                    title: 'CATMAT',
+                    data: 'catmat_material',
+                    name: "{{ Material::columnName('catmat') }}"
+                },
+                {
+                    title: 'Material',
+                    data: 'nome_material',
+                    name: "{{ Material::columnName('nome') }}",
+                },
+                {
+                    title: 'Descrição',
+                    data: 'descricao_material',
+                    name: "{{ Material::columnName('descricao') }}",
+                    render: val => `<div style="min-width: 500px; white-space: pre-line;">${val}</div>`
+                },
+                {
+                    title: 'Unidade de medida',
+                    data: 'unidade_material',
+                    name: "{{ Unidade::columnName('nome') }}",
+                },
+                {
+                    title: 'Tipo',
+                    data: 'tipo_material',
+                    name: "{{ Material::columnName('tipo') }}",
+                    render: val => tipos[val]
+                },
+                {
+                    title: 'Quantidade total',
+                    data: 'quantidade',
+                    searchable: false,
+                    render: val => Number(val).toLocaleString('pt-br')
+                },
+                ...[...Array(5).keys()].map(
+                    index => ({
+                        title: `Valor unitário #${index+1}`,
+                        data: `valor_${index}`,
+                        searchable: false,
+                        render: val => val ? Number(val).toLocaleString('pt-br', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        }) : val
+                    })
+                ),
+                {
+                    title: 'Responsável pela cotação',
+                    data: 'responsavel_valores'
+                },
+                {
+                    title: 'Solicitantes',
+                    data: 'solicitantes',
+                    searchable: false,
+                    render: val => val ? val.split(', ').join(',<br>') : val
+                },
+            ],
+        });
     </script>
 @endprepend

@@ -21,6 +21,7 @@ class MaterialCompraFactory extends Factory
         return [
             'compra_id' => Compra::factory(),
             'material_unidade_id' => MaterialUnidade::factory(),
+            'responsavel_valores' => $this->faker->name()
         ];
     }
 }

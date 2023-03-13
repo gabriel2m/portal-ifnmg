@@ -91,6 +91,44 @@
                 <thead>
                     <tr>
                         <th>
+                            Valor unitário
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($material_compra->valores as $valor)
+                        <tr>
+                            <td class="text-bold">
+                                #{{ $loop->iteration }}
+                            </td>
+                            <td>
+                                {{ reais($valor->valor) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-bold">
+                            Responsável pela cotação
+                        </td>
+                        <td>
+                            {{ $material_compra->responsavel_valores }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="card card-outline card-secondary mt-4">
+        <div class="card-body p-0">
+            <table class="table material-compra-table table-hover mb-0 w-100">
+                <thead>
+                    <tr>
+                        <th>
                             Setor
                         </th>
                         <th>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\UserPermission;
 use App\Models\MaterialUnidade;
 use App\Models\Setor;
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,13 +27,13 @@ class SaveMaterialCompraRequest extends FormRequest
      */
     public function rules()
     {
+        $has_admin_permission = auth()->user()->hasPermission(UserPermission::Admin);
+
         return [
             'material_unidade_id' => [
-                'required',
                 Rule::exists(MaterialUnidade::class, 'id')->whereNull('deleted_at'),
             ],
             'quantidades' => [
-                'required',
                 'array',
             ],
             'quantidades.*.setor_id' => [
@@ -46,15 +47,37 @@ class SaveMaterialCompraRequest extends FormRequest
                 'min:1',
                 'max:9999999'
             ],
+            'valores' => [
+                'required',
+                'array',
+                'max:5'
+            ],
+            'valores.*' => Rule::forEach(fn ($value) => [
+                'array',
+                Rule::excludeIf(empty($value['valor']))
+            ]),
+            'valores.*.valor' => [
+                'numeric',
+                'min:0.01',
+                'max:9999999'
+            ],
+            'responsavel_valores' => [
+                Rule::excludeIf(!$has_admin_permission),
+                'nullable',
+                'string',
+                'max:255',
+            ],
         ];
     }
 
     public function attributes()
     {
         return [
+            'material_unidade_id' => 'material',
             'quantidades.*.setor_id' => 'setor',
             'quantidades.*.quantidade' => 'quantidade',
-            'material_unidade_id' => 'material'
+            'valores.*.valor' => 'valor',
+            'responsavel_valores' => 'responsável pela cotação'
         ];
     }
 }

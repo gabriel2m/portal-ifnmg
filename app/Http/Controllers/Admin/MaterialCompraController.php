@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\TipoMaterial;
+use App\Enums\UserPermission;
 use App\Facades\DB;
 use App\Http\Controllers\ResourceController;
 use App\Http\Middleware\AdminPermission;
@@ -11,6 +12,7 @@ use App\Models\Compra;
 use App\Models\Material;
 use App\Models\MaterialCompra;
 use App\Models\MaterialCompraQuantidade;
+use App\Models\MaterialCompraValor;
 use App\Models\MaterialUnidade;
 use App\Models\Setor;
 use App\Models\Unidade;
@@ -76,6 +78,53 @@ class MaterialCompraController extends ResourceController
                     ->where('setor_id', $setor_id)
                     ->select("quantidade"),
                 "quantidade_setor_$setor_id"
+            );
+        }
+
+        return datatables($query)->toJson();
+    }
+
+    public function valoresDatatables(Compra $compra)
+    {
+        $query = MaterialCompra::query()
+            ->getQuery()
+            ->where(MaterialCompra::columnName('compra_id'), $compra->id)
+            ->join(MaterialUnidade::tableName(), MaterialCompra::columnName('material_unidade_id'), MaterialUnidade::columnName('id'))
+            ->join(Material::tableName(), MaterialUnidade::columnName('material_id'), Material::columnName('id'))
+            ->join(Unidade::tableName(), MaterialUnidade::columnName('unidade_id'), Unidade::columnName('id'))
+            ->select(
+                Material::columnName('catmat as catmat_material'),
+                Material::columnName('nome as nome_material'),
+                Material::columnName('descricao as descricao_material'),
+                Material::columnName('tipo as tipo_material'),
+                Unidade::columnName('nome as unidade_material'),
+                MaterialCompra::columnName('responsavel_valores'),
+            )
+            ->selectSub(
+                MaterialCompraQuantidade::query()
+                    ->getQuery()
+                    ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
+                    ->selectRaw("SUM(quantidade)"),
+                "quantidade"
+            )
+            ->selectSub(
+                MaterialCompraQuantidade::query()
+                    ->getQuery()
+                    ->join(Setor::tableName(), MaterialCompraQuantidade::columnName('setor_id'), Setor::columnName('id'))
+                    ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
+                    ->selectRaw("string_agg(" . Setor::columnName('nome') . ", ', ' order by " . Setor::columnName('nome') . ")"),
+                "solicitantes"
+            );
+
+        foreach (range(0, 4) as $item) {
+            $query->selectSub(
+                MaterialCompraValor::query()
+                    ->getQuery()
+                    ->whereColumn('material_compra_id', MaterialCompra::columnName('id'))
+                    ->select('valor')
+                    ->limit(1)
+                    ->offset($item),
+                "valor_$item"
             );
         }
 
@@ -197,33 +246,44 @@ class MaterialCompraController extends ResourceController
      */
     protected function save(FormRequest $request, Model $material_compra)
     {
+        $has_admin_permission = auth()->user()->hasPermission(UserPermission::Admin);
+
         Validator::make(
             $request->validated(),
             [
                 'material_unidade_id' => [
+                    Rule::excludeIf(!$has_admin_permission && $material_compra->exists),
+                    Rule::requiredIf($has_admin_permission || !$material_compra->exists),
                     Rule::unique(MaterialCompra::class)
                         ->where('compra_id', $material_compra->compra_id)
                         ->ignore($material_compra)
-                ]
+                ],
             ],
             [],
             ['material_unidade_id' => 'material']
         )->validate();
 
-        return DB::transaction(function () use ($request, $material_compra) {
-            if ($material_compra->fill($request->validated())->save()) {
+        return DB::transaction(function () use ($request, $material_compra, $has_admin_permission) {
+            if (!$material_compra->fill($request->validated())->save()) {
+                return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
+            }
 
-                $material_compra->quantidades()->delete();
+            $material_compra->quantidades()->delete();
+            if ($request->validated('quantidades')) {
                 $material_compra->quantidades()->createMany(
                     $request->validated('quantidades')
                 );
-
-                return to_route('admin.compras.materiais.show', [
-                    'compra' => $material_compra->compra->ano,
-                    'material' => $material_compra->material_unidade_id
-                ])->with('flash', ['success' => 'Recurso Salvo.']);
             }
-            return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
+
+            $material_compra->valores()->delete();
+            $material_compra->valores()->createMany(
+                $request->validated('valores')
+            );
+
+            return to_route('admin.compras.materiais.show', [
+                'compra' => $material_compra->compra->ano,
+                'material' => $material_compra->material_unidade_id
+            ])->with('flash', ['success' => 'Recurso Salvo.']);
         });
     }
 

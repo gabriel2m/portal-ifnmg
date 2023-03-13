@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property integer $compra_id
+ * @property int $compra_id
  * @property Compra $compra
- * @property integer $material_unidade_id
+ * @property int $material_unidade_id
  * @property MaterialUnidade $material_unidade
  * @property MaterialCompraQuantidade[]|HasMany $quantidades
+ * @property MaterialCompraValor[]|HasMany $valores
+ * @property string $responsavel_valores
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -27,6 +29,7 @@ class MaterialCompra extends Model
     protected $fillable = [
         'compra_id',
         'material_unidade_id',
+        'responsavel_valores'
     ];
 
     public function compra()
@@ -45,5 +48,10 @@ class MaterialCompra extends Model
             ->hasMany(MaterialCompraQuantidade::class)
             ->join(Setor::tableName(),  MaterialCompraQuantidade::columnName('setor_id'), Setor::columnName('id'))
             ->orderBy(Setor::columnName('nome'));
+    }
+
+    public function valores()
+    {
+        return $this->hasMany(MaterialCompraValor::class);
     }
 }

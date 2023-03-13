@@ -93,7 +93,46 @@
                     <x-input-error input='material_unidade_id' />
                 </div>
 
-                <x-input-error input='quantidades' />
+                <div class="pt-3 pb-2 mt-4 mb-3 border-top border-bottom">
+                    <label>
+                        Valor unitário
+                    </label>
+                    <x-input-error input="valores" />
+                    <div class="row">
+                        @foreach (range(0, 4) as $item)
+                            <div class="col-sm-6 col-md-4 col-lg">
+                                <div class="form-group">
+                                    <label>
+                                        #{{ $loop->iteration }}
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                R$
+                                            </span>
+                                        </div>
+                                        <input type="text" name="valores[{{ $item }}][valor]"
+                                            class="form-control reais"
+                                            value="{{ old("valores.$item.valor", $material_compra->valores[$item]->valor ?? null) }}">
+                                    </div>
+                                    <x-input-error input="valores.{{ $item }}.valor" />
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @if ($has_admin_permission)
+                        <div class="form-group">
+                            <label>
+                                Responsável pela cotação
+                            </label>
+                            <input type="text" name="responsavel_valores" class="form-control"
+                                value="{{ $material_compra->responsavel_valores }}">
+                            <x-input-error input="responsavel_valores" />
+                        </div>
+                    @endif
+                </div>
+
                 <div class="table-responsive-md">
                     <div style="min-width: max-content;">
                         <div class="row">
@@ -117,7 +156,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="repeater">
@@ -125,7 +163,7 @@
                                 @php
                                     $quantidades = old(
                                         'quantidades',
-                                        $material_compra->exists
+                                        $material_compra->quantidades?->count()
                                             ? $material_compra->quantidades
                                             : [
                                                 [
@@ -143,7 +181,7 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <select class="custom-select"
-                                                                name="[{{ $index }}][setor_id]" required>
+                                                                name="[{{ $index }}][setor_id]">
                                                                 <option></option>
                                                                 @foreach ($setores as $setor_id => $setor_nome)
                                                                     <option value="{{ $setor_id }}"
@@ -152,18 +190,15 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
-                                                            <x-input-error
-                                                                input='{{ "quantidades.$index.setor_id" }}' />
+                                                            <x-input-error input='{{ "quantidades.$index.setor_id" }}' />
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <input type="text" name="[{{ $index }}][quantidade]"
                                                                 class="form-control quantidade"
-                                                                value="{{ $quantidade['quantidade'] }}"
-                                                                required>
-                                                            <x-input-error
-                                                                input='{{ "quantidades.$index.quantidade" }}' />
+                                                                value="{{ $quantidade['quantidade'] }}">
+                                                            <x-input-error input='{{ "quantidades.$index.quantidade" }}' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,11 +214,14 @@
                                     </div>
                                 @endforeach
                             </div>
+
                             <button type="button" class="btn btn-primary ml-auto" data-repeater-create>
                                 <i class="la-lg las la-plus"></i>
                                 Adicionar
                             </button>
                         </div>
+
+                        <x-input-error input='quantidades' />
                     </div>
                 </div>
             </div>
@@ -219,13 +257,35 @@
             document.querySelector('.select2-search__field').focus();
         });
 
+        $('.reais').inputmask("currency", {
+            onBeforeMask: val => val.replace('.', ','),
+            showMaskOnHover: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            rightAlign: false,
+            unmaskAsNumber: true,
+            removeMaskOnSubmit: true
+        });
+
+        $('.reais').focusout(event => {
+            if ($(event.target).val() == '0,00') {
+                $(event.target).val('');
+            }
+        });
+
         $('.quantidade').inputmask('integer', {
-            "rightAlign": false,
+            rightAlign: false,
+            showMaskOnHover: false,
         });
 
         $('.repeater').repeater({
+            initEmpty: @js(!count(old('quantidades', $material_compra->quantidades?->count() ? $material_compra->quantidades : []))),
             show: function() {
                 $(this).slideDown();
+
+                $('.quantidade').inputmask('integer', {
+                    rightAlign: false,
+                });
             },
 
             hide: function(deleteElement) {

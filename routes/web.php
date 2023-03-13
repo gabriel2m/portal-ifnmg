@@ -134,7 +134,14 @@ Route::name('admin.')
             ->scoped(['compra' => 'ano'])
             ->whereNumber('compra');
 
-        Route::post('compras/{compra:ano}/materiais/datatables', [MaterialCompraController::class, 'datatables'])->name('compras.materiais.datatables');
+        Route::post(
+            'compras/{compra:ano}/materiais/datatables',
+            [MaterialCompraController::class, 'datatables']
+        )->name('compras.materiais.datatables');
+        Route::post(
+            'compras/{compra:ano}/materiais/valores-datatables',
+            [MaterialCompraController::class, 'valoresDatatables']
+        )->name('compras.materiais.valores-datatables');
         Route::resource('compras.materiais', MaterialCompraController::class)
             ->parameters(['materiais' => 'material'])
             ->whereNumber(['compra', 'material'])
