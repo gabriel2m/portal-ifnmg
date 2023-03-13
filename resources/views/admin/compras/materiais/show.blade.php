@@ -50,6 +50,14 @@
                 <tbody>
                     <tr>
                         <th>
+                            Compra
+                        </th>
+                        <td>
+                            {{ $material_compra->compra->ano }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             CATMAT
                         </th>
                         <td>
