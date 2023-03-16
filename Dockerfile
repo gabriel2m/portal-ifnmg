@@ -48,7 +48,7 @@ RUN set -eux; \
 # XDEBUG
 ###########################################################################
 
-ARG INSTALL_XDEBUG=false
+ARG INSTALL_XDEBUG=true
 
 RUN if [ ${INSTALL_XDEBUG} = true ]; then \
  	apk add --update linux-headers; \
