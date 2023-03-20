@@ -236,7 +236,7 @@
             buttons: [{
                 extend: 'excel',
                 text: '<i class="las la-download"></i> Excel',
-                className: 'btn-sm ml-3 flex-grow-0'
+                className: 'btn-sm ml-3 flex-grow-0 btn-info'
             }],
             order: [2, 'asc'],
             columns: [{
