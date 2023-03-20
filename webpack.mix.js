@@ -38,16 +38,12 @@ mix
 mix
     .combine([
         'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
-        'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
         'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
     ], 'public/css/datatables.css')
     .combine([
         'node_modules/datatables.net/js/jquery.dataTables.min.js',
         'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
-        'node_modules/datatables.net-scroller/js/dataTables.scroller.min.js',
-        'node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4.min.js',
         'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
-        'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
         'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
         'node_modules/jszip/dist/jszip.min.js',
         'node_modules/datatables.net-buttons/js/buttons.html5.min.js',
