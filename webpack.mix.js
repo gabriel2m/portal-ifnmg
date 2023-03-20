@@ -20,29 +20,40 @@ mix
  * Main
  */
 mix
-    .js('resources/js/main.js', 'public/js')
-    .postCss('resources/css/main.css', 'public/css', [
+    .css('resources/css/main.css', 'public/css', [
         require('tailwindcss')
     ])
+    .js('resources/js/main.js', 'public/js')
 
 /*
  * Admin
  */
 mix
-    .js('resources/js/admin.js', 'public/js')
     .css('resources/css/admin.css', 'public/css')
+    .js('resources/js/admin.js', 'public/js')
 
 /*
  * Datatables
  */
 mix
     .combine([
+        'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
+        'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
+        'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
+    ], 'public/css/datatables.css')
+    .combine([
         'node_modules/datatables.net/js/jquery.dataTables.min.js',
         'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
-        'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
-        'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
+        'node_modules/datatables.net-scroller/js/dataTables.scroller.min.js',
+        'node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4.min.js',
+        'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
+        'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
+        'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
+        'node_modules/jszip/dist/jszip.min.js',
+        'node_modules/pdfmake/build/pdfmake.min.js',
+        'node_modules/pdfmake/build/vfs_fonts.js',
+        'node_modules/datatables.net-buttons/js/buttons.html5.min.js',
     ], 'public/js/datatables.js')
-    .css('resources/css/datatables.css', 'public/css')
     .copy('resources/datatables', 'public/datatables')
 
 /*
