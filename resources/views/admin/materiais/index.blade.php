@@ -56,7 +56,8 @@
                 },
                 {
                     title: 'Descrição',
-                    data: 'descricao'
+                    data: 'descricao',
+                    render: val => `<div style="min-width: 500px; white-space: pre-line;">${val}</div>`
                 },
             ],
             rowCallback: (row, data, index) => {
