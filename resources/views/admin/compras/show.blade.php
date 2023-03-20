@@ -20,6 +20,10 @@
         #valores-table td {
             vertical-align: middle;
         }
+
+        #valores-table_wrapper .buttons-html5 {
+            margin-bottom: .5rem;
+        }
     </style>
 @endprepend
 
@@ -222,6 +226,18 @@
                 type: "POST",
                 url: "{{ route('admin.compras.materiais.valores-datatables', $compra) }}",
             },
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'Todos'],
+            ],
+            dom: "<'row'<'col-sm-12 col-md-6'<'d-flex'<'d-flex mx-auto mx-md-0'lB>>><'col-sm-12 col-md-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [{
+                extend: 'excel',
+                text: '<i class="las la-download"></i> Excel',
+                className: 'btn-sm ml-3 flex-grow-0'
+            }],
             order: [2, 'asc'],
             columns: [{
                     title: '#',
