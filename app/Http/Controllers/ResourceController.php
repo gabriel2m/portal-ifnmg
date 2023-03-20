@@ -99,7 +99,7 @@ class ResourceController extends Controller
     protected function save(FormRequest $request, Model $model)
     {
         if ($model->fill($request->validated())->save())
-            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso Salvo.']);
+            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso salvo.']);
         return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 }

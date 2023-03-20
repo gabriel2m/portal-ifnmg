@@ -1,4 +1,5 @@
 @import "~line-awesome/dist/line-awesome/css/line-awesome.css";
+@import "~@sweetalert2/theme-bootstrap-4/bootstrap-4.css";
 @import "~admin-lte/dist/css/adminlte.css";
 
 :root {

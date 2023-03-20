@@ -57,7 +57,7 @@ class UserController extends ResourceController
         $user = (new CreateNewUser)->create($request->all());
 
         if ($user->exists)
-            return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso Salvo.']);
+            return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso salvo.']);
         return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 
@@ -105,7 +105,7 @@ class UserController extends ResourceController
                 'nivel' => $nivel
             ]))->save()
         )
-            return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso Salvo.']);
+            return to_route("$this->name.show", $user)->with('flash', ['success' => 'Recurso salvo.']);
         return back()->with('flash', ['error' => 'Algo de errado ocorreu.']);
     }
 

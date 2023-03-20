@@ -283,7 +283,7 @@ class MaterialCompraController extends ResourceController
             return to_route('admin.compras.materiais.show', [
                 'compra' => $material_compra->compra->ano,
                 'material' => $material_compra->material_unidade_id
-            ])->with('flash', ['success' => 'Recurso Salvo.']);
+            ])->with('flash', ['success' => 'Recurso salvo.']);
         });
     }
 

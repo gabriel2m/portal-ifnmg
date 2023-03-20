@@ -122,7 +122,7 @@ class MaterialController extends ResourceController
                 $request->validated('unidades')
             );
 
-            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso Salvo.']);
+            return to_route("$this->name.show", $model)->with('flash', ['success' => 'Recurso salvo.']);
         });
     }
 }
