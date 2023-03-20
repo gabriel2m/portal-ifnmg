@@ -50,8 +50,6 @@ mix
         'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
         'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
         'node_modules/jszip/dist/jszip.min.js',
-        'node_modules/pdfmake/build/pdfmake.min.js',
-        'node_modules/pdfmake/build/vfs_fonts.js',
         'node_modules/datatables.net-buttons/js/buttons.html5.min.js',
     ], 'public/js/datatables.js')
     .copy('resources/datatables', 'public/datatables')
