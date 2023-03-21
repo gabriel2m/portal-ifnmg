@@ -11,14 +11,17 @@
             </table>
         </div>
     </div>
-    <div class="d-flex mt-3">
-        <div class="ml-auto">
-            <a href="{{ route('admin.compras.create') }}" class="btn btn-primary">
-                <i class="la-lg las la-plus"></i>
-                Adicionar
-            </a>
+
+    @if (auth()->user()->hasPermission(UserPermission::Admin))
+        <div class="d-flex mt-3">
+            <div class="ml-auto">
+                <a href="{{ route('admin.compras.create') }}" class="btn btn-primary">
+                    <i class="la-lg las la-plus"></i>
+                    Adicionar
+                </a>
+            </div>
         </div>
-    </div>
+    @endif
 @endsection
 
 @prepend('scripts')
