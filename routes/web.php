@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\CategoriaPerfil;
 use App\Enums\UserPermission;
 use App\Http\Controllers\Admin\CompraController;
 use App\Http\Controllers\Admin\MaterialCompraController;
@@ -8,6 +7,7 @@ use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Middleware\AdminPermission;
 use App\Http\Middleware\TecnicoPermission;
@@ -32,40 +32,12 @@ use Illuminate\Support\Facades\Notification;
 
 Route::view('', 'home')->name('portal.home');
 
-Route::get("categorias/{slug}", function (Request $request, string $slug) {
-    foreach (CategoriaPerfil::cases() as $case)
-        if ($case->slug() == $slug)
-            $categoria = $case;
-
-    if (!isset($categoria))
-        return abort(404);
-
-    $filtro = null;
-    extract($request->validate([
-        'filtro' => [
-            'nullable',
-            'string',
-            'max:255',
-        ],
-    ]));
-
-    $perfis = Perfil::orderBy('nome')->where('categoria', $categoria);
-    if (isset($filtro))
-        $perfis->where(function (Builder $builder) use ($filtro) {
-            $builder
-                ->where('nome', 'like', "%$filtro%")
-                ->orWhere('descricao', 'like', "%$filtro%");
-        });
-    $perfis = $perfis->paginate()->withQueryString();
-
-    return view('categorias.show', compact('categoria', 'perfis', 'filtro'));
-})->name("categorias.show");
+Route::get("categorias/{slug}", [CategoriaController::class, 'show'])->name("categorias.show");
 
 Route::name('perfis.pesquisa-avancada.')
     ->prefix('pesquisa-avancada')
     ->group(function () {
         Route::get('', [PerfilController::class, 'advancedSearch'])->name('show');
-
         Route::view('sobre', 'perfis.pesquisa-avancada.about')->name('about');
     });
 
