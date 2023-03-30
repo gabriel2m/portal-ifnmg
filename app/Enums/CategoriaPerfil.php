@@ -23,30 +23,8 @@ enum CategoriaPerfil: int
         };
     }
 
-    public function descricao(): string
-    {
-        return match ($this) {
-            CategoriaPerfil::DesenvolvimentoProdutos => 'TODO: Descrição.
-            Suscipit nobis id est quia. Laborum consequuntur aut omnis rerum veritatis aspernatur neque. Ea
-            sit dolorum et dolor sed autem dolorem. Eos ullam vel rerum dolore similique. In consequuntur quo mollitia animi
-            sequi deleniti. Dolor dignissimos officia rerum dolorem.',
-            CategoriaPerfil::PrestacaoServicos => 'TODO: Descrição.
-            Suscipit nobis id est quia. Laborum consequuntur aut omnis rerum veritatis aspernatur neque. Ea
-            sit dolorum et dolor sed autem dolorem. Eos ullam vel rerum dolore similique. In consequuntur quo mollitia animi
-            sequi deleniti. Dolor dignissimos officia rerum dolorem.',
-            CategoriaPerfil::EmpresasJunior => 'TODO: Descrição.
-            Suscipit nobis id est quia. Laborum consequuntur aut omnis rerum veritatis aspernatur neque. Ea
-            sit dolorum et dolor sed autem dolorem. Eos ullam vel rerum dolore similique. In consequuntur quo mollitia animi
-            sequi deleniti. Dolor dignissimos officia rerum dolorem.',
-            CategoriaPerfil::EscritorioProjetos => 'TODO: Descrição.
-            Suscipit nobis id est quia. Laborum consequuntur aut omnis rerum veritatis aspernatur neque. Ea
-            sit dolorum et dolor sed autem dolorem. Eos ullam vel rerum dolore similique. In consequuntur quo mollitia animi
-            sequi deleniti. Dolor dignissimos officia rerum dolorem.'
-        };
-    }
-
     public function slug(): string
     {
-        return Str::slug($this->name);
+        return Str::slug($this->label());
     }
 }
