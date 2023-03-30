@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Contato;
 
+use App\Enums\NivelUser;
 use App\Models\User;
 use App\Notifications\ContatoNotification;
 use Illuminate\Support\Facades\Notification;
@@ -13,7 +14,7 @@ class SendTest extends TestCase
     {
         Notification::fake();
 
-        User::factory()->create();
+        User::factory()->admin()->create();
 
         $this
             ->post(route('contato.send'), [
@@ -25,7 +26,7 @@ class SendTest extends TestCase
             ->assertRedirect();
 
         Notification::assertSentTo(
-            User::all(),
+            User::where('nivel', NivelUser::Admin)->get(),
             ContatoNotification::class
         );
     }

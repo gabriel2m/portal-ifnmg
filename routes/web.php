@@ -8,16 +8,11 @@ use App\Http\Controllers\Admin\SetorController;
 use App\Http\Controllers\Admin\UnidadeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Middleware\AdminPermission;
 use App\Http\Middleware\TecnicoPermission;
-use App\Models\Perfil;
-use App\Models\User;
-use App\Notifications\ContatoNotification;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,38 +41,10 @@ Route::resource('perfis', PerfilController::class)
     ->except('index');
 
 Route::name('contato.')
+    ->middleware('guest')
     ->group(function () {
-        Route::view('contato', 'contato.show')->name('show');
-
-        Route::post('contato', function (Request $request) {
-            Notification::send(
-                User::all(),
-                new ContatoNotification($request->validate([
-                    'nome' => [
-                        'required',
-                        'string',
-                        'max:255',
-                    ],
-                    'email' => [
-                        'required',
-                        'string',
-                        'max:255',
-                        'email',
-                    ],
-                    'assunto' => [
-                        'required',
-                        'string',
-                        'max:255',
-                    ],
-                    'mensagem' => [
-                        'required',
-                        'string',
-                        'max:1000',
-                    ],
-                ]))
-            );
-            return to_route('home')->with('success', 'Mensagem Enviada.');
-        })->name('send');
+        Route::get('contato', [ContatoController::class, 'show'])->name('show');
+        Route::post('contato', [ContatoController::class, 'send'])->name('send');
     });
 
 Route::name('admin.')
