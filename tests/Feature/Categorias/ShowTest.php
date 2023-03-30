@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\CategoriaPerfil;
+namespace Tests\Feature\Categorias;
 
 use App\Enums\CategoriaPerfil;
 use Tests\TestCase;
