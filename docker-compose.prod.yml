@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+    app:
+        restart: always
+
+    nginx:
+        restart: always
+
+    db:
+        restart: always
+
+    adminer:
+        restart: always
+        
+    elasticsearch:
+        restart: always
+
+    mailhog:
+        restart: always
